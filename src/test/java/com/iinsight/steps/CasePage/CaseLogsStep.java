@@ -5,6 +5,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 
 public class CaseLogsStep extends CaseLogsPage {
+
     @And("User select Case Log tab")
     public void UserClickOnCaseLog(){
         clickCaseLogsTab();
@@ -22,4 +23,8 @@ public class CaseLogsStep extends CaseLogsPage {
         clickDetailsButton();
     }
 
+    @Then("Verify that Newly created billing ID of should be visible in Case logs")
+    public void verifyThatNewlyCreatedBillingIDOfShouldBeVisibleInCaseLogs() {
+        verifyCaseLog();
+    }
 }

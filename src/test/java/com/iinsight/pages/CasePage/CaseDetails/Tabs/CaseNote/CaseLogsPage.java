@@ -1,9 +1,11 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote;
 
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.CaseNote.CaseLogs;
+import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
 
 public class CaseLogsPage extends CaseLogs{
+    public static String billingID;
     public CaseLogsPage(){PageFactory.initElements(getDriver(), this);
     }
     public String searchKeyword = Integer.toString(getRandomNumber(999));
@@ -28,6 +30,14 @@ public class CaseLogsPage extends CaseLogs{
     public void getFirstRowFromTable(){isElementTextMatch(table_index1,searchKeyword);
     }
     public void clickFirstRowFromTable(){clickButtonWithOutScroll(table_index1);
+    }
+
+    public void verifyCaseLog(){
+        waitFor(3000);
+        billingID = config.getString("CostID");
+        String actual = getAttributeValue(title_text, "title");
+        System.out.println(actual);
+        isTextContain(actual, billingID);
     }
 
 }

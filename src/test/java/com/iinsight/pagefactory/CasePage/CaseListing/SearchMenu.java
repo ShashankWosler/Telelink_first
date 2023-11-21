@@ -11,14 +11,14 @@ public class SearchMenu extends GenericWrappers {
     public WebElement clear_btn;
     @FindBy(id="case_list_find")
     public WebElement search_btn;
-    @FindBy(className = ".criteria_img_erase.right")
+    @FindBy(xpath = "//div[contains(@class,'search-criteria-list')]//span")
     public List<WebElement> delete_btn;
-    @FindBy(xpath="//div[@id='drop_down_multiselect']/child::div[text()='Case Alert']")
-    public WebElement search_dropdown_value;
-    @FindBy(css="td[title='NAT12']")
-    public WebElement caseListIndex1;
+    @FindBy(css="[name='xero_credential.rcategory_button']")
+    public WebElement search_criteria_field_dropdown;
+    @FindBy(xpath="//div[contains(@id,'case_list-table')]/div[1]/div[3]")
+    public WebElement search_criteria_main_tab;
     @FindBy(css="input[id*='field_criteria']")
-    public List<WebElement> search_criteria_fields;
+    public WebElement search_criteria_fields;
 
 
 }

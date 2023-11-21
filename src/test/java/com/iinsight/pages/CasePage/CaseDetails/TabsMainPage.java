@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 public class TabsMainPage extends TabsMain {
     public TabsMainPage(){PageFactory.initElements(getDriver(), this);
     }
+    public boolean isClientTabIsVisible(){return isElementDisplayed(client_tab);}
     public void clickClientsTab(){clickButtonWithOutScroll(client_tab);
     }
     public void clickCaseTab(){clickButtonWithOutScroll(case_tab);

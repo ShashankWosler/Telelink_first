@@ -2,6 +2,7 @@ package com.iinsight.steps.CasePage;
 
 import com.iinsight.pages.CasePage.CaseDetails.TabsMainPage;
 import io.cucumber.java.en.And;
+import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class TabsMainStep extends TabsMainPage {
@@ -19,5 +20,13 @@ public class TabsMainStep extends TabsMainPage {
         isFiveValueFromByDropDownDisplayed();
         SelectFiveValueFromByDropDown();
     }
-
+    @And("User click on client tab")
+    public void userClickOnClientTabStep(){
+        Assert.assertTrue(isClientTabIsVisible());
+        clickClientsTab();
+    }
+    @And("User select Costs tab")
+    public void userSelectCostsTab() {
+        clickCostsTab();
+    }
 }

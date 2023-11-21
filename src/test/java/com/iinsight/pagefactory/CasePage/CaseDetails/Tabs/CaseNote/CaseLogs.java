@@ -3,7 +3,6 @@ package com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.CaseNote;
 import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import sun.net.www.content.text.Generic;
 
 public class CaseLogs extends GenericWrappers {
 
@@ -27,5 +26,8 @@ public class CaseLogs extends GenericWrappers {
 
     @FindBy(css = "[id='log_list'] tr:nth-child(1)")
     public WebElement table_index1;
+
+    @FindBy(xpath="(//td[@id=\"notes.title_column\"])[1]")
+    public WebElement title_text;
 
 }

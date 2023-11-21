@@ -13,7 +13,7 @@ import com.cucumber.listener.Reporter;
         strict = (true),
         features = {"./src/test/resources/"},
         glue = {""},
-        tags = {"@TC_2"},
+        tags = {"@sn"},
         plugin = {"pretty", "html:target/cucumber/report.html", "json:target/cucumber/report.json"},
       //  plugin = { "com.vimalselvam.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/advanced-report.html/cucumber-html-reports/report.html"},
         //monochrome = true,

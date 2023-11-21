@@ -19,14 +19,11 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.io.File;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -34,7 +31,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
 
     public Logger logger = Logger.getLogger(String.valueOf(GenericWrappers.class));
     public static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
-    private static Configuration config = null;
+    public static Configuration config = null;
     private String parallelExecution;
     public static String appUrl, globalUserName, globalPassword;
     private String browser;
@@ -570,5 +567,36 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[text()="+'"'+dropDownvalue+'"'+"]");
         waitPresenceOfElementLocated(elem);
         clickButtonWithOutScroll(getDriver().findElement(elem));
+    }
+    public void getID(String caseType, String ID) {
+        String filePath = "src/test/configFile/temp.properties";
+        Properties properties = new Properties();
+        String key = caseType+"ID";
+        try (InputStream input = new FileInputStream(filePath)) {
+            properties.load(input);
+            properties.setProperty(key,ID );
+            System.out.println("To Write: "+ key+" "+ID);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try (OutputStream output = new FileOutputStream(filePath)) {
+            // Save the updated properties back to the file
+            properties.store(output, "Updated Configuration");
+            System.out.println("To Read: "+ key+" "+ID);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public String getTestDatValue(String key) {
+        Properties properties = new Properties();
+        try {
+            FileInputStream file = new FileInputStream("src/test/configFile/temp.properties");
+            properties.load(file);
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties.getProperty(key);
     }
 }

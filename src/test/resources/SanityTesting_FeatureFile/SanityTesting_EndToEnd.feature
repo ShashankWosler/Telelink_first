@@ -1,4 +1,4 @@
-@smokeTest
+@sanityTest
 Feature: Validating of the Smoke Test
 
   Background:
@@ -6,6 +6,7 @@ Feature: Validating of the Smoke Test
     Then User Login with the Valid Credential
 
   @TC_2
+    @sn
   Scenario Outline: Verify that user can create a new case as a company type and validate that created case
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
@@ -19,8 +20,38 @@ Feature: Validating of the Smoke Test
     Then User Verify the case is created and should be visible in case list "<Type of Case>"
     Examples:
       |Type of Case|
-      |  Individual  |
       |  Company  |
+      |  Individual  |
+
+  Scenario Outline: Verify input fields of company and individual case type
+   When User click on search button from HomePage
+    And User select "Case" from search criteria dropdown
+    And User enter case type id "<Type of Case>"
+    And User click on search button from search popup
+    And User verify the case type id "<Type of Case>"
+    And User click on client tab
+    Then User verify the mandatory fields of client form
+    Examples:
+      |Type of Case|
+      |  Company  |
+      |  Individual  |
+
+    @T_12
+      @sn
+      Scenario: Verify User is able to create Standard billing from case list "+ Billing" Button without plan and validate the newly Created cost is displayed under Case List>Cost tab.
+      When User click on search button from HomePage
+      And User Select Newly Created "Case"
+      And User click on search button from search popup
+      And User Click on +Billing button
+      And User Select "Standard cost (included in regular batch invoice run)" from Select your invoice type dropdown
+      And User Select "CTP408 : Accommodation Management" Option from the Billing dropdown
+      And User Click on Submit button
+      And User select Costs tab
+      And Verify that new Created "Cost" is listed in Cost list under Costs Tab
+      And User select Case Notes tab
+      And User select Case Log tab
+      Then Verify that Newly created billing ID of should be visible in Case logs
+
 
  @sanity
  @TC_1-29

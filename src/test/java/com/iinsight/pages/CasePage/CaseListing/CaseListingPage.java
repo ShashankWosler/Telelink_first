@@ -42,26 +42,8 @@ public class CaseListingPage extends CaseListingMain {
     }
     public void clickFilterDropDownMyCaseValue(){clickButtonWithOutScroll(filterDropDownValue4);
     }
-    public void getCaseName(String caseType, String caseID) {
-        String filePath = "src/test/configFile/temp.properties";
-        Properties properties = new Properties();
-        String key = caseType+"CaseID";
-        try (InputStream input = new FileInputStream(filePath)) {
-            properties.load(input);
-            properties.setProperty(key,caseID );
-            System.out.println("To Write: "+ key+" "+caseID);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try (OutputStream output = new FileOutputStream(filePath)) {
-            // Save the updated properties back to the file
-            properties.store(output, "Updated Configuration");
-            System.out.println("To Read: "+ key+" "+caseID);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public boolean isSearchButtonVisible(){return isElementDisplayed(searchBtn);
     }
-
+    public boolean isSearchedTableIsVisible(){return isElementDisplayed(getSearchedTableRow);}
 }
 

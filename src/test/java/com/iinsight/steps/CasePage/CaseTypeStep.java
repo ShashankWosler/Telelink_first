@@ -79,6 +79,7 @@ public class CaseTypeStep extends CreateCasePage {
         selectDropDownFromText(CaseTypeTestData.CompanyName);
         waitFor(2000);
         clickReferralNextBtn();
+            clickReferralNextBtn();
     }catch(StaleElementReferenceException e){
         System.out.println("CaseTypeStep.userFillReferralDetailsForm() - StaleElementReferenceException Caught");
         selectDropDownFromText(CaseTypeTestData.CompanyName);

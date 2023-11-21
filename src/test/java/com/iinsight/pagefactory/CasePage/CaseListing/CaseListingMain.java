@@ -8,6 +8,8 @@ public class CaseListingMain extends GenericWrappers {
 
     @FindBy(css="[table_id='1']")
     public WebElement caseListIndex1;
+    @FindBy(css="div#case_list tr")
+    public WebElement getSearchedTableRow;
     @FindBy(id="case_list_list_click_view")
     public WebElement listView;
     @FindBy(id="case_list_details_click_view")
@@ -54,5 +56,6 @@ public class CaseListingMain extends GenericWrappers {
     public WebElement filterDropDownValue8; // Not Yet Assigned
     @FindBy(id="dispcasenum")
     public WebElement caseNoteName;
+
 }
 
