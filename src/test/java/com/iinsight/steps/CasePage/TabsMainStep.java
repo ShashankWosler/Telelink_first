@@ -29,4 +29,9 @@ public class TabsMainStep extends TabsMainPage {
     public void userSelectCostsTab() {
         clickCostsTab();
     }
+
+    @And("User Select Account Tab")
+    public void userSelectAccountTab() {
+        clickAccountsTab();
+    }
 }

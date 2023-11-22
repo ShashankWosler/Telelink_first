@@ -74,16 +74,19 @@ public class CaseTypeStep extends CreateCasePage {
     }
     @And("User fill the Referral Details Form")
     public void userFillReferralDetailsForm(){
-        try{
-        enterReferCompanyName();
-        selectDropDownFromText(CaseTypeTestData.CompanyName);
-        waitFor(2000);
-        clickReferralNextBtn();
+        try {
+            isReferCompanyNameTabIsVisible();
+            enterReferCompanyName();
+            waitFor(2000);
+            selectDropDownFromText(CaseTypeTestData.CompanyName);
+            Assert.assertTrue(isPersonReferNextBtnVisible());
+            waitFor(1000);
             clickReferralNextBtn();
-    }catch(StaleElementReferenceException e){
-        System.out.println("CaseTypeStep.userFillReferralDetailsForm() - StaleElementReferenceException Caught");
-        selectDropDownFromText(CaseTypeTestData.CompanyName);
-    }}
+        }catch(StaleElementReferenceException e){
+            System.out.println("CaseTypeStep.userFillReferralDetailsForm() - StaleElementReferenceException Caught");
+            selectDropDownFromText(CaseTypeTestData.CompanyName);
+            clickReferralNextBtn();
+        }}
 
     @And("User fill the Bill To Company Form")
     public void userFillBillToCompanyForm(){

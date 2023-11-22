@@ -18,11 +18,15 @@ Feature: Validating of the Smoke Test
     And User fill the Bill To Company Form
     And User fill the Save Form
     Then User Verify the case is created and should be visible in case list "<Type of Case>"
+    And User select Case Notes tab
+    And User select Case Log tab
+    Then Verify that "Case Created" Text is visible in Case Logs Tab
     Examples:
       |Type of Case|
       |  Company  |
       |  Individual  |
 
+    @sn
   Scenario Outline: Verify input fields of company and individual case type
    When User click on search button from HomePage
     And User select "Case" from search criteria dropdown
@@ -30,20 +34,20 @@ Feature: Validating of the Smoke Test
     And User click on search button from search popup
     And User verify the case type id "<Type of Case>"
     And User click on client tab
-    Then User verify the mandatory fields of client form
+    Then User verify the mandatory fields of client form of "<Type of Case>"
     Examples:
       |Type of Case|
       |  Company  |
-      |  Individual  |
+      | Individual |
 
     @T_12
       @sn
-      Scenario: Verify User is able to create Standard billing from case list "+ Billing" Button without plan and validate the newly Created cost is displayed under Case List>Cost tab.
+      Scenario Outline: Verify User is able to create Standard billing from case list "+ Billing" Button without plan and validate the newly Created cost is displayed under Case List>Cost tab.
       When User click on search button from HomePage
       And User Select Newly Created "Case"
       And User click on search button from search popup
       And User Click on +Billing button
-      And User Select "Standard cost (included in regular batch invoice run)" from Select your invoice type dropdown
+      And User Select "<Invoice Type>" from Select your invoice type dropdown
       And User Select "CTP408 : Accommodation Management" Option from the Billing dropdown
       And User Click on Submit button
       And User select Costs tab
@@ -51,6 +55,46 @@ Feature: Validating of the Smoke Test
       And User select Case Notes tab
       And User select Case Log tab
       Then Verify that Newly created billing ID of should be visible in Case logs
+  Examples:
+      |Invoice Type|
+      |Standard cost (included in regular batch invoice run)|
+      |This single cost requires invoicing immediately      |
+      |This cost completes a 'Milestone'                    |
+
+      @TC_16
+        Scenario: Verify user is able to create Invoice with Single Type of Billing
+        When User click on search button from HomePage
+        And User Select Newly Created "Case"
+        And User click on search button from search popup
+        And User Select Account Tab
+        And User Click on +Invoice Button
+        And User DeSelect the Checkbox from invoice filtering option
+        And User Enter Description in Invoice Description box
+        And User Click on Case Selection Next button
+        And User Verify the Cost Selection tab
+        And User Click on Costs Selection Next button
+        And User Click on Finish Button
+        And Verify "Invoice" Id is Created and should be visible in the Case Account table
+        And User select Case Notes tab
+        And User select Case Log tab
+        Then Verify that Case log is generated for the Newly created Invoice
+
+  @TC_17
+  Scenario: Verify user is able to create Invoice with Multiple Type of Billing.
+    When User click on search button from HomePage
+    And User Select Newly Created "Case"
+    And User click on search button from search popup
+    And User Select Account Tab
+    And User Click on +Invoice Button
+    And User Enter Description in Invoice Description box
+    And User Click on Case Selection Next button
+    And User Verify the Cost Selection tab
+    And User Click on Costs Selection Next button
+    And User Click on Finish Button
+    And Verify "Invoice" Id is Created and should be visible in the Case Account table
+    And User select Case Notes tab
+    And User select Case Log tab
+    Then Verify that Case log is generated for the Newly created Invoice
 
 
  @sanity

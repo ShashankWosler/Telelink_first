@@ -25,6 +25,16 @@ public class CaseLogsStep extends CaseLogsPage {
 
     @Then("Verify that Newly created billing ID of should be visible in Case logs")
     public void verifyThatNewlyCreatedBillingIDOfShouldBeVisibleInCaseLogs() {
-        verifyCaseLog();
+        verifyBillingLog();
+    }
+
+    @Then("Verify that {string} Text is visible in Case Logs Tab")
+    public void verifyThatTextIsVisibleInTitleColumnUnderCaseLogsTab(String arg0) {
+        verifyCreatedCaseLog(arg0);
+    }
+
+    @Then("Verify that Case log is generated for the Newly created Invoice")
+    public void verifyThatCaseLogIsGeneratedForTheNewlyCreatedInvoice() {
+        verifyInvoiceLog();
     }
 }

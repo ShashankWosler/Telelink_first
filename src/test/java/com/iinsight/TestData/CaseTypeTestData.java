@@ -10,4 +10,5 @@ public class CaseTypeTestData {
     public static String Bill_To_CompanyName = "Person Bill QA";
     public static String Bill_To_FirstName = "Mr. Raju";
     public static String Bill_To_LastName = "Kumar";
+    public static String Description = "Invoice Description";
 }

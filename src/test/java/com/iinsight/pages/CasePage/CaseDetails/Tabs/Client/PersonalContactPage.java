@@ -14,5 +14,5 @@ public class PersonalContactPage extends PersonalContact {
     public String getTextMobileTab(){return getAttributeValue(mobileTab, "value");}
     public String getTextEmailTab(){return getAttributeValue(emailTab, "value");}
     public String getTextEmployerNameTab(){return getAttributeValue(employerTab, "value");}
-
+    public String getTextCompanyNameTab(){return getAttributeValue(companyName, "value");}
 }

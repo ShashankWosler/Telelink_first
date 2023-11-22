@@ -568,10 +568,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         waitPresenceOfElementLocated(elem);
         clickButtonWithOutScroll(getDriver().findElement(elem));
     }
-    public void getID(String caseType, String ID) {
+    public void getID(String str, String ID) {
         String filePath = "src/test/configFile/temp.properties";
         Properties properties = new Properties();
-        String key = caseType+"ID";
+        String key = str+"ID";
         try (InputStream input = new FileInputStream(filePath)) {
             properties.load(input);
             properties.setProperty(key,ID );
