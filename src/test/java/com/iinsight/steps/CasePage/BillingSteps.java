@@ -16,9 +16,9 @@ public class BillingSteps extends BillingPage {
     @And("User Select {string} Option from the Billing dropdown")
     public void userSelectOptionFromTheBillingDropdown(String arg0) {
         clickOnBillingDropdown();
-        Actions actions = new Actions(getDriver());
-        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
-      //  SelectByVisibleText(billing_dropdown_icon, arg0);
+//        Actions actions = new Actions(getDriver());
+//        actions.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.ENTER).perform();
+        SelectByVisibleText(billing_dropdown_icon, arg0);
     }
 
     @And("User Click on Submit button")

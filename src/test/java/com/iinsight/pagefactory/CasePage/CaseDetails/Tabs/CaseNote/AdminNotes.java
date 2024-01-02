@@ -32,4 +32,7 @@ public class AdminNotes extends GenericWrappers {
 
     @FindBy(css = "[id='admin_notes_list'] tr:nth-child(1)")
     public WebElement table_index1;
+    @FindBy(id="contact_new_1")
+    public WebElement deletePopUpOkButton;
+
 }

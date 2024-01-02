@@ -28,6 +28,8 @@ public class TabsMainPage extends TabsMain {
     }
     public void clickTaskAppointmentsTab(){clickButtonWithOutScroll(task_appointments_tab);
     }
+    public boolean isPlansProgramsTabIsVisible(){return isElementDisplayed(plans_programs_tab);}
+
 
     // D R O P D O W N     V A L U E S     ----->>     COMMON IN ALL TABS
     public void SelectFirstValueFromByDropDown(){clickButtonWithOutScroll(get_by_dropdown_index1);

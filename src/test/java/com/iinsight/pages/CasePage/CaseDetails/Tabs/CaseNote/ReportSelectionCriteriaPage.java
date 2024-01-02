@@ -9,9 +9,13 @@ public class ReportSelectionCriteriaPage extends ReportSelectionCriteria {
     public boolean isFromDateButtonVisible(){
         return isElementDisplayed(from_btn);
     }
-    public void clickFromDateButton(){clickButtonWithOutScroll(from_btn);
+    public void clickFromDateButton(){
+        //clickButtonWithOutScroll(from_btn);
+        enterText(from_btn, "23-11-23");
     }
-    public void clickToDateButton(){clickButtonWithOutScroll(to_btn);
+    public void clickToDateButton(){
+        //clickButtonWithOutScroll(to_btn);
+        enterText(to_date, "24-11-2023");
     }
     public void selectFromDate(){clickButtonWithOutScroll(from_date);
     }

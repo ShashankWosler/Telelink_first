@@ -2,6 +2,7 @@ package com.iinsight.steps.CasePage;
 
 import com.iinsight.pages.CasePage.CaseDetails.TabsMainPage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 
@@ -33,5 +34,23 @@ public class TabsMainStep extends TabsMainPage {
     @And("User Select Account Tab")
     public void userSelectAccountTab() {
         clickAccountsTab();
+    }
+    @Then("User click on plans programs tab")
+    public void userClickOnTabPlansPrograms() {
+        try {
+            waitFor(5000);
+            Assert.assertTrue(isPlansProgramsTabIsVisible());
+            clickPlansProgramsTab();
+        }catch (StaleElementReferenceException e){
+            System.out.println("TabsMainStep.userClickOnTabPlansPrograms() - "+e.getClass());
+            setImplicit(10);
+            mouseOverClick(plans_programs_tab);
+        }
+    }
+
+    @And("User click on Task Appointments tab")
+    public void userClickOnTaskAppointmentsTab() {
+        clickTaskAppointmentsTab();
+        waitFor(3000);
     }
 }

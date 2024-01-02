@@ -14,5 +14,7 @@ public class CostsMainPage extends CostsMain {
         System.out.println("Billing Id ----------------- "+billingID);
         getID(cost, billingID);
     }
+    public boolean isBillingButtonIsVisible(){return isElementDisplayed(billingButton);}
 
+    public void clickBillingButton(){clickButtonWithOutScroll(billingButton);}
 }

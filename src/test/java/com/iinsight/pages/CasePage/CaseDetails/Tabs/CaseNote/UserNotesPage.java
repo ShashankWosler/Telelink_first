@@ -15,6 +15,8 @@ public class UserNotesPage extends UserNotes{
     }
     public void clickDetailsButton(){clickButtonWithOutScroll(details_btn);
     }
+    public boolean isDetailButtonVisible(){return isElementDisplayed(details_btn);
+    }
     public void clickDeleteButton(){clickButtonWithOutScroll(delete_btn);
     }
     public void clickSearchTabButton(){clickButtonWithOutScroll(search_tab);

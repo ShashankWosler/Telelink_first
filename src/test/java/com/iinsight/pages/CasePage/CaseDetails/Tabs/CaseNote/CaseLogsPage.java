@@ -5,14 +5,16 @@ import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
 
 public class CaseLogsPage extends CaseLogs{
-    public static String billingID, invoiceID;
+    public static String billingID, invoiceID, adminNotes, var;
     public CaseLogsPage(){PageFactory.initElements(getDriver(), this);
     }
     public String searchKeyword = Integer.toString(getRandomNumber(999));
 
     public boolean isCaseLogsTabVisible(){return isElementDisplayed(getCase_log_tab);
     }
-    public void clickCaseLogsTab(){clickButtonWithOutScroll(getCase_log_tab);
+    public void clickCaseLogsTab(){
+        waitFor(2000);
+        clickButtonWithOutScroll(getCase_log_tab);
     }
     public void clickDetailsButton(){clickButtonWithOutScroll(details_btn);
     }
@@ -44,16 +46,16 @@ public class CaseLogsPage extends CaseLogs{
      //   CreatedCase = config.getString(str);
         String actual = getAttributeValue(title_text, "title");
         System.out.println(actual);
-        Assert.assertEquals(actual, actual.contains(str));
-    }
-    public void verifyInvoiceLog(){
-        waitFor(3000);
-        invoiceID = config.getString("InvoiceID");
-       String str = invoiceID.replaceAll("[^0-9]","");
-        String actual = getAttributeValue(title_text, "title");
-        System.out.println("InvoiceID in Case Log ----- "+actual);
-        System.out.println("Expected InvoiceID ----- "+str);
         Assert.assertTrue(actual, actual.contains(str));
-
     }
+    public void verifyCaseLogs(String key){
+        waitFor(3000);
+        var = config.getString(key + "ID");
+       String str = var.replaceAll("[^0-9]","");
+        String actual = getAttributeValue(title_text, "title");
+        System.out.println(key +" in Case Log ----- "+actual);
+        System.out.println("Expected Value ----- "+str);
+        Assert.assertTrue(actual, actual.contains(str));
+    }
+
 }

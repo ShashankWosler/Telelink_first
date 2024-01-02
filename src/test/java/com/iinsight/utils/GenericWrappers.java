@@ -504,7 +504,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
 
         webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".oak-searchResults_preloader")));
     }
-
+    public void mouseOverClick(WebElement element) {
+        waitVisibilityOfElement(element);
+        new Actions(getDriver()).moveToElement(element).click(element).build().perform();
+    }
 
     public void waitForPaypalLoadIconDisappear(){
 
@@ -598,5 +601,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
             e.printStackTrace();
         }
         return properties.getProperty(key);
+    }
+    public String getInnerText(WebElement elem) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        String text = (String) js.executeScript("return arguments[0].value", elem);
+        return text;
     }
 }

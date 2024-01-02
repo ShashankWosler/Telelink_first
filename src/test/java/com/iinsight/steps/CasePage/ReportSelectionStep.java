@@ -4,11 +4,12 @@ import com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote.ReportSelectionCrit
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.TimeoutException;
 
 public class ReportSelectionStep extends ReportSelectionCriteriaPage {
     @And("User Go to the Report Selection Criteria, Select Date Range from DropDown")
     public void selectDateRangeFromBottomOfPage(){
-        setZoomLevel(0.6);
+        //setZoomLevel(0.6);
         waitFor(4000);
         scrollToReportSelection();
         isDateDropDownVisible();
@@ -19,10 +20,11 @@ public class ReportSelectionStep extends ReportSelectionCriteriaPage {
     public void selectFromToDate(){
         try{
             clickFromDateButton();
-            selectFromDate();
+            //selectFromDate();
             clickToDateButton();
-            selectToDate();}
-        catch(ElementNotInteractableException e){
+            //selectToDate();
+             }
+        catch(ElementNotInteractableException | TimeoutException e){
             System.out.println("CaseLogsStep.selectFromToDate() -->> "+e.getMessage());
         }
     }

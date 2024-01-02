@@ -89,12 +89,20 @@ public class Base {
 
         return String.valueOf(status);
     }
-    public String getTodayDate() {
-        LocalDate currentDate = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String formattedDate = currentDate.format(formatter);
-        System.out.println("Formatted Date: " + formattedDate);
-        return formattedDate;
-    }
 
+    public String getTodayDate() {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate currentDate = LocalDate.now();
+        String todayDate = currentDate.format(dateFormatter);
+        System.out.println("todayDate: "+todayDate);
+        return todayDate;
+    }
+    public String getTomorrowDate(){
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate currentDate = LocalDate.now();
+        LocalDate tomorrowDate = currentDate.plusDays(1);
+        String tomorrowDateString = tomorrowDate.format(dateFormatter);
+        System.out.println("tomorrowDateString: "+tomorrowDateString);
+        return tomorrowDateString;
+    }
 }

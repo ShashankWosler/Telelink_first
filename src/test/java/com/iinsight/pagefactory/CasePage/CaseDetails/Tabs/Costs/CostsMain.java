@@ -10,4 +10,6 @@ public class CostsMain extends GenericWrappers {
 
     @FindBy(id="table_header_col_new_2510")
     public WebElement Id_header;
+    @FindBy(id="cases_costs_0")
+    public WebElement billingButton;
 }

@@ -27,7 +27,7 @@ public class CaseLogs extends GenericWrappers {
     @FindBy(css = "[id='log_list'] tr:nth-child(1)")
     public WebElement table_index1;
 
-    @FindBy(xpath="(//td[@id=\"notes.title_column\"])[1]")
+    @FindBy(xpath="(//div[@id=\"log_list\"]//table//tr//td[2])[1]")
     public WebElement title_text;
 
 }

@@ -13,7 +13,7 @@ public class CaseListingStep extends CaseListingPage {
     }
     @When("User select any case from the case list")
     public void userSelectAnyCaseFromTheCaseList(){
-        setZoomLevel(0.8);
+        //setZoomLevel(0.8);
         getFirstRowFromTable();
     }
 
@@ -39,10 +39,10 @@ public class CaseListingStep extends CaseListingPage {
         waitFor(2000);
         switch(caseType){
             case "Company":
-                Assert.assertEquals(getText(caseNoteName),getTestDatValue("CompanyCaseID"));
+                Assert.assertEquals(getText(caseNoteName),getTestDatValue("CompanyID"));
                 break;
             case "Individual":
-                Assert.assertEquals(getText(caseNoteName),getTestDatValue("IndividualCaseID"));
+                Assert.assertEquals(getText(caseNoteName),getTestDatValue("IndividualID"));
                 break;
         }
     }

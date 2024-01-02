@@ -37,7 +37,7 @@ public class ReportSelectionCriteria extends GenericWrappers {
     public WebElement dropdown_value5; // Last Quarter
     @FindBy(css="div#drop_down_multiselect div:nth-child(6)")
     public WebElement dropdown_value6; // Last 12 Month
-    @FindBy(css="div#drop_down_multiselect div:nth-child(7)")
+    @FindBy(css="div#drop_down_multiselect div:nth-child(6)")
     public WebElement dropdown_value7; // Custom Range
     @FindBy(id="order")
     public WebElement order_dropdown;

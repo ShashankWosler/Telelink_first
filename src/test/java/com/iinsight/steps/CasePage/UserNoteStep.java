@@ -4,6 +4,7 @@ import com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote.UserNotesPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class UserNoteStep extends UserNotesPage {
@@ -13,7 +14,17 @@ public class UserNoteStep extends UserNotesPage {
     }
     @And("User click on the User Notes Details button")
     public void userClickOnUserNotesDetailButton(){
-        clickDetailsButton();
+        try {
+            Assert.assertTrue(isDetailButtonVisible());
+            clickDetailsButton();
+        }
+        catch(Exception e) {
+            waitFor(3000);
+            isElementDisplayed(details_btn);
+            waitElementToBeClickable(details_btn);
+            clickDetailsButton();
+            System.out.println("UserNoteStep.userClickOnUserNotesDetailButton() -->> "+e.getClass()+ " Clicked Element Again");
+        }
     }
     @Then("Verify the User Note should be added on User notes tab")
     public void VerifyUserNoteAdded(){
@@ -44,7 +55,13 @@ public class UserNoteStep extends UserNotesPage {
     }
     @Then("Verify the Search Result")
     public void verifySearchResult(){
-        getFirstRowFromTable();
+        try {getFirstRowFromTable();
+        }
+        catch(StaleElementReferenceException e) {
+            waitFor(2000);
+            getFirstRowFromTable();
+            System.out.println("UserNoteStep.verifySearchResult() -->> StaleElementReferenceException: Clicked Element Again");
+        }
     }
     @And("User click on the Field Edit button From User Notes Tab")
     public void clickOnFieldButton(){
@@ -57,6 +74,13 @@ public class UserNoteStep extends UserNotesPage {
         }
 
     }
-
+    @And("User select any User Notes from the list")
+    public void selectListFromUUserList(){
+        getFirstRowFromTable();
+    }
+    @And("User click on the User Note Delete button")
+    public void clickDeleteButtonUserNote(){
+        clickDeleteButton();
+    }
 
 }
