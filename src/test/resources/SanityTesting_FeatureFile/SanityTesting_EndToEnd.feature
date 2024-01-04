@@ -338,7 +338,7 @@ Feature: Validating of the Smoke Test
       |Total Sum Plan        |Time Based    |
 
   @RunLambdaOnly
-  Scenario Outline: Verify User is able to Refund & Adjust Invoice with/ without VAT for New Created Case and verifies all Amounts and IDs
+  Scenario Outline: Verify User is able to Refund and Adjust Invoice with/ without VAT for New Created Case and verifies all Amounts and IDs
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
     And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
