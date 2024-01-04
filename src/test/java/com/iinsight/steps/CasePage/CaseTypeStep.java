@@ -5,14 +5,17 @@ import com.iinsight.pages.CasePage.CaseListing.CaseTypes.CreateCasePage;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 
 public class CaseTypeStep extends CreateCasePage {
     @And("User fill the Cases Type Form of {string}")
     public void userFillCaseTypeForm(String caseType){
+        try{
         switch(caseType){
             case "Company":
                 enterCompanyName();
                 enterEmail();
+                waitFor(2000);
                 clickCompanyLocationBtn();
                 Assert.assertTrue(isPersonCurrentLocBtnVisible());
                 clickPersonCurrentLocBtn();
@@ -21,8 +24,11 @@ public class CaseTypeStep extends CreateCasePage {
                 clickCaseTypeNextBtn();
                 break;
             case "Individual":
+                setImplicit(60);
+                waitFor(2000);
                 Assert.assertTrue(isPersonTitleDropdownVisible());
                 clickPersonTitleDropdown();
+                waitFor(2000);
                 selectDropDownFromText(CaseTypeTestData.Title);
                 waitFor(2000);
                 //clickPersonFirstNameTab();
@@ -39,7 +45,8 @@ public class CaseTypeStep extends CreateCasePage {
                 enterPersonPhone1Tab();
                 clickCaseTypeNextBtn();
                 break;
-
+        }}catch(TimeoutException | StaleElementReferenceException e){
+            System.out.println("CaseTypeStep.userFillCaseTypeForm() - : "+e.getClass()+" "+e.getMessage());
         }
     }
 
@@ -55,7 +62,9 @@ public class CaseTypeStep extends CreateCasePage {
                 Assert.assertTrue(isPersonEmpCompanyNameTabVisible());
                 enterPersonEmpCompanyNameTab();
                 clickPersonEmpTitleTab();
+                waitFor(2000);
                 selectDropDownFromText(CaseTypeTestData.Title);
+                setImplicit(10);
                 waitFor(2000);
                 enterPersonEmpFirstNameTab();
                 enterPersonEmpLastNameTab();
@@ -66,9 +75,8 @@ public class CaseTypeStep extends CreateCasePage {
                 enterPersonEmpPhoneTab();
                 enterEmpEmailTab();
                 clickPersonEmpNextBtn();
-                break;} catch(StaleElementReferenceException e){
+                break;} catch(StaleElementReferenceException | TimeoutException e){
             System.out.println("CaseTypeStep.userFillEmploymentDetailsForm() - StaleElementReferenceException Caught");
-            selectDropDownFromText(CaseTypeTestData.Title);
         }
         }
     }
@@ -102,6 +110,12 @@ public class CaseTypeStep extends CreateCasePage {
         selectStatus();
         selectDropDownFromText("Active");
         clickOnSubmitButton();
+    }
+    @And("User Click on Add Appointment Button from Add Case Save Form")
+    public void clickOnAppointmentBillingFromForm(){
+        selectStatus();
+        selectDropDownFromText("Active");
+        clickSaveAddAppointmentsButton();
     }
 
 }

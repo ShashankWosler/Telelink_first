@@ -15,10 +15,10 @@ public class CaseTypeTestData {
     public static String UpdatedPrice = "2.00";
     public static String Duration = "02:00";        //Used For Both - [Verify, E2E]
     public static String Rate = "R 1 000,00";       //Used For Both - [Verify, E2E]
+    public static String TaskTitle = "Test Automation Task Title";
 
 
     // A D J U S T M E N T S        P O P - U P
-    public static String EmployeeName = "Deepak Chopra";
     public static String Appointment_Title ="Test Appointment Automation";
     public static String Reason = "Test Automation Reason";
     public static double VatRate = 0.10;        //Used For Both - [Verify : Billing, Adjust]
@@ -27,7 +27,7 @@ public class CaseTypeTestData {
 
 
     public static int PaymentUpdatedAmountI = 100;        //Used For - Verify [Payments : VAT , NON-VAT]
-    public static int AdjustAmountI = 495;        //Used For - Verify [Adjust Amount]
+    public static int AdjustAmountI = 500;        //Used For - Verify [Adjust Amount]
 
 
     // B I L L I N G - W I T H  [ V A T     ,     N O N - V A T]
@@ -49,17 +49,21 @@ public class CaseTypeTestData {
 
 
     // A D J U S T - W I T H  [ V A T     ,     N O N - V A T]
-    public static int AdjustNewDuration = 1;        //Used For - Adjust
-    public static int AdjustSubTotalI = CaseTypeTestData.AdjustNewDuration * CaseTypeTestData.ZeroRate;
+    public static int AdjustNewDurationI = 1;        //Used For - Adjust
+    public static int AdjustSubTotalI = CaseTypeTestData.AdjustNewDurationI * CaseTypeTestData.ZeroRate;
     public static int AdjustVATI = (int)(AdjustSubTotalI * CaseTypeTestData.VatRate);
     public static int AdjustTotalI = AdjustSubTotalI + AdjustVATI;
+    public static int NOVATAdjustOwningAmountI = AdjustSubTotalI - PaymentUpdatedAmountI;
+    public static int VATAdjustOwningAmountI = AdjustTotalI - PaymentUpdatedAmountI;
 
 
     // Integer to String of Amount Variables - A D J U S T
+    public static String AdjustNewDuration = String.valueOf(AdjustNewDurationI);
     public static String AdjustSubTotal = String.valueOf(AdjustSubTotalI);
     public static String AdjustVAT = String.valueOf(AdjustVATI);
     public static String AdjustTotal = String.valueOf(AdjustTotalI);
-
+    public static String VATAdjustOwningAmount = String.valueOf(VATAdjustOwningAmountI);
+    public static String NOVATAdjustOwningAmount = String.valueOf(NOVATAdjustOwningAmountI);
 
     // V E R I F Y      A M O U N T S       I D ' S
     public static String CaseNumber;
@@ -68,4 +72,20 @@ public class CaseTypeTestData {
     public static String AdjustId;
 
 
+    // A P P O I N T M E N T S      V E R I F Y      F R O M      S I D E      M E N U
+    /** CREATE APPOINTMENT [MULTIPLE, SINGLE]*/
+    public static String FromTime ="09:15 am";
+    public static String EndTime="09:30 am";
+    public static String FromTimeOneDigitHour="9:15 AM";
+    public static String EndTimeOneDigitHour="9:30 AM";
+
+    /** UPDATE APPOINTMENT */
+    public static String UpdateFromTime ="09:45 am";
+    public static String UpdateEndTime="10:00 am";
+    public static String UpdateFromTimeOneDigitHour="9:45 AM";
+    public static String UpdateEndTimeOneDigitHour="10 AM";
+
+    // CLIENT NAME - Get Overlap Client Name = CASE ID
+    public static String ClientName;
+    public static String OverlapAppointmentUsername = "Web Automation";
 }

@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 public class ReportSelectionCriteria extends GenericWrappers {
     @FindBy(id="case_notes_print_console")
     public WebElement reportSelectionTab;
+    @FindBy(xpath="(//input[@id='dates'])[1]")
+    public WebElement dateInput;
     @FindBy(id="datefrom")
     public WebElement from_btn;
     @FindBy(css=".tables.date_table2 tr:nth-child(3) td:nth-child(5)")
@@ -37,10 +39,12 @@ public class ReportSelectionCriteria extends GenericWrappers {
     public WebElement dropdown_value5; // Last Quarter
     @FindBy(css="div#drop_down_multiselect div:nth-child(6)")
     public WebElement dropdown_value6; // Last 12 Month
-    @FindBy(css="div#drop_down_multiselect div:nth-child(6)")
+    @FindBy(css="div#drop_down_multiselect div:nth-child(7)")
     public WebElement dropdown_value7; // Custom Range
     @FindBy(id="order")
     public WebElement order_dropdown;
+    @FindBy(css="[name='notes_types_options_button']")
+    public WebElement noteTypeDropDown;
     @FindBy(id="notes_types_options")
-    public WebElement note_type_dropdown; // Have 3 Options
+    public WebElement noteTypeInput;
 }

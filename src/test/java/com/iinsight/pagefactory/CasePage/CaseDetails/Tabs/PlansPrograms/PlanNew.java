@@ -99,6 +99,16 @@ public class PlanNew extends GenericWrappers {
     public WebElement blueCheckBoxFirstIndex;       //Catch
     @FindBy(xpath="(//img[contains(@src,'blue')]//ancestor::tr[1]/td[6]/input)[1]")
     public WebElement blueCheckBoxAmountFirstIndex;     //Catch
+    @FindBy(xpath="//td[contains(text(),'TestAutoActivity')]//preceding::button[position() mod 2=1][2]")
+    public WebElement blueCheckBoxSelectAllButton;      // Catch - TestAutoActivity (SelectAll Button)
+
+    // CHARGE CODE BASED PLAN
+    @FindBy(xpath="//label[contains(text(),'Charge code')]")
+    public WebElement chargeCodeText;
+    @FindBy(xpath="//label[contains(text(),'CTP402')]")
+    public WebElement testActivityText;
+    @FindBy(xpath="//label[contains(text(),'CTP503')]")
+    public WebElement testItemText;
 
     // S A V E      B U T T O N
     @FindBy(id="addinvoice_3_next")
@@ -115,6 +125,7 @@ public class PlanNew extends GenericWrappers {
     public WebElement concurentRadioButton;
     @FindBy(id="radio_current")
     public WebElement curentRadioButton;
+
 
 
 

@@ -24,7 +24,7 @@ public class TabsMain extends GenericWrappers {
     @FindBy(id="_tab_level2f_form_b")
     public WebElement contacts_tab;
 
-    @FindBy(id="_tab_level2g_form_b")
+    @FindBy(css="div[id='main_tabs_section'] div:nth-child(7) div:nth-child(2)")
     public WebElement costs_tab;
 
     @FindBy(id="_tab_level2h_form_b")

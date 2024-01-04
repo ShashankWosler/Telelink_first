@@ -7,10 +7,10 @@ import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 
 public class TabClientsStep extends PersonalContactPage {
-    @Then("User verify the mandatory fields of client form of {string}")
-    public void verifyClientsFields(String caseType) {
-        try {
-            switch (caseType) {
+    @Then("User verify the mandatory fields of client tab of {string}")
+    public void verifyClientsFields(String caseType){
+        try{
+            switch (caseType){
                 case "Company":
                     Assert.assertEquals(getTextCompanyNameTab(), CaseTypeTestData.CompanyName);
                     Assert.assertEquals(getTextEmailTab(), CaseTypeTestData.Email);
@@ -24,9 +24,8 @@ public class TabClientsStep extends PersonalContactPage {
                     Assert.assertEquals(getTextEmailTab(), CaseTypeTestData.Email);
                     Assert.assertEquals(getTextPhoneNumTab(), CaseTypeTestData.Phone);
                     break;
-            }
-        } catch (StaleElementReferenceException e) {
-            System.out.println("TabClientsStep.verifyClientsFields() -" + e.getMessage());
+            }} catch (StaleElementReferenceException e){
+            System.out.println("TabClientsStep.verifyClientsFields() -"+e.getMessage());
         }
     }
 }

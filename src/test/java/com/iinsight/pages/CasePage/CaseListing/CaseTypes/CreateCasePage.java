@@ -1,10 +1,8 @@
 package com.iinsight.pages.CasePage.CaseListing.CaseTypes;
 
 import com.iinsight.TestData.CaseTypeTestData;
-import com.iinsight.pagefactory.CasePage.CaseListing.CaseTypes.Company;
 import com.iinsight.pagefactory.CasePage.CaseListing.CaseTypes.CreateCase;
-import org.apache.commons.lang.ObjectUtils;
-import org.junit.Assert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 
 public class CreateCasePage extends CreateCase {
@@ -22,22 +20,30 @@ public class CreateCasePage extends CreateCase {
 
     /**Case Type Company*/
     public void enterCompanyName(){
+        waitElementToBeClickable(company_name_field);
         enterText(company_name_field, CaseTypeTestData.CompanyName);
     }
     public void enterEmail(){
+        waitElementToBeClickable(email_field);
         enterText(email_field, CaseTypeTestData.Email);
     }
     public void enterPhone1(){
+        waitElementToBeClickable(phone1_field);
         enterText(phone1_field, CaseTypeTestData.Phone);
     }
     public void clickCaseTypeNextBtn(){
+        waitElementToBeClickable(next_btn_case_type);
         clickButtonWithOutScroll(next_btn_case_type);
     }
     public void clickCompanyLocationBtn(){clickButtonWithOutScroll(location_icon);}
 
     /**Case Type Person*/
-    public boolean isPersonTitleDropdownVisible(){return isElementDisplayed(type_title);}
-    public void clickPersonTitleDropdown(){clickButtonWithOutScroll(type_title);}
+    public boolean isPersonTitleDropdownVisible(){
+        waitVisibilityOfElement(type_title);
+        return isElementDisplayed(type_title);}
+    public void clickPersonTitleDropdown(){
+        waitElementToBeClickable(type_title);
+        clickButtonWithOutScroll(type_title);}
     public void clickPersonFirstNameTab(){clickButtonWithOutScroll(type_first_name);}
     public void enterPersonFirstNameTab(){enterText(type_first_name, CaseTypeTestData.FirstName);}
 
@@ -56,18 +62,37 @@ public class CreateCasePage extends CreateCase {
     public void clickPersonCancelBtn(){clickButtonWithOutScroll(cancel_btn);}
 
     /** P O P    U P     -   C L I E N T     L O C A T I O N*/
-    public boolean isPersonCurrentLocBtnVisible(){return isElementDisplayed(current_location);}
-    public void clickPersonCurrentLocBtn(){clickButton(current_location,current_location);}
-    public void clickPersonSaveBtnClientLocPopUp(){clickButtonWithOutScroll(save_btn);}
+    public boolean isPersonCurrentLocBtnVisible(){
+        waitVisibilityOfElement(current_location);
+        return isElementDisplayed(current_location);}
+    public void clickPersonCurrentLocBtn(){
+        waitElementToBeClickable(current_location);
+        clickButton(current_location,current_location);}
+    public void clickPersonSaveBtnClientLocPopUp(){
+        setImplicit(10);
+        waitElementToBeClickable(save_btn);
+        clickButtonWithOutScroll(save_btn);}
     public void clickPersonCancelBtnClientLocPopUp(){clickButtonWithOutScroll(client_loc_cancel_btn);}
 
     /** E M P L O Y M E N T      D E T A I L S*/
-    public boolean isPersonEmpCompanyNameTabVisible(){return isElementDisplayed(emp_company_name);}
-    public void enterPersonEmpCompanyNameTab(){enterText(emp_company_name,CaseTypeTestData.CompanyName);}
-    public void clickPersonEmpTitleTab(){clickButtonWithOutScroll(emp_title_dropdown);}
-    public void enterPersonEmpFirstNameTab(){enterText(emp_first_name,CaseTypeTestData.FirstName);}
-    public void enterPersonEmpLastNameTab(){enterText(emp_last_name,CaseTypeTestData.FirstName);}
-    public void clickPersonEmpLocationBtn(){clickButtonWithOutScroll(emp_loc);}
+    public boolean isPersonEmpCompanyNameTabVisible(){
+
+        return isElementDisplayed(emp_company_name);}
+    public void enterPersonEmpCompanyNameTab(){
+        waitElementToBeClickable(emp_company_name);
+        enterText(emp_company_name,CaseTypeTestData.CompanyName);}
+    public void clickPersonEmpTitleTab(){
+        clickButtonWithOutScroll(emp_title_dropdown);}
+    public void enterPersonEmpFirstNameTab(){
+        waitElementToBeClickable(emp_first_name);
+        enterText(emp_first_name,CaseTypeTestData.FirstName);}
+    public void enterPersonEmpLastNameTab(){
+        waitElementToBeClickable(emp_last_name);
+        enterText(emp_last_name,CaseTypeTestData.FirstName);}
+    public void clickPersonEmpLocationBtn(){
+        setImplicit(10);
+        waitElementToBeClickable(emp_loc);
+        clickButtonWithOutScroll(emp_loc);}
     public void enterPersonEmpPhoneTab(){enterText(emp_phone,CaseTypeTestData.Phone);}
     public void clickPersonEmpMobileTab(){clickButtonWithOutScroll(emp_mobile);}
     public void enterEmpEmailTab(){enterText(emp_email,CaseTypeTestData.Email);}
@@ -75,7 +100,8 @@ public class CreateCasePage extends CreateCase {
 
     /** Referral Details */
     public boolean isReferCompanyNameTabIsVisible(){return isElementDisplayed(refer_company_name_input);}
-    public void enterReferCompanyName(){ enterText(refer_company_name_input, CaseTypeTestData.CompanyName);}
+    public void enterReferCompanyName() {enterText(refer_company_name_input, CaseTypeTestData.CompanyName);
+    }
     public void clickReferCompanyNameDropdown(){clickButtonWithOutScroll(refer_company_name_dropdown);}
     public void getReferCompanyContact(){
         String getContactIntValue = getText(refer_company_contact);
@@ -138,6 +164,9 @@ public class CreateCasePage extends CreateCase {
 
     public void clickOnSubmitButton(){
         click(finish_btn);
+    }
+    public void clickSaveAddAppointmentsButton(){
+        clickButtonWithOutScroll(saveAddAppointmentsButton);
     }
 
 

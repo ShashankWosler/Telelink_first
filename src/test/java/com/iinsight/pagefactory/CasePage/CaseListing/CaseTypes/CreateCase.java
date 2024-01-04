@@ -121,4 +121,6 @@ public class CreateCase extends GenericWrappers {
     public WebElement case_number_field;
     @FindBy(xpath="//*[@id='case_new_10_finish'][2]")
     public WebElement finish_btn;
+    @FindBy(xpath="//*[@id='case_new_10_finish'][1]")
+    public WebElement saveAddAppointmentsButton;
 }

@@ -13,23 +13,38 @@ public class Accounts extends GenericWrappers {
     public WebElement adjustButton;
     @FindBy(id="cases_account_refund")
     public WebElement refundButton;
-    @FindBy(id="cases_account_delete")
-    public WebElement deleteButton;
-    @FindBy(id="account_delete_good_1")
-    public WebElement deleteConfirmButton;
     @FindBy(id="small_fields_view_transactions_list")
-    public WebElement fieldEditButton;
+    public WebElement accountFieldEditButton;
     @FindBy(css="input[id='transactions_list_search_text']")
     public WebElement searchInputTab;
     @FindBy(css="[name='transactions_list_button']")
     public WebElement byDropDownButton;
     @FindBy(id="transactions_list_find")
-    public WebElement findButton;
+    public WebElement accountFindButton;
     @FindBy(xpath="(//td[@id=\"invoices.invoice_n_column\"])[1]")
     public WebElement get_Invoice_ID;
     @FindBy(xpath="(//td[@id='transactions.amount_column'])[1]")
     public WebElement getAmount;
     @FindBy(xpath="(//td[@id='transaction_types.description_column'])[1]")
     public WebElement getTypeText; //Payment Entry is Created in Accounts Tab
+    @FindBy(xpath="(//div[@id='cases_accounts_form']//input)[2]")       //Total Invoices
+    public WebElement getTotalInvoices; //GetAttribute "value" - R1,10
+    @FindBy(xpath="(//div[@id='cases_accounts_form']//input)[3]")       //Total Adjustments
+    public WebElement getTotalAdjustment;
+    @FindBy(xpath="(//div[@id='cases_accounts_form']//input)[4]")       //Total Payments
+    public WebElement getTotalPayments;
+    @FindBy(xpath="(//div[@id='cases_accounts_form']//input)[5]")       //Total Refunds
+    public WebElement getTotalRefunds;
+    @FindBy(xpath="(//div[@id='cases_accounts_form']//input)[6]")       //Total Owning
+    public WebElement getTotalOwning;
+    @FindBy(xpath="(//td[@id='transactions.tr_code_column'])[1]")
+    public WebElement transactionId;         //NAT121-P1 - getAttribute - "value"
+    @FindBy(xpath="//div[@id='transactions_list']//tr[last()]")
+    public WebElement transactionListLastRow;
+    @FindBy(xpath="(//div[@id='transactions_list']//tr)[1]")
+    public WebElement transactionListFirstRow;
+
+
+
 
 }

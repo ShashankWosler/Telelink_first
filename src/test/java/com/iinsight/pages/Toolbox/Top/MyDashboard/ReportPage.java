@@ -19,8 +19,14 @@ public class ReportPage extends Report {
     public void clickReportDeleteBtnBtn(){clickButtonWithOutScroll(reportDeleteBtn);}
     public void clickReportUnSelectAllBtnBtn(){clickButtonWithOutScroll(reportUnSelectAllBtn);}
     public void clickSizeTableRowBtn(){clickButtonWithOutScroll(sizeTableRow);}
-    public void clickDownloadExcelBtn(){clickButtonWithOutScroll(downloadExcel);}
-    public void clickDownloadWordBtn(){clickButtonWithOutScroll(downloadWord);}
-    public void clickDownloadPdfBtn(){clickButtonWithOutScroll(downloadPdf);}
+    public void clickDownloadExcelBtn(){
+        waitElementToBeClickable(downloadExcel);
+        clickButtonWithOutScroll(downloadExcel);}
+    public void clickDownloadWordBtn(){
+        waitElementToBeClickable(downloadWord);
+        clickButtonWithOutScroll(downloadWord);}
+    public void clickDownloadPdfBtn(){
+        waitElementToBeClickable(downloadPdf);
+        clickButtonWithOutScroll(downloadPdf);}
 
 }

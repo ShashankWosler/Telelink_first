@@ -15,7 +15,9 @@ public class TopMainPage extends TopMain {
     }
     public void clickWorkflowTask(){clickButtonWithOutScroll(workflow_task);
     }
-    public void clickDownloadsReport(){clickButtonWithOutScroll(downloads_report);
+    public void clickDownloadsReport(){
+        waitElementToBeClickable(downloads_report);
+        clickButtonWithOutScroll(downloads_report);
     }
     public void clickMessengerCenter(){clickButtonWithOutScroll(messenger_center);
     }

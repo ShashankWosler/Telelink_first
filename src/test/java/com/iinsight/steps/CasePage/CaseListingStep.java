@@ -1,5 +1,6 @@
 package com.iinsight.steps.CasePage;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.CasePage.CaseListing.CaseListingPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
@@ -13,7 +14,6 @@ public class CaseListingStep extends CaseListingPage {
     }
     @When("User select any case from the case list")
     public void userSelectAnyCaseFromTheCaseList(){
-        //setZoomLevel(0.8);
         getFirstRowFromTable();
     }
 
@@ -23,11 +23,23 @@ public class CaseListingStep extends CaseListingPage {
         String keyToBeCreated = getText(caseNoteName);
         getID(caseType, keyToBeCreated);
     }
+    @Then("User Verify the Zero case is created and should be visible in case list")
+    public void getCaseIDOfZeroCase(){
+        waitFor(4000);
+        CaseTypeTestData.CaseNumber = getText(caseNoteName);
+        System.out.println("CaseID: "+CaseTypeTestData.CaseNumber);
+    }
+    @And("User Verify the Appointment case is created and should be visible in case list")
+    public void getAppointmentCaseNumber(){
+        waitFor(4000);
+        getID("AppointmentCase", getText(caseNoteName));
+        System.out.println("CaseID: "+getText(caseNoteName));
+    }
 
     @And("User Click on +Billing button")
     public void userClickOnBillingButton() {
-        clickButtonWithOutScroll(addCaseBillingBtn);
         waitFor(3000);
+        clickButtonWithOutScroll(addCaseBillingBtn);
     }
     @When("User click on search button from HomePage")
     public void userClickOnSearchButton(){
@@ -39,12 +51,19 @@ public class CaseListingStep extends CaseListingPage {
         waitFor(2000);
         switch(caseType){
             case "Company":
-                Assert.assertEquals(getText(caseNoteName),getTestDatValue("CompanyID"));
+                Assert.assertEquals(getText(caseNoteName),getTestDataValue("CompanyID"));
                 break;
             case "Individual":
-                Assert.assertEquals(getText(caseNoteName),getTestDatValue("IndividualID"));
+                Assert.assertEquals(getText(caseNoteName),getTestDataValue("IndividualID"));
+                break;
+            case "Appointment Overlap":
+                Assert.assertEquals(getText(caseNoteName),CaseTypeTestData.ClientName.replaceAll(" ",""));
+                break;
+            case "Appointment":
+                Assert.assertEquals(getText(caseNoteName),getTestDataValue("AppointmentCaseID"));
                 break;
         }
+        System.out.println();
     }
 
 }

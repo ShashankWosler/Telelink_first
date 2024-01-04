@@ -19,4 +19,12 @@ public class Plans extends GenericWrappers {
     public WebElement TitleOfCreatedPlan;    // GetAttribute : title
     @FindBy(xpath="//div[@id='estimates_list']//tr[last()]//td[5]")
     public WebElement IdOfCreatedPlan;
+
+    // P L A N      R E P O R T         P R E V I E W
+    @FindBy(className = "report_name")
+    public WebElement titleReportPreview;   // Plan Text
+    @FindBy(id="level3_form_close")
+    public WebElement cancelReportPreview;
+    @FindBy(xpath="//table[@class='report_table' and @align='right']//tr[2]//td[3]")
+    public WebElement actualCaseBillingAmt; // getInnerText : Actual Case Billed Amount
 }

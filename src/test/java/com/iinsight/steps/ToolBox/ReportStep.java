@@ -5,12 +5,20 @@ import io.cucumber.java.en.And;
 import org.junit.Assert;
 
 public class ReportStep extends ReportPage {
-    @And("User download option and download the desired format")
-    public void downloadReport(){
+    @And("User Download The Selected {string} Format Report")
+    public void downloadReport(String downloadFormat){
+        setImplicit(20);
+        waitElementToBeClickable(sizeTableRow);
         Assert.assertTrue(isTableRowBtn());
-        clickDownloadExcelBtn();
-
-    }
-
-
+        switch(downloadFormat){
+            case "Pdf":
+                clickDownloadPdfBtn();
+                break;
+            case "Word":
+                clickDownloadWordBtn();
+                break;
+            case "Excel":
+                clickDownloadExcelBtn();
+                break;
+        }}
 }

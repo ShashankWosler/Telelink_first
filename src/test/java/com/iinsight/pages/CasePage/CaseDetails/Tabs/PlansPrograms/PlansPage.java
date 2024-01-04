@@ -19,4 +19,15 @@ public class PlansPage extends Plans {
     public String getTitleOfCreatedPlan(){return getAttributeValue(TitleOfCreatedPlan,"title");}
     public String clickGetIdOfCreatedPlan(){return getInnerText(IdOfCreatedPlan);}
 
+    // P L A N      R E P O R T         P R E V I E W
+    public boolean isTitleReportPreviewVisible(){
+        waitElementToBeClickable(titleReportPreview);
+        return isElementDisplayed(titleReportPreview);}
+
+    public boolean isCancelReportPreview(){
+        waitElementToBeClickable(cancelReportPreview);
+        return isElementDisplayed(cancelReportPreview);}
+    public void clickCancelReportPreview(){clickButtonWithOutScroll(cancelReportPreview);}
+    public String getActualCaseBillAmount(){return getInnerText(actualCaseBillingAmt);}
+
 }

@@ -19,7 +19,10 @@ public class SearchMenuPage extends SearchMenu {
     }
     public boolean isSearchFiltersIsVisible(){return isElementDisplayed(search_criteria_fields);
     }
-    public void enterTextSearchTab(String filterValue){enterText(search_criteria_fields,filterValue);
+    public void enterTextSearchTab(String filterValue){
+        setImplicit(10);
+        waitElementToBeClickable(search_criteria_fields);
+        enterText(search_criteria_fields,filterValue);
     }
     public boolean isTextSearchMainTabVisible(){return isElementDisplayed(search_criteria_main_tab);
     }

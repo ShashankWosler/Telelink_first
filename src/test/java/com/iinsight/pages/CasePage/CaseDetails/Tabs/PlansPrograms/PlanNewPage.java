@@ -2,11 +2,7 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.PlansPrograms;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.PlansPrograms.PlanNew;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 
 public class PlanNewPage extends PlanNew {
@@ -68,9 +64,16 @@ public class PlanNewPage extends PlanNew {
     public void clickFieldEditButton(){clickButtonWithOutScroll(fieldEditButton);}
 
     // Estimate Edit Table
+
+    public void moveToSelectAllElem(){mouseOver(chargeCodeText);}
     public boolean isSelectAllButtonVisible(){     //Same Method For UnSelect
-        waitElementToBeClickable(selectAllButtons.get(0));
-        return isElementDisplayed(selectAllButtons.get(0));
+        try {
+            waitElementToBeClickable(selectAllButtons.get(0));
+            return isElementDisplayed(selectAllButtons.get(0));
+        }catch(ElementNotInteractableException | IndexOutOfBoundsException e){
+            System.out.println("PlanNewPage.isSelectAllButtonVisible() - :"+e.getClass()+" "+e.getMessage());
+            return false;
+        }
     }
     public void clickSelectAllButtons(){ //Same Method For UnSelect
         if(selectAllButtons.size()>0){
@@ -101,17 +104,17 @@ public class PlanNewPage extends PlanNew {
         try{
             setImplicit(10);
             clickButtonWithOutScroll(greenCheckBox);
-       }catch(NoSuchElementException | ElementNotVisibleException e){
+       }catch(NoSuchElementException | ElementNotInteractableException e){
             System.out.println("PlanNewPage.clickGreenCheckBox() Exception - "+e.getClass());
             waitFor(2000);
             System.out.println("clickGreenCheckBox.greenCheckBoxFirstIndex() -"+getAttributeValue(greenCheckBoxFirstIndex,"title"));
-            clickButtonWithOutScroll(greenCheckBoxFirstIndex);
+            //clickButtonWithOutScroll(greenCheckBoxFirstIndex);
         }
     }
     public void enterGreenCheckBoxAmount(){
         try{
             setImplicit(10);
-        enterText(greenCheckBoxAmount,CaseTypeTestData.Rate);}
+            enterTextAndClearAll(greenCheckBoxAmount,CaseTypeTestData.Rate);}
         catch(NullPointerException e){
             System.out.println("PlanNewPage.enterGreenCheckBoxAmount -"+e.getClass());
             waitFor(2000);
@@ -125,26 +128,37 @@ public class PlanNewPage extends PlanNew {
         try{
             setImplicit(10);
             clickButtonWithOutScroll(blueCheckBox);
-        }catch(NoSuchElementException | ElementNotVisibleException e){
-            System.out.println("PlanNewPage.clickBlueCheckBox() Exception - "+e.getClass());
-            waitFor(2000);
-            System.out.println("clickBlueCheckBox.blueCheckBoxFirstIndex() -"+getAttributeValue(blueCheckBoxFirstIndex,"title"));
-            clickButtonWithOutScroll(blueCheckBoxFirstIndex);
+        }catch(ElementNotInteractableException | StaleElementReferenceException e){
+            System.out.println("PlanNewPage.clickBlueCheckBox() - "+e.getClass()+ " "+e.getMessage());
         }
+    }
+    public boolean isBlueCheckBoxSelectAllButton(){return isElementDisplayed(blueCheckBoxSelectAllButton);}
+    public void clickBlueCheckBoxSelectAll(){       //TestAutoActivity (SelectAll Button)
+        waitVisibilityOfElement(blueCheckBoxSelectAllButton);
+        waitElementToBeClickable(blueCheckBoxSelectAllButton);
+        clickButtonWithOutScroll(blueCheckBoxSelectAllButton);
     }
     public void enterBlueCheckBoxAmount(){
         try{
             setImplicit(10);
-            enterText(blueCheckBoxAmount,CaseTypeTestData.Rate);}
-        catch(NullPointerException e){
+            enterTextAndClearAll(blueCheckBoxAmount,CaseTypeTestData.Rate);}
+        catch(InvalidElementStateException e){
             System.out.println("PlanNewPage.enterBlueCheckBoxAmount -"+e.getClass());
-            waitFor(2000);
-            enterText(blueCheckBoxAmountFirstIndex,CaseTypeTestData.Rate);}
+            //waitFor(2000);
+            //enterText(blueCheckBoxAmountFirstIndex,CaseTypeTestData.Rate);
+            }
     }
 
+    // CHARGE CODE BASED PLAN
+    public boolean isChargeCodeTextVisible(){
+        waitVisibilityOfElement(chargeCodeText);
+        return isElementDisplayed(chargeCodeText);
+    }
 
     // S A V E      B U T T O N
-    public void clickSaveButton(){clickButtonWithOutScroll(saveButton);}
+    public void clickSaveButton(){
+        waitElementToBeClickable(saveButton);
+        clickButtonWithOutScroll(saveButton);}
     public void clickCancelButton(){clickButtonWithOutScroll(cancelButton);}
 
 
@@ -156,7 +170,5 @@ public class PlanNewPage extends PlanNew {
     public void clickCurrentPlanCancelButton(){clickButtonWithOutScroll(currentPlanCancelButton);}
     public void clickConcurrentRadioButton(){clickButtonWithOutScroll(concurentRadioButton);}
     public void clickCurrentRadioButton(){clickButtonWithOutScroll(curentRadioButton);}
-
-
 
 }

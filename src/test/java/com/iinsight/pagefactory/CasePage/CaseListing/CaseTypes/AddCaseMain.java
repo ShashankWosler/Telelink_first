@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class AddCaseMain extends GenericWrappers {
+    @FindBy(css="[id='case_new.office']")
+    public WebElement business_division_input;
+    @FindBy(css="[id='case_new.category']")
+    public WebElement service_contract_input;
     @FindBy(css="[name='case_new.office_button']")
     public WebElement business_division_dropdown;
     @FindBy(css="[name='case_new.category_button']")

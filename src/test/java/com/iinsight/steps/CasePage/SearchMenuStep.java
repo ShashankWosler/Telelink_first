@@ -1,5 +1,6 @@
 package com.iinsight.steps.CasePage;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import io.cucumber.java.en.And;
 
 import com.iinsight.pages.CasePage.CaseListing.SearchMenuPage;
@@ -13,7 +14,7 @@ public class SearchMenuStep extends SearchMenuPage {
         waitFor(2000);
         clickDeleteButton();
         try{
-        enterTextSearchMainTab(filterValue);}
+            enterTextSearchMainTab(filterValue);}
         catch(InvalidElementStateException e){
             System.out.println("userAddSearchCriteriaDropdown.enterTextSearchMainTab() "+e.getClass());
             clickSearchCriteriaDropDown();}
@@ -24,22 +25,26 @@ public class SearchMenuStep extends SearchMenuPage {
     public void userGetCaseTypeId(String caseType){
         switch(caseType){
             case "Company":
-                enterTextSearchTab(getTestDatValue("CompanyID"));
+                enterTextSearchTab(getTestDataValue("CompanyID"));
                 break;
             case "Individual":
-                enterTextSearchTab(getTestDatValue("IndividualID"));
+                enterTextSearchTab(getTestDataValue("IndividualID"));
                 break;
+            case "Appointment Overlap":
+                enterTextSearchTab(CaseTypeTestData.ClientName);
+                break;
+            case "Appointment":
+                enterTextSearchTab(getTestDataValue("AppointmentCaseID"));
         }
     }
     @And("User click on search button from search popup")
     public void userClickOnPopUpSearchButton(){
         Assert.assertTrue(isSearchButtonIsVisible());
         clickSearchButton();
-        waitFor(6000);
     }
     @When("User Select Newly Created {string}")
     public void userSelectNewlyCreatedCase(String filterValue) {
         userAddSearchCriteriaDropdown(filterValue);
-        enterTextSearchTab(getTestDatValue("CompanyID"));
+        enterTextSearchTab(getTestDataValue("CompanyID"));
     }
 }

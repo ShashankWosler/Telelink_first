@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 public class NewTaskPopUp extends GenericWrappers {
     @FindBy(xpath="//div[text()='Creating a new task']")
     public WebElement newTaskPopUpVisible;
+    @FindBy(css="input[id='tasks.task_title']")
+    public WebElement titleInput;
     @FindBy(css="[name='tasks.task_title_button']")
     public WebElement titleDropDown;
     @FindBy(css="[id='tasks.assigned_to_dialog']")
@@ -33,8 +35,16 @@ public class NewTaskPopUp extends GenericWrappers {
     public WebElement saveButton;
     @FindBy(id="case_reopen_2")
     public WebElement cancelButton;
-    @FindBy(xpath="(//td[@id='name_column' and @title='Minor Task'])[1]//following-sibling::td[1]")
-    public WebElement newEntryStatusFirstIndex;
+
+    // A D D     V A L U E     T O     T H E     L I S T
+    @FindBy(xpath="//div[text()='Add value to list']")
+    public WebElement addValuePopUp;
+    @FindBy(id="list_check_ask4_1")
+    public WebElement YesButtonAddPopUp;
+    @FindBy(id="list_check_ask4_2")
+    public WebElement NoButtonAddPopUp;
+    @FindBy(id="list_check_ask4_3")
+    public WebElement CancelButtonAddPopUp;
 
 
 }

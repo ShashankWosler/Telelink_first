@@ -1,6 +1,7 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote;
 
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.CaseNote.UserNotes;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 
@@ -14,8 +15,6 @@ public class UserNotesPage extends UserNotes{
     public void clickAddNewButton(){clickButtonWithOutScroll(add_new_btn);
     }
     public void clickDetailsButton(){clickButtonWithOutScroll(details_btn);
-    }
-    public boolean isDetailButtonVisible(){return isElementDisplayed(details_btn);
     }
     public void clickDeleteButton(){clickButtonWithOutScroll(delete_btn);
     }
@@ -36,6 +35,10 @@ public class UserNotesPage extends UserNotes{
     }
     public void getFirstRowFromTable(){isElementTextMatch(table_index1,searchKeyword);
     }
-
+    public int getSizeOfTable(){
+        By elem = By.cssSelector("div#notes_list tr");
+        waitPresenceOfElementLocated(elem);
+        return getDriver().findElements(elem).size();
+    }
 
 }

@@ -4,14 +4,21 @@ import com.iinsight.pages.CasePage.CaseDetails.TabsMainPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.Assert;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 
 public class TabsMainStep extends TabsMainPage {
     @And("User select Case Notes tab")
     public void userSelectCaseNotesTab(){
-        try {clickCaseNotesTab();
+        try {
+            setImplicit(10);
+            waitFor(3000);
+            Assert.assertTrue(isCaseNoteTabIsVisible());
+            clickCaseNotesTab();
         }
         catch(StaleElementReferenceException e) {
+            waitFor(2000);
             clickCaseNotesTab();
             System.out.println("TabsMainStep.userSelectCaseNotesTab() -->> StaleElementReferenceException: Clicked Element Again");
         }
@@ -26,15 +33,36 @@ public class TabsMainStep extends TabsMainPage {
         Assert.assertTrue(isClientTabIsVisible());
         clickClientsTab();
     }
+    @And("User click on case tab")
+    public void userClickOnCaseTabBillTo(){
+        try {
+            setImplicit(5);
+            clickCaseTab();
+        }
+        catch(StaleElementReferenceException e) {
+            clickCaseTab();
+            System.out.println("TabsMainStep.userClickOnCaseTabBillTo() -->> StaleElementReferenceException: Clicked Element Again");
+        }
+    }
     @And("User select Costs tab")
     public void userSelectCostsTab() {
-        clickCostsTab();
+        try{
+        setImplicit(20);
+        waitElementToBeClickable(costs_tab);
+        waitFor(5000);
+        clickCostsTab();}
+        catch(ElementClickInterceptedException | StaleElementReferenceException | TimeoutException e){
+            System.out.println("TabsMainStep.userSelectCostsTab() - ElementClickInterceptedException: "+e.getMessage());
+            waitFor(5000);
+            clickCostsTab();
+        }
     }
 
     @And("User Select Account Tab")
     public void userSelectAccountTab() {
-        clickAccountsTab();
-    }
+        waitFor(5000);
+        clickAccountsTab();}
+
     @Then("User click on plans programs tab")
     public void userClickOnTabPlansPrograms() {
         try {
@@ -47,10 +75,16 @@ public class TabsMainStep extends TabsMainPage {
             mouseOverClick(plans_programs_tab);
         }
     }
-
-    @And("User click on Task Appointments tab")
-    public void userClickOnTaskAppointmentsTab() {
-        clickTaskAppointmentsTab();
-        waitFor(3000);
+    @And("User Select Tasks Appointments Tab")
+    public void userClickTaskAppointmentTab() {
+        try {
+            waitFor(5000);
+            Assert.assertTrue(isTaskAppointmentsTabVisible());
+            clickTaskAppointmentsTab();
+        }catch (StaleElementReferenceException e){
+            System.out.println("TabsMainStep.userClickTaskAppointmentTab() - "+e.getClass());
+            setImplicit(10);
+            mouseOverClick(task_appointments_tab);
+        }
     }
 }

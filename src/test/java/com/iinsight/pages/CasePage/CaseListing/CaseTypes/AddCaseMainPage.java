@@ -7,6 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 public class AddCaseMainPage extends AddCaseMain {
     public AddCaseMainPage(){PageFactory.initElements(getDriver(), this);
     }
+    public String getBusinessDivisionInput(){return getAttributeValue(business_division_input,"value");}
+    public String getServiceContractInput(){return getAttributeValue(service_contract_input,"value");}
     public boolean isBusinessDivisionDropdownVisible(){return isElementDisplayed(business_division_dropdown);}
     public boolean isServiceContractDropdownVisible(){return isElementDisplayed(service_contract_dropdown);}
     public boolean isInvoiceTemplateDropdownVisible(){return isElementDisplayed(invoice_template_dropdown);}

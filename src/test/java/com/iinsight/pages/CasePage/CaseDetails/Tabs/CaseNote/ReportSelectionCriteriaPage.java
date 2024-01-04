@@ -9,13 +9,10 @@ public class ReportSelectionCriteriaPage extends ReportSelectionCriteria {
     public boolean isFromDateButtonVisible(){
         return isElementDisplayed(from_btn);
     }
-    public void clickFromDateButton(){
-        //clickButtonWithOutScroll(from_btn);
-        enterText(from_btn, "23-11-23");
+    public void clickFromDateButton(){clickButtonWithOutScroll(from_btn);
     }
-    public void clickToDateButton(){
-        //clickButtonWithOutScroll(to_btn);
-        enterText(to_date, "24-11-2023");
+    public String getDateValue(){return getAttributeValue(dateInput,"value");}
+    public void clickToDateButton(){clickButtonWithOutScroll(to_btn);
     }
     public void selectFromDate(){clickButtonWithOutScroll(from_date);
     }
@@ -33,14 +30,11 @@ public class ReportSelectionCriteriaPage extends ReportSelectionCriteria {
     }
     public void selectCustomRangeFromDateDropDown(){clickButtonWithOutScroll(dropdown_value7);
     }
-    public void selectAscendingFromOrderDropdown(){
-        SelectByVisibleText(order_dropdown,"Ascending");
-    }
     public void selectDescendingFromOrderDropdown(){
         SelectByVisibleText(order_dropdown,"Descending");
     }
-    public void userClickOnNoteType(){clickButtonWithOutScroll(note_type_dropdown);
-    }
+    public void clickNoteTypeDropDown(){clickButtonWithOutScroll(noteTypeDropDown);}
+    public String getNoteTypeInputText(){return getAttributeValue(noteTypeInput,"value");}
     public void selectOnlyPrivileged(){clickButtonWithOutScroll(dropdown_value3);
     }
     public void clickOnPrintPreviewButton(){clickButtonWithOutScroll(print_preview_btn);

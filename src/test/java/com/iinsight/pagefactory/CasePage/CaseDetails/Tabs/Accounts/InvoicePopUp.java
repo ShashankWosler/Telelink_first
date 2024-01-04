@@ -25,6 +25,11 @@ public class InvoicePopUp extends GenericWrappers {
     public WebElement enterDescription;
     @FindBy(id="addinvoice_1_next")
     public WebElement nextButton1;
+    @FindBy(xpath="//div[@id='invoice_costs_list']//tr[1]/td[9]")
+    public WebElement tableDurationTab;         //getAttributeBy - "title"
+    @FindBy(xpath="//div[@id='invoice_costs_list']//tr[1]/td[11]")
+    public WebElement tableChargeTab;          //getAttributeBy - "title"
+
     // Page 2
     @FindBy(css="img[id='standard']")
     public WebElement standardIcon;
@@ -49,7 +54,16 @@ public class InvoicePopUp extends GenericWrappers {
     //Page 3
     @FindBy(id="bill_to")
     public WebElement readCompanyName2;
-
+    @FindBy(id="total")
+    public WebElement totalTab;     //getAttribute - "value"
+    @FindBy(id="ex_tax")
+    public WebElement amountExVatTab;     //getAttribute - "value"
+    @FindBy(id="gst")
+    public WebElement vatAmountTab;     //getAttribute - "value"
+    @FindBy(id="inv_no_prefix")
+    public WebElement invoicePrefixTab;
+    @FindBy(id="inv_no")
+    public WebElement invoiceNumberTab;
     @FindBy(css="img[name='print']")
     public WebElement previewInvoiceButton;
     @FindBy(css="img[name='after_save'")

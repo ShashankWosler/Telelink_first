@@ -33,16 +33,22 @@ public class NewAppointment extends GenericWrappers {
     public WebElement allDayEventCheckBox;
     @FindBy(css="img[name='is_recurrence']")
     public WebElement recurrenceCheckBox;
-    @FindBy(id = "employeelist")
-    public WebElement selectedEmployeeField;
+    @FindBy(css = "div#employees_list div")
+    public WebElement selectedEmployee;
     @FindBy(id = "employeelist")
     public WebElement employeeInputTab;
+    @FindBy(css="[name='employeelist_button']")
+    public WebElement employeeDropDownButton;
     @FindBy(xpath="//button[@class='btn btn-form' and text()='Clear']")
     public WebElement addAppClearButton;
     @FindBy(xpath="//button[@class='btn btn-form' and text()='Remove']")
     public WebElement addAppRemoveButton;
     @FindBy(xpath="//button[@class='btn btn-form' and text()='Sort']")
     public WebElement addAppSortButton;
+    @FindBy(xpath="//div[@id='drop_down_multiselect']/child::div[last()]")
+    public WebElement SelectClientNameFromDropDown;
+    @FindBy(css="[id='appointment_category.list_id']")
+    public WebElement categoryInput;
     @FindBy(css="[name='appointment_category.list_id.button']")
     public WebElement categoryDropDown;
     @FindBy(css="[name='appointment_state.list_id.button']")
@@ -55,10 +61,18 @@ public class NewAppointment extends GenericWrappers {
     public WebElement zoomMeetCheckBox;
     @FindBy(css="[name='meeting_url_type_team']")
     public WebElement teamMeetCheckBox;
+    @FindBy(css="[id='office_location.list_id']")
+    public WebElement officeLocationInput;
     @FindBy(css="[name='office_location.list_id.button']")
     public WebElement officeLocationDropDown;
+    @FindBy(css="[id='appointment.location_id']")
+    public WebElement addressInput;
     @FindBy(className = "ql-editor.ql-blank")
     public WebElement descriptionInput;
+
+    // G E T       R E S O U R C E S
+    @FindBy(id="report_byemployee_4")
+    public WebElement clearButton;
 
     // A S S O C I A T E       W I T H       A       B I L L I N G
     @FindBy(css="[name='users.name_button']")
@@ -83,8 +97,12 @@ public class NewAppointment extends GenericWrappers {
     public WebElement saveButton;
     @FindBy(id="calendar_new_add_billing")
     public WebElement saveAddBillingButton;
+    @FindBy(id="calendar_new_saveadd_case")
+    public WebElement saveAddCaseButton;
     @FindBy(id="calendar_new_cancel")
     public WebElement cancelButton;
+    @FindBy(xpath="//div[@class='warning_msg']")
+    public WebElement errorMessage;
 
     // S A V E       B U T T O N       P O P - U P
     @FindBy(xpath="//div[text()='Add value to list']")
@@ -101,8 +119,6 @@ public class NewAppointment extends GenericWrappers {
     // A D D       A P P O I N T M E N T
     @FindBy(id="appointment_id")
     public WebElement appointmentIDText;
-    @FindBy(css="[id='appointment_category.list_id']")
-    public WebElement categoryInput;
     @FindBy(css="[id='appointment_state.list_id']")
     public WebElement statusInput;
 
@@ -124,7 +140,7 @@ public class NewAppointment extends GenericWrappers {
     @FindBy(xpath="(//img[@name='iin_appt_all_events_flag'])[1]")
     public WebElement allEventsCheckBox;             //All events in the entire series
 
-    // S A V E       B U T T O N S
+    // E D I T      S A V E       B U T T O N S
     @FindBy(id="calendar_edit_add")
     public WebElement editSaveButton;
     @FindBy(id="calendar_edit_add_billing")

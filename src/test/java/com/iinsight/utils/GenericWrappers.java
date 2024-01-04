@@ -8,6 +8,7 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConfigurationFactory;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -84,11 +85,12 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         String username = System.getenv("rajus") == null ? "rajus" : System.getenv("LT_USERNAME");
         String accesskey = System.getenv("gQvMdzDsejcUM2I5R2hTflz0fIfti88OB350cURKh52uL9IOAX") == null ? "gQvMdzDsejcUM2I5R2hTflz0fIfti88OB350cURKh52uL9IOAX" : System.getenv("LT_ACCESS_KEY");
         DesiredCapabilities capability = new DesiredCapabilities();
-        capability.setCapability("build", "Iinsight");
+        capability.setCapability("build", "IinsightSanity"+config.getString("defaultCountry"));
         capability.setCapability("network", true);
         capability.setCapability("video", true);
         capability.setCapability("console", true);
         capability.setCapability("visual", true);
+        capability.setCapability("terminal", true);
         if (parallelExecution.equalsIgnoreCase("true")) {
             if (browser.toLowerCase().equals(Variable.CHROME)) {
                 capability.setCapability(CapabilityType.BROWSER_NAME, "chrome");
@@ -129,7 +131,6 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
                     prefs.put("profile.default_content_setting_values.notifications", 2);
                     ChromeOptions options = new ChromeOptions();
                     options.setExperimentalOption("prefs", prefs);
-
                     driver.set(new ChromeDriver(options));
                 } else if (isTextContain(osname, ("Linux"))) {
                     System.setProperty("webdriver.chrome.driver", "./driver/chromedriverlinux");
@@ -193,15 +194,22 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public void mouseOver(WebElement element) {
-
         waitVisibilityOfElement(element);
         new Actions(getDriver()).moveToElement(element).build().perform();
+
+    }
+    public void mouseOverClick(WebElement element) {
+        waitVisibilityOfElement(element);
+        new Actions(getDriver()).moveToElement(element).click(element).build().perform();
     }
 
     public void mouseOver(List<WebElement> element, int index) {
-
         waitVisibilityOfElement(element.get(index));
         new Actions(getDriver()).moveToElement(element.get(index)).build().perform();
+    }
+    public void mouseRightClick(WebElement element){
+        waitVisibilityOfElement(element);
+        new Actions(getDriver()).contextClick(element).perform();
     }
 
     public String getText(WebElement element){
@@ -231,7 +239,6 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public void waitFor(int sleepTime){
-
         try {
 
             Thread.sleep(sleepTime);
@@ -272,6 +279,15 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
                 .executeScript("window.scrollTo(0, document.body.scrollHeight)");
         waitFor(3000);
     }
+    public void clickWithJS(WebElement element){
+        JavascriptExecutor js =  (JavascriptExecutor)getDriver();
+        js.executeScript("arguments[0].click();", element);
+        waitFor(2000);
+    }
+    public void enterTextWithJS(WebElement element, String enter){
+        JavascriptExecutor js =  (JavascriptExecutor)getDriver();
+        js.executeScript("arguments[0].value='"+enter+"';", element);
+    }
 
     public By locateXpath(String xpath){
 
@@ -300,20 +316,55 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public void enterText(WebElement element, String ... textValue) {
-
         //scrollToElement(element);
         waitVisibilityOfElement(element);
         element.clear();
         logger.info("Entered Text - " + textValue);
         element.sendKeys(textValue);
     }
+    public void enterTextAppend(WebElement element, String textValue){
+        waitElementToBeClickable(element);
+        logger.info("Entered Text - " + textValue);
+        element.sendKeys(Keys.chord(Keys.ARROW_RIGHT));
+        for (char c : textValue.toCharArray()) {
+            String charAsString = String.valueOf(c);
+            element.sendKeys(charAsString);
+            waitFor(100);
+        }
+
+    }
+    public void enterTextAndEnter(WebElement element, String ... textValue) {
+        //scrollToElement(element);
+        waitVisibilityOfElement(element);
+        element.clear();
+        logger.info("Entered Text - " + textValue);
+        element.sendKeys(Keys.ENTER);
+    }
 
     public void enterTextWithoutScroll(WebElement element, String textValue) {
-
         waitElementToBeClickable(element);
         element.clear();
         logger.info("Entered Text - " + textValue);
         element.sendKeys(textValue);
+    }
+    public void enterTextAndClearAll(WebElement element, String textValue){
+        waitElementToBeClickable(element);
+        logger.info("Entered Text - " + textValue);
+        element.sendKeys(Keys.chord(Keys.CONTROL,"a",Keys.DELETE));
+        element.sendKeys(textValue);
+    }
+    public void enterTabKey(WebElement element){
+        waitElementToBeClickable(element);
+        element.sendKeys(Keys.TAB);
+    }
+    public void slowType(WebElement element, String text) {
+        waitElementToBeClickable(element);
+        logger.info("Entered Text - " + text);
+        for (char c : text.toCharArray()) {
+            String charAsString = String.valueOf(c);
+            element.sendKeys(charAsString);
+            waitFor(100);
+        }
     }
 
     public void waitVisibilityOfElement(WebElement element) {
@@ -322,12 +373,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public void waitElementToBeClickable(WebElement element) {
-
         webDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void waitPresenceOfElementLocated(By by) {
-
         webDriverWait().until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
@@ -422,7 +471,6 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public String getAttributeValue(WebElement element, String attributeName){
-
         waitVisibilityOfElement(element);
         logger.info("Attribute Value - "+element.getAttribute(attributeName));
         return element.getAttribute(attributeName);
@@ -434,7 +482,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
         org.apache.commons.io.FileUtils.copyFile(scrFile,
                 new File(getCurrentDir() + "/target/FailureScreenShots/" + scrname + ".png"));
-        System.out.println(scrname+"Sce Nameashgdhjsbhbhbh123");
+        System.out.println("GenericWrappers.takeSnap() -"+scrname);
         System.out.println("inside screenshot");
         final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
         scenario.embed(screenshot, "image/png"); // ... and embed it in the report.
@@ -444,7 +492,6 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public static String getCurrentDir(){
-
         String currentDir = System.getProperty("user.dir");
         currentDir = currentDir.replace('\\', '/');
         return currentDir;
@@ -453,9 +500,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     public void scrollToElement(WebElement element) {
         waitFor(5000);
         ((JavascriptExecutor) getDriver()).executeScript("arguments[0].scrollIntoView(true);", element);
-
     }
-
     public void scrollByPixel() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollBy(0,300)", "");
@@ -476,8 +521,11 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("document.body.style.zoom='" + zoomLevel + "'");
     }
-    
-  
+    public String getInnerText(WebElement elem) {
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        String text = (String) js.executeScript("return arguments[0].value", elem);
+        return text;
+    }
 
     public Select selectDropdown(WebElement element){
 
@@ -504,10 +552,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
 
         webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".oak-searchResults_preloader")));
     }
-    public void mouseOverClick(WebElement element) {
-        waitVisibilityOfElement(element);
-        new Actions(getDriver()).moveToElement(element).click(element).build().perform();
-    }
+
 
     public void waitForPaypalLoadIconDisappear(){
 
@@ -539,6 +584,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         System.out.println("val: "+point.getX());
         actions.dragAndDropBy(element, point.getX()-offSet, point.getY()).build().perform();
     }
+
     public void swipeByXCoordinates(WebElement element, int offSet){
 
         Point point = element.getLocation();
@@ -548,7 +594,6 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public WebElement getXpathElement(String xpath){
-
         return getDriver().findElement(By.xpath(xpath));
     }
 
@@ -566,18 +611,14 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     public void switchToDefaultContent(){
         getDriver().switchTo().defaultContent();
     }
-    public void selectDropDownFromText (String dropDownvalue){
-        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[text()="+'"'+dropDownvalue+'"'+"]");
-        waitPresenceOfElementLocated(elem);
-        clickButtonWithOutScroll(getDriver().findElement(elem));
-    }
-    public void getID(String str, String ID) {
+
+    public void getID(String keyToBeCreated, String ID) {
         String filePath = "src/test/configFile/temp.properties";
         Properties properties = new Properties();
-        String key = str+"ID";
+        String key = keyToBeCreated+"ID";
         try (InputStream input = new FileInputStream(filePath)) {
             properties.load(input);
-            properties.setProperty(key,ID );
+            properties.setProperty(key,ID.replaceAll(" ",""));
             System.out.println("To Write: "+ key+" "+ID);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -591,7 +632,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         }
 
     }
-    public String getTestDatValue(String key) {
+    public String getTestDataValue(String key) {
         Properties properties = new Properties();
         try {
             FileInputStream file = new FileInputStream("src/test/configFile/temp.properties");
@@ -602,9 +643,21 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         }
         return properties.getProperty(key);
     }
-    public String getInnerText(WebElement elem) {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        String text = (String) js.executeScript("return arguments[0].value", elem);
-        return text;
+    public void selectDropDownFromText (String dropDownvalue){
+        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[contains(text(),"+'"'+dropDownvalue+'"'+")]");
+        waitPresenceOfElementLocated(elem);
+        clickButtonWithOutScroll(getDriver().findElement(elem));
+    }
+
+
+    public void selectTimeFromDropDown(String time){
+        By elem = By.xpath("//div[@class='calendricalTimePopup']//a[text()='"+time+"']");
+        waitPresenceOfElementLocated(elem);
+        clickButtonWithOutScroll(getDriver().findElement(elem));
+    }
+    public void selectOptionFromAppointmentTab(String valueToSelect){
+        By elem = By.xpath("//li[@role='option' and text()='"+valueToSelect+"']");
+        waitPresenceOfElementLocated(elem);
+        clickButtonWithOutScroll(getDriver().findElement(elem));
     }
 }

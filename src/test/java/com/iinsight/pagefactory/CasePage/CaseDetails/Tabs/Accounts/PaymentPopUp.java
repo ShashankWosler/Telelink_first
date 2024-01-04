@@ -27,6 +27,14 @@ public class PaymentPopUp extends GenericWrappers {
     @FindBy(id="payment_1_4")
     public WebElement nextButton1;
 
+    // V E R I F Y      F I E L D S
+    @FindBy(id="case_current")
+    public WebElement caseIdTab;        //getAttribute - "value"
+    @FindBy(id="invoice_current")
+    public WebElement invoiceIdTab;        //getAttribute - "value"
+    @FindBy(id="payment")
+    public WebElement amountTab;
+
     // S E C O N D    P A G E
     @FindBy(id="payment_2_6")
     public WebElement finishButton;
@@ -46,4 +54,9 @@ public class PaymentPopUp extends GenericWrappers {
     public WebElement okButtonEditAmountPopUp;
     @FindBy(id="amount")
     public WebElement enterAmountInput;
+
+    @FindBy(id="owing_column")
+    public WebElement tableOwningTab;       //getAttribute - "title"
+
+
 }

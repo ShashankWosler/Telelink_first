@@ -31,7 +31,7 @@ public class AddNewNotePage extends AddNewNote {
         }
 
     public void enterUpdatedTitle(){
-        String enteredTitle = "Test-New Title "+num;
+        String enteredTitle = "Test-Updated Title "+num;
         enterTextWithoutScroll(title,enteredTitle);
     }
     public void verifyCaseNoteTemplate_dropdownIsVisible(){isElementDisplayed(case_note_template_dropdown);
@@ -46,9 +46,7 @@ public class AddNewNotePage extends AddNewNote {
     }
     public void verifySaveButtonIsVisible(){isElementDisplayed(save_btn);
     }
-    public void clickSaveButton(){
-        clickButtonWithOutScroll(save_btn);
-        waitFor(2000);
+    public void clickSaveButton(){clickButtonWithOutScroll(save_btn);
     }
     public void verifyCancelButtonIsVisible(){isElementDisplayed(cancel_btn);
     }
