@@ -28,7 +28,7 @@ public class CaseListingPage extends CaseListingMain {
     }
     public void clickFieldsEditButton(){clickButtonWithOutScroll(fieldsEditBtn);
     }
-    public void clickDropDownCases(){clickButtonWithOutScroll(dropDown);
+    public void clickEllipsesIcon(){clickButtonWithOutScroll(ellipsesIcon);
     }
     public void clickDropDownExportValue(){clickButtonWithOutScroll(dropDownValue1);
     }
@@ -36,7 +36,13 @@ public class CaseListingPage extends CaseListingMain {
     }
     public void clickDropDownArchiveCaseValue(){clickButtonWithOutScroll(dropDownValue3);
     }
+    public void clickArchiveConfirmBtn(){clickButtonWithOutScroll(archiveConfirmBtn);
+    }
     public void clickDropDownDeleteCaseValue(){clickButtonWithOutScroll(dropDownValue4);
+    }
+    public void clickProceedAnywayDeleteBtn(){clickButtonWithOutScroll(proceedAnywayBtn);
+    }
+    public void clickDeleteCaseBtn(){clickButtonWithOutScroll(deleteCaseBtn);
     }
     public void clickFilterDropDown(){clickButtonWithOutScroll(filterDropDown);
     }

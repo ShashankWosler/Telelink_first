@@ -8,7 +8,7 @@ public class Login extends GenericWrappers {
     @FindBy(id = "username")
     public WebElement txt_Username;
     @FindBy(css = "[type=password]")
-    public WebElement txt_Password;
+    public static WebElement txt_Password;
     @FindBy(id = "login_btn")
     public WebElement btn_SignIn;
     @FindBy(id = "force_one_user_ok")

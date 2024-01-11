@@ -1,7 +1,9 @@
 package com.iinsight.steps.CasePage;
 
 import com.iinsight.TestData.CaseTypeTestData;
+import com.iinsight.pagefactory.LoginPage.Login;
 import com.iinsight.pages.CasePage.CaseListing.CaseListingPage;
+import com.iinsight.pages.LoginPage.LoginPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -65,5 +67,37 @@ public class CaseListingStep extends CaseListingPage {
         }
         System.out.println();
     }
+
+    @And("User click on ellipses and Select Delete Case")
+    public void userClickOnEllipsesAndSelectDeleteCase() {
+        clickEllipsesIcon();
+    }
+
+    @And("User click on Proceed Anyway From Delete PopUp")
+    public void userClickOnProceedAnywayFromDeletePopUp() {
+        clickDropDownDeleteCaseValue();
+        clickProceedAnywayDeleteBtn();
+        clickDeleteCaseBtn();
+    }
+
+    @And("Verify case is deleted from listing page")
+    public void verifyCaseIsDeletedFromListingPage() {
+
+    }
+
+    @And("User click on ellipses and Select Archive Case")
+    public void userClickOnEllipsesAndSelectArchiveCase() {
+        clickEllipsesIcon();
+        clickDropDownArchiveCaseValue();
+
+    }
+
+    @And("User click on Proceed Anyway From Archive PopUp")
+    public void userClickOnProceedAnywayFromArchivePopUp() {
+        clickArchiveConfirmBtn();
+        LoginPage.enterPassword();
+        clickArchiveConfirmBtn();
+    }
+
 
 }

@@ -122,5 +122,9 @@ public class CaseLogsStep extends CaseLogsPage {
      waitFor(3000);
      Assert.assertTrue(getAttributeValue(title_text,"title").contains(logValue));
  }
-
+    @Then("Verify that {string} Recurrence appointment of should be visible in Case logs")
+    public void verifyRecurrenceAppointmentLogs(String logValue){
+        waitFor(3000);
+        getRecurrenceCaseLog(logValue);
+    }
 }

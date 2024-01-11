@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class TaskMain extends GenericWrappers {
     // C O M M O N
     @FindBy(id="cases_todo_new")
@@ -73,6 +75,9 @@ public class TaskMain extends GenericWrappers {
     public WebElement StartTimeFirstRow;      //getAttribute - title="04:21 pm"
     @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[14]")
     public WebElement taskFirstAmountOfTable;  //getAttribute - value=R2&nbsp;200,00
+    // R E C U R R E N C E
+    @FindBy(xpath="//div[@id='task_appoinment']//tr")
+    public List<WebElement> taskRows;
 
     // D E L E T E    P O P - U P
     @FindBy(xpath="//div[text()='Delete Task']")

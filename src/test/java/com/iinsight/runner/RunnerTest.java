@@ -12,7 +12,7 @@ import com.cucumber.listener.Reporter;
 @CucumberOptions(
         //strict = (true),
         features = {"./src/test/resources/"},
-        tags = "@RunOnce",
+        tags = "@VerifyTest",
         glue = {""},
         plugin = {"pretty", "html:target/cucumber/report.html", "json:target/cucumber/report.json"},
       //  plugin = { "com.vimalselvam.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/advanced-report.html/cucumber-html-reports/report.html"},

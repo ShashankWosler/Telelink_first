@@ -99,7 +99,23 @@ public class Billing extends GenericWrappers {
     public WebElement cancelButton;
 
 
+    // N E W    T I M S H E E T     B I L L I N G
+    @FindBy(id="search_field")
+    public WebElement searchByInput;    //getAttribute - "value"
+    @FindBy(css="[name='search_field_button']")
+    public WebElement searchByDropDown;
+    @FindBy(css="[id='costs.case']")
+    public WebElement searchTextInput;
+    @FindBy(css="[name='costs.case_button']")
+    public WebElement searchTextDropDown;
+    @FindBy(css="[id='costs.role']")
+    public WebElement roleInput;        //getAttribute - "value"
 
+    // W A R N I N G    N O T I F I C A T I O N S   - Are you sure you want close this window? Any unsubmitted costs or changes will be lost.
+    @FindBy(id="documen")
+    public WebElement okButton;
+    @FindBy(id="doc")
+    public WebElement cancelButtonTimesheet;
 
 
 

@@ -1,5 +1,6 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.CaseNote.CaseLogs;
 import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
@@ -60,6 +61,14 @@ public class CaseLogsPage extends CaseLogs{
         System.out.println("InvoiceID in Case Log ----- "+actual);
         System.out.println("Expected InvoiceID ----- "+str);
         //Assert.assertTrue(actual, actual.contains(str));
-
+    }
+    public void getRecurrenceCaseLog(String logValue){
+        int daysDiff = CaseTypeTestData.CheckBoxesList.size();
+        for(int i = 0; i< daysDiff; i++){
+            String getText = getAttributeValue(caseLogsList.get(i),"title");
+            Assert.assertTrue(getText.contains(logValue));
+        } if(logValue.equals("deleted")){
+            CaseTypeTestData.CheckBoxesList.clear();
+        }
     }
 }

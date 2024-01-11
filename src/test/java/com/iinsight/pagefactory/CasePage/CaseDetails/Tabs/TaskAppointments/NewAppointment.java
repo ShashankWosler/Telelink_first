@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class NewAppointment extends GenericWrappers {
     @FindBy(xpath="//div[text()='New Appointment Entry']")
     public WebElement newAppointmentPopUp;
@@ -113,6 +115,8 @@ public class NewAppointment extends GenericWrappers {
     public WebElement NoButtonAddValuePopUp;
     @FindBy(id="list_check_ask4_3")
     public WebElement CancelButtonAddValuePopUp;
+    @FindBy(css="div.warning_msg")
+    public WebElement getRecurrenceOverlapError;
 
     // E D I T       P O P - U P
 
@@ -165,5 +169,120 @@ public class NewAppointment extends GenericWrappers {
     public WebElement deleteFollowingEventCheckBox;       //This and the following events
     @FindBy(xpath="(//img[@name='iin_appt_all_events_flag'])[2]")
     public WebElement deleteAllEventsCheckBox;             //All events in the entire series
+
+    // R E C U R R E N C E      L O C A T O R S
+    @FindBy(id="recurrence-html-b")
+    public WebElement recurrenceFields;     //isElementDisplayed
+
+    // Recurrence Pattem
+    @FindBy(id="recurr_frequency_day")
+    public WebElement recDayCheckBox;
+    @FindBy(id="recurr_frequency_week")
+    public WebElement recWeeklyCheckBox;
+    @FindBy(id="recurr_frequency_month")
+    public WebElement recMonthlyCheckBox;
+    @FindBy(id="recurr_frequency_year")
+    public WebElement recYearCheckBox;
+
+    //Recurrence Pattem - Respective Fields
+    /** DAY */
+    @FindBy(css="img[name='recurr_every_day']")
+    public WebElement recEveryDayCheckBox;      //recDayCheckBox
+    @FindBy(css="input[id='recurr_every_day.value']")
+    public WebElement recEveryDayInput;         //recDayCheckBox - attribute = "value"
+    @FindBy(css="img[name='recurr_every_week']")
+    public WebElement recEveryWeekCheckBox;     //recDayCheckBox
+
+    /** WEEKLY*/
+    @FindBy(id="recurr_every_week")
+    public WebElement recWeeklyInput;           //recWeeklyCheckBox - attribute = "value"
+
+    /**WEEKLY_CheckBox_Weeks_Name*/
+    @FindBy(id="recurr_every_week_saturday")
+    public WebElement recWeeklySaturday;        //recWeeklyCheckBox - attribute = "value" [0,1] [UnCheck, Check]
+    @FindBy(id="recurr_every_week_sunday")
+    public WebElement recWeeklySunday;
+    @FindBy(id="recurr_every_week_monday")
+    public WebElement recWeeklyMonday;
+    @FindBy(id="recurr_every_week_tuesday")
+    public WebElement recWeeklyTuesday;
+    @FindBy(id="recurr_every_week_wednesday")
+    public WebElement recWeeklyWednesday;
+    @FindBy(id="recurr_every_week_thursday")
+    public WebElement recWeeklyThursday;
+    @FindBy(id="recurr_every_week_friday")
+    public WebElement recWeeklyFriday;
+    @FindBy(xpath="//img[contains(@id,'recurr_every_week')]")
+    public List<WebElement> recWeeklys;
+
+    /**MONTHLY*/
+    @FindBy(id="recurr_month_option_1")
+    public WebElement recMonthlyDayInput1;      //recMonthlyCheckBox - Day "recMonthlyDayInput1" - getAttribute "value"
+    @FindBy(id="recurr_month_every_month")
+    public WebElement recMonthlyEveryMonthInput;      //recMonthlyCheckBox - of every "recMonthlyEveryMonthInput" months
+    @FindBy(id="recurr_month_option_2")
+    public WebElement recMonthlyWeekCheckBox;       // text() - The CheckBox
+    @FindBy(css="img[name='recurr_month_position_day.button']")
+    public WebElement recMonthlyWeekNumberDropDown;
+    @FindBy(id="recurr_month_position_day")
+    public WebElement recMonthlyWeekNumberInput;
+    @FindBy(id="recurr_month_select_day")
+    public WebElement recMonthlyDayInput2;  // text() - Weekdays Name - Monday
+    @FindBy(css="img[name='recurr_month_select_day.button']")
+    public WebElement recMonthlyWeekDaysDropDown;
+    @FindBy(id="recurr_month_every_month_option_2")
+    public WebElement recMonthlyDayInput3;  //recMonthlyCheckBox - text() of evry "recMonthlyDayInput2" Month- getAttribute "value"
+
+    /**YEARLY*/
+    @FindBy(id="recurr_year_every")
+    public WebElement recYearlyEveryInput;  //getAttribute - "value"
+    @FindBy(css="img[name='recurr_year_option_1']")
+    public WebElement recYearlyOnCheckBox;
+    @FindBy(css="img[name='recurr_year_option_2']")
+    public WebElement recYearlyOnTheCheckBox;
+    @FindBy(css="[name='recurr_year_option_1_on_month.button']")
+    public WebElement recYearlyMonthDropDown;
+    @FindBy(css="[name='recurr_year_option_2_position_day.button']")
+    public WebElement recYearlyWeekCountDropDown;
+    @FindBy(css="[name='recurr_year_option_2_select_day.button']")
+    public WebElement recYearlyWeekNameDropDown;
+    @FindBy(css="[name='recurr_year_option_2_on_month.button']")
+    public WebElement recYearlyMonthDropDown2;  //On The
+    @FindBy(id="recurr_year_option_1_on")
+    public WebElement recYearlyOnDateInput;
+    @FindBy(id="recurr_year_option_1_on_month")
+    public WebElement recYearlyMonthInput1;
+    @FindBy(id="recurr_year_option_2_position_day")
+    public WebElement recYearlyWeekCountInput;
+    @FindBy(id="recurr_year_option_2_select_day")
+    public WebElement recYearlyWeekNameInput;
+    @FindBy(id="recurr_year_option_2_on_month")
+    public WebElement recYearlyMonthInput2;     //On The
+
+    /** R E C U R  R E N C E __ R A N G E*/
+    @FindBy(css="img[name='recurr_end_after']")
+    public WebElement endAfterCheckBox;
+    @FindBy(css="img[name='recurr_end_by']")
+    public WebElement endByCheckBox;
+    @FindBy(id="recurrence_start_date")
+    public WebElement startDate;    //getAttribute = "value" - DD-MM-YYYY
+    @FindBy(id="recurr_end_after_nro")
+    public WebElement recurrenceCountInput;
+    @FindBy(id="recurrence_end_by_date")
+    public WebElement endDateInput;     //getAttribute = "value" - MM-DD-YYY : getAttribute = "value" - DD-MM-YYYY
+    @FindBy(xpath="//div[@id='recurrence-html-c']//button")
+    public WebElement showAppointmentButton;
+
+    // S H O W      A P P O I N T M E N T      S E R V I C E S
+    @FindBy(xpath="//div[contains(text(),'Show Appointment Series')]")
+    public WebElement showAppointmentVisible;
+    @FindBy(xpath="//table[@id='table_appointment_series']//tbody/tr/td[position() mod 3=0]")
+    public List<WebElement> showAppointmentDates;
+    @FindBy(xpath="//table[@id='table_appointment_series']//tbody/tr/td[position() mod 4=0]")
+    public List<WebElement> showAppointmentDays;
+    @FindBy(id="check_day")
+    public List<WebElement> showAppointmentCheckBoxes;
+    @FindBy(id="level4_form_close")
+    public WebElement showAppointmentCloseButton;
 
 }

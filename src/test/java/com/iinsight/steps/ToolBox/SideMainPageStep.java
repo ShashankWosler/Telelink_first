@@ -1,6 +1,6 @@
 package com.iinsight.steps.ToolBox;
 
-import com.iinsight.pages.Toolbox.SideMainPage;
+import com.iinsight.pages.Toolbox.Side.SideMainPage;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
 

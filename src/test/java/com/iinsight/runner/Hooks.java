@@ -49,6 +49,6 @@ public class Hooks extends GenericWrappers {
     @Before
     public void updateName(Scenario scenario) throws InterruptedException {
         new GenericWrappers().invokeApp();
-        getDriver().executeScript("lambda-name=" + scenario.getName());
+       getDriver().executeScript("lambda-name=" + scenario.getName());
     }
 }

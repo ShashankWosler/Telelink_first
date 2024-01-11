@@ -2,6 +2,7 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.TaskAppointments.TaskMain;
+import org.junit.Assert;
 import org.openqa.selenium.support.PageFactory;
 
 public class TaskMainPage extends TaskMain {
@@ -14,12 +15,11 @@ public class TaskMainPage extends TaskMain {
         waitVisibilityOfElement(addNewTaskButton);
         return isElementDisplayed(addNewTaskButton);
     }
-    public void clickNewTaskButton(){
-        waitElementToBeClickable(addNewTaskButton);
-        mouseOverClick(addNewTaskButton);
+    public boolean isNewAppointmentButtonVisible(){
+        waitVisibilityOfElement(addNewAppointmentButton);
+        return isElementDisplayed(addNewAppointmentButton);
     }
-    public void clickAddNewAppointmentButton(){clickButtonWithOutScroll(addNewAppointmentButton);
-    }
+
     public void clickEditButton(){clickButtonWithOutScroll(editButton);
     }
     public void clickDeleteButton(){clickButtonWithOutScroll(deleteButton);
@@ -88,7 +88,6 @@ public class TaskMainPage extends TaskMain {
     public String getStartTimeFirstRowText(){return getAttributeValue(StartTimeFirstRow,"title");
     }
     public String getTaskFirstAmountOfTableText(){return getAttributeValue(taskFirstAmountOfTable,"title").replaceAll("[^0-9]","");}
-
 
     // D E L E T E    P O P - U P
     public boolean isDeletePopUpVisible(){

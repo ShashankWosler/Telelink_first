@@ -22,16 +22,24 @@ public class CaseListingMain extends GenericWrappers {
     public WebElement searchBtn;
     @FindBy(id="fields_view_multicriteria_case_list")
     public WebElement fieldsEditBtn;
-    @FindBy(className="btn-group hidden-sm")
-    public WebElement dropDown;
+    @FindBy(css="div[class='btn-group hidden-sm']")
+    public WebElement ellipsesIcon;
     @FindBy(css="[title='Export']")
     public WebElement dropDownValue1;
     @FindBy(css="[title='Save view']")
     public WebElement dropDownValue2;
     @FindBy(id="archive_case")
     public WebElement dropDownValue3;
-    @FindBy(id="restore_archive_case")
+    @FindBy(id="contact_new_1")
+    public WebElement archiveConfirmBtn;
+    @FindBy(id="user_bypass_password")
+    public WebElement passwordField;
+    @FindBy(id="case_list_delete")
     public WebElement dropDownValue4;
+    @FindBy(id="contact_new_3")
+    public WebElement proceedAnywayBtn;
+    @FindBy(id="contact_new_1")
+    public WebElement deleteCaseBtn;
     @FindBy(css="[id='case_list.filter']")
     public WebElement filterDropDown;
     @FindBy(css="td[id='case_details.case_n_column']")

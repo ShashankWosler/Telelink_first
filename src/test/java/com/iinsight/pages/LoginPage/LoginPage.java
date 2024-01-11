@@ -6,9 +6,10 @@ import org.openqa.selenium.support.PageFactory;
 public class LoginPage extends Login {
     public LoginPage(){PageFactory.initElements(getDriver(), this);
     }
-    public void enterEmail() {enterTextWithoutScroll(txt_Username,globalUserName);
+    public void enterEmail() {
+        enterTextWithoutScroll(txt_Username,globalUserName);
     }
-    public void enterPassword()
+    public static void enterPassword()
     {
         enterTextWithoutScroll(txt_Password, globalPassword);
     }

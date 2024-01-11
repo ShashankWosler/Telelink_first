@@ -30,14 +30,14 @@ import java.util.logging.Logger;
 
 public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDropDown{
 
-    public Logger logger = Logger.getLogger(String.valueOf(GenericWrappers.class));
+    public static Logger logger = Logger.getLogger(String.valueOf(GenericWrappers.class));
     public static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     public static Configuration config = null;
     private String parallelExecution;
     public static String appUrl, globalUserName, globalPassword;
     private String browser;
     public int implicit=60;
-    public int  explicit=60;
+    public static int  explicit=60;
     private Select select;
 
     public GenericWrappers() {
@@ -153,7 +153,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         }
     }
 
-    public RemoteWebDriver getDriver(){
+    public static RemoteWebDriver getDriver(){
 
         return driver.get();
     }
@@ -179,7 +179,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         return Integer.parseInt("60");
     }
 
-    public WebDriverWait webDriverWait(){
+    public static WebDriverWait webDriverWait(){
 
         return new WebDriverWait(getDriver(), explicit);
     }
@@ -341,7 +341,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         element.sendKeys(Keys.ENTER);
     }
 
-    public void enterTextWithoutScroll(WebElement element, String textValue) {
+    public static void enterTextWithoutScroll(WebElement element, String textValue) {
         waitElementToBeClickable(element);
         element.clear();
         logger.info("Entered Text - " + textValue);
@@ -372,7 +372,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         webDriverWait().until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitElementToBeClickable(WebElement element) {
+    public static void waitElementToBeClickable(WebElement element) {
         webDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
@@ -660,4 +660,5 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         waitPresenceOfElementLocated(elem);
         clickButtonWithOutScroll(getDriver().findElement(elem));
     }
+
 }

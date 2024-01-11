@@ -28,16 +28,21 @@ public class NewAppointmentStep extends NewAppointmentPage {
                 break;
         }
     }
-    @And("User Enter all the mandatory fields for creating appointment")
-    public void enterAppointmentDetails(){
+    @And("User Enter all the mandatory fields for creating {string} appointment")
+    public void enterAppointmentDetails(String appointmentType){
         waitFor(10000);
-
         try {
             setImplicit(60);
             Assert.assertTrue(dropDownDisplayed());
             insertTitleInput();
-            insertDateInputTab();
-            insertToDateInputTab();
+            if(appointmentType.equals("Recurrence")){
+                System.out.println("Skip To Enter Date");
+                DateInputTabDisable();
+                ToDateInputTabDisable();
+            } else if (appointmentType.equals("Non Recurrence")){
+                insertDateInputTab();
+                insertToDateInputTab();
+            }
             enterStartTime();
             enterEndTime();
             clickAddAppClearButton();
@@ -50,34 +55,34 @@ public class NewAppointmentStep extends NewAppointmentPage {
             System.out.println("NewAppointmentStep.enterAppointmentDetails()1 - "+e.getClass()+" "+e.getMessage());
         }finally {
             try{
-            waitFor(4000);
-            clickSelectedEmployee();
-            SelectByVisibleText(billingDropDown, "CTP403 : TestAutoActivity");
+                waitFor(4000);
+                clickSelectedEmployee();
+                SelectByVisibleText(billingDropDown, "CTP403 : TestAutoActivity");
                 waitFor(2000);
-            clickOfficeLocationDropDown();
-            //waitFor(2000);
-            selectDropDownFromText(locationValue);
-            waitFor(2000);
-            Assert.assertEquals(getOfficeLocationInput(), locationValue);
-            isAddressInput();
-            Assert.assertFalse(getAutoGenerateAddress().isEmpty());
+                clickOfficeLocationDropDown();
                 //waitFor(2000);
-            clickCategoryDropDown();
-            selectDropDownFromText(categoryValue);
+                selectDropDownFromText(locationValue);
                 waitFor(2000);
-            Assert.assertEquals(getCategoryInputText(), categoryValue);
-            clickStatusDropDown();
+                Assert.assertEquals(getOfficeLocationInput(), locationValue);
+                isAddressInput();
+                Assert.assertFalse(getAutoGenerateAddress().isEmpty());
                 //waitFor(2000);
-            selectDropDownFromText(statusValue);
+                clickCategoryDropDown();
+                selectDropDownFromText(categoryValue);
                 waitFor(2000);
-            Assert.assertEquals(getStatusInputText(), statusValue);
+                Assert.assertEquals(getCategoryInputText(), categoryValue);
+                clickStatusDropDown();
+                //waitFor(2000);
+                selectDropDownFromText(statusValue);
+                waitFor(2000);
+                Assert.assertEquals(getStatusInputText(), statusValue);
 
-        }catch(Exception e){
-            System.out.println("NewAppointmentStep.enterAppointmentDetails()2 - "+e.getClass()+" "+ e.getMessage());
-            waitFor(2000);
-            clickOfficeLocationDropDown();
-            waitFor(2000);
-        }}
+            }catch(Exception e){
+                System.out.println("NewAppointmentStep.enterAppointmentDetails()2 - "+e.getClass()+" "+ e.getMessage());
+                waitFor(2000);
+                clickOfficeLocationDropDown();
+                waitFor(2000);
+            }}
     }
     @And("User Click on Add Billing Button from Appointment Entry PopUp")
     public void clickOnBillingButtonPopUp(){
@@ -86,28 +91,38 @@ public class NewAppointmentStep extends NewAppointmentPage {
         Assert.assertTrue(isCancelButtonVisible());
         clickSaveAddBillingButton();
         try{
-        boolean flag = false;
-        flag = isCostMessageVisible();
-        if(flag){
-            Assert.assertTrue("NewAppointmentStep.clickOnBillingButton() - Cost Error Message Visible",isCostMessageVisible());
-        }}catch(StaleElementReferenceException | TimeoutException e){
-            System.out.println("NewAppointmentStep.clickOnBillingButton() - "+e.getClass()+" "+e.getMessage());
-        }
-    }
-    @And("User Click on Save Button from Appointment Entry PopUp")
-    public void clickOnSaveButtonPopUp(){
-        try{
-        setImplicit(10);
-        Assert.assertTrue(isSaveAddBillingButtonVisible());
-        Assert.assertTrue(isCancelButtonVisible());
-        clickSaveButton();
             boolean flag = false;
             flag = isCostMessageVisible();
             if(flag){
                 Assert.assertTrue("NewAppointmentStep.clickOnBillingButton() - Cost Error Message Visible",isCostMessageVisible());
             }}catch(StaleElementReferenceException | TimeoutException e){
             System.out.println("NewAppointmentStep.clickOnBillingButton() - "+e.getClass()+" "+e.getMessage());
-        }}
+        }
+    }
+    @And("User Click on Save Button from Appointment Entry PopUp")
+    public void clickOnSaveButtonPopUp(){
+        try{
+            setImplicit(10);
+            Assert.assertTrue(isSaveAddBillingButtonVisible());
+            Assert.assertTrue(isCancelButtonVisible());
+            clickSaveButton();
+            boolean flag = false;
+            flag = isCostMessageVisible();
+            if(flag){
+                Assert.assertTrue("NewAppointmentStep.clickOnBillingButton() - Cost Error Message Visible",isCostMessageVisible());
+            }}catch(StaleElementReferenceException | TimeoutException | ElementClickInterceptedException e){
+            System.out.println("NewAppointmentStep.clickOnBillingButton() - "+e.getClass()+" "+e.getMessage());
+        }
+        try{
+            boolean flag2 = false;
+            flag2 = isRecurrenceOverlapErrorVisible();
+            if(flag2){
+                Assert.assertFalse("NewAppointmentStep.clickOnBillingButton() - Recurrence Overlap Error Message Visible",isRecurrenceOverlapErrorVisible());
+            }}catch(StaleElementReferenceException | TimeoutException | ElementClickInterceptedException e){
+            System.out.println("NewAppointmentStep.clickOnBillingButton() - "+e.getClass()+" "+e.getMessage());
+        }
+
+    }
     @And("User Click on Save Button from Edit Appointment Entry PopUp")
     public void saveEditAppointmentButton(){
         clickEditSaveButton();
@@ -140,28 +155,28 @@ public class NewAppointmentStep extends NewAppointmentPage {
             }catch(Exception e){
                 System.out.println("NewAppointmentStep.enterAppointmentDetails()2 - "+e.getClass()+" "+e.getMessage());
             }
-                waitFor(2000);
-                clickOfficeLocationDropDown();
-                waitFor(2000);
-                selectDropDownFromText(locationValue);
-                waitFor(2000);
-                Assert.assertEquals(getOfficeLocationInput(), locationValue);
-                isAddressInput();
-                Assert.assertFalse(getAutoGenerateAddress().isEmpty());
-                //waitFor(2000);
-                clickCategoryDropDown();
-                selectDropDownFromText(categoryValue);
-                waitFor(2000);
-                Assert.assertEquals(getCategoryInputText(), categoryValue);
-                clickStatusDropDown();
-                //waitFor(2000);
-                selectDropDownFromText(statusValue);
-                waitFor(2000);
-                Assert.assertEquals(getStatusInputText(), statusValue);
-                enterClientName();
-                waitFor(4000);
-                clickLastValueFromClientDropDown();
-                waitFor(2000);
+            waitFor(2000);
+            clickOfficeLocationDropDown();
+            waitFor(2000);
+            selectDropDownFromText(locationValue);
+            waitFor(2000);
+            Assert.assertEquals(getOfficeLocationInput(), locationValue);
+            isAddressInput();
+            Assert.assertFalse(getAutoGenerateAddress().isEmpty());
+            //waitFor(2000);
+            clickCategoryDropDown();
+            selectDropDownFromText(categoryValue);
+            waitFor(2000);
+            Assert.assertEquals(getCategoryInputText(), categoryValue);
+            clickStatusDropDown();
+            //waitFor(2000);
+            selectDropDownFromText(statusValue);
+            waitFor(2000);
+            Assert.assertEquals(getStatusInputText(), statusValue);
+            enterClientName();
+            waitFor(4000);
+            clickLastValueFromClientDropDown();
+            waitFor(2000);
         }}
 
     @And("User Verify Client Name of Appointment From Edit Appointment Popup")
@@ -175,7 +190,32 @@ public class NewAppointmentStep extends NewAppointmentPage {
         updateEnterStartTime();
         updateEnterEndTime();
     }
+    @And("User Enter enter fields of {string} appointment")
+    public void enterRecurrenceFields(String recurrenceField){
+        setImplicit(60);
+        Assert.assertTrue(isRecurrenceFieldsVisible());
+        switch (recurrenceField){
+            case "Day":
+                clickRecDayCheckBox();
+                clickRecEveryDayCheckBox();
+                System.out.println("enterRecurrenceFields().getRecEveryDayInputText: "+getRecEveryDayInputText());
+                break;
+            case "Weekly":
+                clickRecWeeklyCheckBox();
+                clickRecWeeklys();
+                break;
+        }
+        clickEndByCheckBox();
+        enterEndDate();
+        ClickShowAppointmentButton();
+        setImplicit(60);
+        Assert.assertTrue(isShowAppointmentVisible());
+        getShowAppointmentDatesText();
+        getShowAppointmentDaysText();
+        clickShowAppointmentCheckBoxes();
+        clickShowAppointmentCloseButton();
     }
+}
 
 
 

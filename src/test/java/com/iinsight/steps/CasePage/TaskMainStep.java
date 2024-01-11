@@ -9,22 +9,36 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 
 public class TaskMainStep extends TaskMainPage {
-   public String getUsername = globalUserName.replaceAll("@besoftware.biz","").replace("."," ");
+    public String getUsername = globalUserName.replaceAll("@besoftware.biz","").replace("."," ");
 
-    @And("User click on New Task Button")
-    public void clickNewTask(){
+    @And("User click on {string} Button")
+    public void clickNewTask(String buttonValue){
         try{
             waitFor(2000);
-            Assert.assertTrue(isNewTaskButtonVisible());
-            clickWithJS(addNewTaskButton);
-        } catch(TimeoutException | ElementClickInterceptedException e){
+            switch (buttonValue){
+                case "New Task":
+                    Assert.assertTrue(isNewTaskButtonVisible());
+                    clickWithJS(addNewTaskButton);
+                    break;
+                case "New Appointment":
+                    Assert.assertTrue(isNewAppointmentButtonVisible());
+                    clickWithJS(addNewAppointmentButton);
+                    break;
+                case "Delete":
+                    clickDeleteButton();
+                    setImplicit(60);
+                    waitFor(2000);
+                    Assert.assertTrue(isDeletePopUpVisible());
+                    enterDescriptionButtonDeletePopUp();
+                    clickOkButtonDeletePopUp();
+                    break;
+            } } catch(TimeoutException | ElementClickInterceptedException e){
             System.out.println("TaskMainStep.clickNewTask() - "+e.getClass());
         }
     }
     @Then("User Verify Task Added in Appointment List {string}")
     public void verifyTaskAdded(String statusValue){
         waitFor(2000);
-
         if(statusValue.equals("Completed")){
             setImplicit(60);
             clickCompletedTaskAppointmentTab();
@@ -49,11 +63,16 @@ public class TaskMainStep extends TaskMainPage {
         else if(statusValue.equals("New cost Without Billing")){
             Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.FromTime));
             Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.EndTime));
+
+        } else if(statusValue.equals("All Day Event")){
+            Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.AllDayEventFromTime));
+            Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.AllDayEventEndTime));
         }
         else if(statusValue.equals("Multiple")){
             Assert.assertTrue(getFirstTaskAssignToOfTable().contains(CaseTypeTestData.OverlapAppointmentUsername));
-        }
-        else {
+        } else if(statusValue.equals("Recurrence")) {
+            Assert.assertEquals(String.valueOf(taskRows.size()),String.valueOf(CaseTypeTestData.CheckBoxesList.size()));
+        }else {
             setImplicit(60);
             Assert.assertTrue(isSearchInputTaskVisible());
             waitFor(2000);
@@ -76,15 +95,6 @@ public class TaskMainStep extends TaskMainPage {
             waitFor(2000);
             clickTaskFirstOfTable();
         }
-    }
-    @And("User click on Task Delete Button")
-    public void clickDeleteFromTaskTab(){
-        clickDeleteButton();
-        setImplicit(60);
-        waitFor(2000);
-        Assert.assertTrue(isDeletePopUpVisible());
-        enterDescriptionButtonDeletePopUp();
-        clickOkButtonDeletePopUp();
     }
     @And("User Verify Task Deleted in Appointment List {string}")
     public void rowDeletedFromTaskTab(String statusValue){

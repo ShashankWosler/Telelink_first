@@ -18,6 +18,13 @@ public class Appointments extends GenericWrappers {
     public WebElement appointEvent1;
     @FindBy(xpath="(//div[@data-task-feature='event'])[2]")
     public WebElement appointEvent2;
+    @FindBy(id="b-scheduler-1-normalSubgrid")
+    public WebElement grid;
+
+//    @FindBy(xpath="//div[@data-header-feature='headerRow1']/div")
+//    public List<WebElement> TimeList;
+//    @FindBy(xpath="(//div[@data-item-index='1'])[1]")
+//    public WebElement elems;
 
     // C O M P A N Y        R E S O U R C E S
     @FindBy(css="div#resource_button_wrapper button")
@@ -41,10 +48,12 @@ public class Appointments extends GenericWrappers {
     // D A T E      S E C T I O N
     @FindBy(id="appointments_top_label")
     public WebElement AppointmentDate;
-    @FindBy(id="prev_date")
+    @FindBy(css="#prev_date span")
     public WebElement PreviousDate;
-    @FindBy(id="next_date")
+    @FindBy(css="#next_date span")
     public WebElement NextDate;
+    @FindBy(id="b-resourceheader-1")
+    public WebElement employeeName;
 
     // C A L E N D E R      T O P       R I G H T
     @FindBy(css="div#events_count span")
@@ -134,6 +143,14 @@ public class Appointments extends GenericWrappers {
     @FindBy(id="contact_new_2")
     public WebElement CancelButtonDeletePopUp;
 
+    // R E C U R R E N T    L E V E L
+    @FindBy(css="[name='iin_appt_current_event_flag']")
+    public WebElement eventCheckBox;
+    @FindBy(css="[name='iin_appt_following_events_flag']")
+    public WebElement followingCheckBox;
+    @FindBy(css="[name='iin_appt_all_events_flag']")
+    public WebElement allEventsCheckBox;
+
     //  T I M E     C E L L S
     @FindBy(xpath="//div[contains(@class,'b-sch') and @data-tick-index='4']")
     public WebElement timeCells9AM;
@@ -143,5 +160,17 @@ public class Appointments extends GenericWrappers {
     public WebElement timeCells5PM;
     @FindBy(xpath="//div[contains(@class,'b-sch') and @data-tick-index='16']")
     public WebElement timeCells9PM;
+
+    //  C A L E N D E R     T Y P E - A G E N D A
+    @FindBy(xpath = "(//div[@class='b-cal-event'])[1]")
+    public WebElement agendaAppointmentEvent1;
+    @FindBy(xpath = "(//div[@class='b-cal-event'])[2]")
+    public WebElement agendaAppointmentEvent2;
+    @FindBy(xpath="(//div[contains(@class,'event-time')])[1]")
+    public WebElement agendaTime1;              //02:30 - 02:45
+    @FindBy(xpath="(//div[contains(@class,'event-time')])[2]")
+    public WebElement agendaTime2;
+    @FindBy(id="agenda_day")
+    public WebElement agendaDayRadio;
 
 }

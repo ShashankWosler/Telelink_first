@@ -2,13 +2,15 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.TaskAppointments.NewAppointment;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
+import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 
 public class NewAppointmentPage extends NewAppointment {
+    public String ShowAppointmentEndDate = get6DaysLaterDate();
+    public String ShowAppointmentEndDateDay = getDayOfWeek(ShowAppointmentEndDate);
+    public int daysDiff = getDaysDifference(ShowAppointmentEndDate,getTodayDate());
+
     public NewAppointmentPage(){
         PageFactory.initElements(getDriver(), this);
     }
@@ -60,7 +62,7 @@ public class NewAppointmentPage extends NewAppointment {
     public String getOfficeLocationInput(){return getAttributeValue(officeLocationInput,"value");}
     public void clickOfficeLocationDropDown(){clickButtonWithOutScroll(officeLocationDropDown);}
     public boolean isAddressInput(){waitVisibilityOfElement(addressInput);
-    return isElementDisplayed(addressInput);}
+        return isElementDisplayed(addressInput);}
     public String getAutoGenerateAddress(){return getAttributeValue(addressInput,"value");}
     public void clickSaveAddBillingButton(){
         clickButtonWithOutScroll(saveAddBillingButton);
@@ -82,12 +84,10 @@ public class NewAppointmentPage extends NewAppointment {
 
     public void clickEditSaveButton(){clickButtonWithOutScroll(editSaveButton);}
 
-
-
     public boolean isSaveAddBillingButtonVisible(){return isElementDisplayed(saveAddBillingButton);}
 
     public boolean isCostMessageVisible(){
-    return isElementDisplayed(errorMessage);}
+        return isElementDisplayed(errorMessage);}
 
     // A S S O C I A T E       W I T H       A       B I L L I N G
     public void clickEmployeeDropDown(){clickButtonWithOutScroll(employeeDropDown);}
@@ -113,21 +113,106 @@ public class NewAppointmentPage extends NewAppointment {
         } else {System.out.println("NewAppointmentPage.interactAddValuePopUp() - No Add Value PopUp Shown");
         }
     }
-
-    public void selectDropDownFromTextUIError (String dropDownvalue){
-        String [] usernameArray = dropDownvalue.split(" ");
-        System.out.println(usernameArray[0]);
-        try {
-            By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[contains(text(),"+'"'+usernameArray[0]+'"'+")]");
-            waitFor(5000);
-            getDriver().findElement(elem).click();
-        }catch(TimeoutException | NoSuchElementException | StaleElementReferenceException e){
-            System.out.println("selectDropDownFromTextUIError() [1] -"+e.getClass());
-            waitFor(2000);
-        }
-            By actualToFind = By.xpath("//div[@id='drop_down_multiselect']/child::div[contains(text(),"+'"'+dropDownvalue+'"'+")]");
-            waitFor(5000);
-            getDriver().findElement(actualToFind).click();
-
+    public boolean isRecurrenceOverlapErrorVisible(){
+        return isElementDisplayed(getRecurrenceOverlapError);
     }
+    // R E C U R R E N C E
+    public boolean isRecurrenceFieldsVisible(){
+        waitVisibilityOfElement(recurrenceFields);
+        return isElementDisplayed(recurrenceFields);
+    }
+
+    // Recurrence Pattem
+    public void clickRecDayCheckBox(){clickButtonWithOutScroll(recDayCheckBox);
+    }
+    public void clickRecWeeklyCheckBox(){clickButtonWithOutScroll(recWeeklyCheckBox);}
+    public void clickRecMonthlyCheckBox(){clickButtonWithOutScroll(recMonthlyCheckBox);}
+    public void clickRecYearCheckBox(){clickButtonWithOutScroll(recYearCheckBox);}
+
+    //Recurrence Pattem - Respective Fields
+
+    /** DAY */
+    public void clickRecEveryDayCheckBox(){clickButtonWithOutScroll(recEveryDayCheckBox);}
+    public String getRecEveryDayInputText(){return getAttributeValue(recEveryDayInput,"value");}
+    public void clickRecEveryWeekCheckBox(){clickButtonWithOutScroll(recEveryWeekCheckBox);}
+
+    /** WEEKLY*/
+    public String getRecWeeklyInputText(){return getAttributeValue(recWeeklyInput,"value");}
+
+    /**WEEKLY_CheckBox_Weeks_Name*/
+    public void clickRecWeeklySaturday(){clickButtonWithOutScroll(recWeeklySaturday);}
+    public void clickRecWeeklys(){
+        for(WebElement e : recWeeklys){
+            waitElementToBeClickable(e);
+            clickButtonWithOutScroll(e);
+        }
+    }
+
+    /**MONTHLY*/
+    public String getRecMonthlyDayInput1Text(){return getAttributeValue(recMonthlyDayInput1,"value");}
+    public String getRecMonthlyEveryMonthInputText(){return getAttributeValue(recMonthlyEveryMonthInput,"value");}
+    public void clickRecMonthlyWeekCheckBox(){clickButtonWithOutScroll(recMonthlyWeekCheckBox);}
+    public void clickRecMonthlyWeekNumberDropDown(){clickButtonWithOutScroll(recMonthlyWeekNumberDropDown);}
+    public String getRecMonthlyWeekNumberInputText(){return getAttributeValue(recMonthlyWeekNumberInput,"value");}
+    public String getRecMonthlyDayInput2Text(){return getAttributeValue(recMonthlyDayInput2,"value");}
+    public void clickRecMonthlyWeekDaysDropDown(){clickButtonWithOutScroll(recMonthlyWeekDaysDropDown);}
+    public String getRecMonthlyDayInput3Text(){return getAttributeValue(recMonthlyDayInput3,"value");}
+
+    /**YEARLY*/
+    public String getRecYearlyEveryInputText(){return getAttributeValue(recYearlyEveryInput,"value");}
+    public void clickRecYearlyOnCheckBox(){clickButtonWithOutScroll(recYearlyOnCheckBox);}
+    public void clickRecYearlyOnTheCheckBox(){clickButtonWithOutScroll(recYearlyOnTheCheckBox);}
+    public void clickRecYearlyMonthDropDown(){clickButtonWithOutScroll(recYearlyMonthDropDown);}
+    public void clickRecYearlyWeekCountDropDown(){clickButtonWithOutScroll(recYearlyWeekCountDropDown);}
+    public void clickRecYearlyWeekNameDropDown(){clickButtonWithOutScroll(recYearlyWeekNameDropDown);}
+    public void clickRecYearlyMonthDropDown2(){clickButtonWithOutScroll(recYearlyMonthDropDown2);}
+    public String getRecYearlyOnDateInputText(){return getAttributeValue(recYearlyOnDateInput,"value");}
+    public String getRecYearlyMonthInput1Text(){return getAttributeValue(recYearlyMonthInput1,"value");}
+    public String getRecYearlyWeekCountInputText(){return getAttributeValue(recYearlyWeekCountInput,"value");}
+    public String getRecYearlyWeekNameInputText(){return getAttributeValue(recYearlyWeekNameInput,"value");}
+    public String getRecYearlyMonthInput2Text(){return getAttributeValue(recYearlyMonthInput2,"value");}
+
+    /**R E C U R R E N C E __ R A N G E*/
+    public void clickEndAfterCheckBox(){clickButtonWithOutScroll(endAfterCheckBox);}
+    public void clickEndByCheckBox(){clickButtonWithOutScroll(endByCheckBox);}
+    public void ClickShowAppointmentButton(){clickButtonWithOutScroll(showAppointmentButton);}
+    public String getStartDateText(){return getAttributeValue(startDate,"value");}
+    public String getEndDateText(){return getAttributeValue(endDateInput,"value");}
+    public void enterEndDate(){enterText(endDateInput,ShowAppointmentEndDate);}
+
+    // S H O W      A P P O I N T M E N T      S E R V I C E S
+    public boolean isShowAppointmentVisible(){
+        waitVisibilityOfElement(showAppointmentVisible);
+        return isElementDisplayed(showAppointmentVisible);
+    }
+    public void getShowAppointmentDatesText(){
+        for(WebElement e : showAppointmentDates){
+            String date = getText(e);
+            CaseTypeTestData.DatesList.add(date);
+            System.out.println("getShowAppointmentDatesText: "+date);
+        }
+        Assert.assertEquals(ShowAppointmentEndDate,CaseTypeTestData.DatesList.get(CaseTypeTestData.DatesList.size()-1));
+    }
+    public void getShowAppointmentDaysText(){
+        for(WebElement e : showAppointmentDays){
+            String day = getText(e);
+            CaseTypeTestData.DaysList.add(day);
+            System.out.println("getShowAppointmentDaysText: "+day);
+        }
+        Assert.assertTrue(ShowAppointmentEndDateDay.equalsIgnoreCase(CaseTypeTestData.DaysList.get(CaseTypeTestData.DaysList.size()-1)));
+    }
+    public void clickShowAppointmentCheckBoxes(){
+        int size = showAppointmentCheckBoxes.size();
+        System.out.println("clickShowAppointmentCheckBoxes: "+size);
+        for(int i=0;i<size;i++){
+            if(i==size-1 || i==size-2){
+                System.out.println("If Condition - Last And Second Last will Select Only");
+                CaseTypeTestData.CheckBoxesList.add(i);
+                continue;
+            }else {clickButtonWithOutScroll(showAppointmentCheckBoxes.get(i));}
+        }
+    }
+    public void clickShowAppointmentCloseButton(){clickButtonWithOutScroll(showAppointmentCloseButton);}
+    public boolean DateInputTabDisable() {return !isElementEnabled(fromDateInputTab);}
+    public boolean ToDateInputTabDisable() {return !isElementEnabled(toDateInputTab);}
 }

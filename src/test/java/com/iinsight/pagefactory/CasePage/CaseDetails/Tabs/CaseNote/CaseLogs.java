@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class CaseLogs extends GenericWrappers {
 
     @FindBy(id = "li_log_note")
@@ -29,5 +31,6 @@ public class CaseLogs extends GenericWrappers {
 
     @FindBy(xpath="(//div[@id='log_list']//table//tr//td[2])[1]")
     public WebElement title_text;
-
+    @FindBy(xpath="//div[@id='log_list']//tr//td[position() mod 7 = 2]")
+    public List<WebElement> caseLogsList;
 }
