@@ -35,9 +35,9 @@ public class Hooks extends GenericWrappers {
             scenario.attach(b1, "image/png", "Screenshot on Failure");
             //quitBrowser();
         }
-        getDriver().executeScript("lambda-status=" + (scenario.isFailed() ? "failed" : "passed"));
-        System.out.println(getDriver().getSessionId());
-        quitBrowser();
+//        getDriver().executeScript("lambda-status=" + (scenario.isFailed() ? "failed" : "passed"));
+//        System.out.println(getDriver().getSessionId());
+//        quitBrowser();
     }
     //@AfterClass
     public void tearDown() throws Exception{
@@ -49,6 +49,6 @@ public class Hooks extends GenericWrappers {
     @Before
     public void updateName(Scenario scenario) throws InterruptedException {
         new GenericWrappers().invokeApp();
-       getDriver().executeScript("lambda-name=" + scenario.getName());
+       //getDriver().executeScript("lambda-name=" + scenario.getName());
     }
 }

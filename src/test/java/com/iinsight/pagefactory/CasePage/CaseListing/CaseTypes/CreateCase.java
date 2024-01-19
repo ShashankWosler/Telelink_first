@@ -62,7 +62,9 @@ public class CreateCase extends GenericWrappers {
     //Person
     @FindBy(css="[id='case_new.employer.company_name']")
     public WebElement emp_company_name;
-    @FindBy(css="[name='case_new.employer.title_button']")
+    @FindBy(css="[id='case_new.employer.title']")
+    public WebElement empTitleInput;
+    @FindBy(css="img[name='case_new.employer.title_button']")
     public WebElement emp_title_dropdown;
     @FindBy(css="[id='case_new.employer.first_name']")
     public WebElement emp_first_name;

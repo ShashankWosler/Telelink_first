@@ -1,9 +1,7 @@
 package com.iinsight.steps.CasePage;
 
 import com.iinsight.TestData.CaseTypeTestData;
-import com.iinsight.pagefactory.LoginPage.Login;
 import com.iinsight.pages.CasePage.CaseListing.CaseListingPage;
-import com.iinsight.pages.LoginPage.LoginPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -46,6 +44,11 @@ public class CaseListingStep extends CaseListingPage {
     @When("User click on search button from HomePage")
     public void userClickOnSearchButton(){
         Assert.assertTrue(isSearchButtonVisible());
+        if(!(getFilterInputText().equals("All cases"))){
+            clickFilterDropDown();
+            selectDropDownFromText("All cases");
+        }
+        Assert.assertEquals(getFilterInputText(),"All cases");
         clickSearchButton();
     }
     @And("User verify the case type id {string}")
@@ -95,7 +98,7 @@ public class CaseListingStep extends CaseListingPage {
     @And("User click on Proceed Anyway From Archive PopUp")
     public void userClickOnProceedAnywayFromArchivePopUp() {
         clickArchiveConfirmBtn();
-        LoginPage.enterPassword();
+        enterPassword();
         clickArchiveConfirmBtn();
     }
 

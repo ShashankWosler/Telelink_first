@@ -2,6 +2,9 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.TaskAppointments.NewAppointment;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
@@ -23,16 +26,22 @@ public class NewAppointmentPage extends NewAppointment {
     public void insertDateInputTab() {enterText(fromDateInputTab,getTodayDate());}
     public void insertToDateInputTab() {enterText(toDateInputTab,getTodayDate());}
     public void enterStartTime(){
-        //CaseTypeTestData.FromTime = getCurrentTime();
-        //CaseTypeTestData.FromTimeOneDigitHour = getCurrentTimeOneHourDigit();
-        enterText(startTime, CaseTypeTestData.FromTime);}
+        CaseTypeTestData.FromTime = getCurrentTime();
+        CaseTypeTestData.FromTimeOneDigitHour = getCurrentTimeOneHourDigit();
+        enterText(startTime, CaseTypeTestData.FromTime);
+    }
     public void enterEndTime(){
-        //CaseTypeTestData.EndTime = get15TimeDifference();
-        //CaseTypeTestData.EndTimeOneDigitHour = get15TimeDifferenceOneHourDigit();
-        enterText(endTime, CaseTypeTestData.EndTime);}
+        CaseTypeTestData.EndTime = get15TimeDifference();
+        CaseTypeTestData.EndTimeOneDigitHour = get15TimeDifferenceOneHourDigit();
+        enterText(endTime, CaseTypeTestData.EndTime);
+    }
     public void updateEnterStartTime(){
+        CaseTypeTestData.UpdateFromTime = getCurrentTime();
+        CaseTypeTestData.UpdateFromTimeOneDigitHour = getCurrentTimeOneHourDigit();
         enterText(startTime, CaseTypeTestData.UpdateFromTime);}
     public void updateEnterEndTime(){
+        CaseTypeTestData.UpdateEndTime = get15TimeDifference();
+        CaseTypeTestData.UpdateEndTimeOneDigitHour = get15TimeDifferenceOneHourDigit();
         enterText(endTime, CaseTypeTestData.UpdateEndTime);}
 
     public void clickTimeZone() {clickButtonWithOutScroll(timeZone);}
@@ -42,7 +51,9 @@ public class NewAppointmentPage extends NewAppointment {
     public boolean isSelectedEmployeeVisible(){
         waitVisibilityOfElement(selectedEmployee);
         return isElementDisplayed(selectedEmployee);}
-    public void clickSelectedEmployee(){clickButtonWithOutScroll(selectedEmployee);}
+    public void clickSelectedEmployee(){
+        waitElementToBeClickable(selectedEmployee);
+        clickButtonWithOutScroll(selectedEmployee);}
     public String getValueSelectedEmployee(){ return getAttributeValue(selectedEmployee,"value");}
     public void enterEmployeeName(String username){enterTextAndClearAll(employeeInputTab,username);}
     public void clickEmployeeDropDownButton(){clickButtonWithOutScroll(employeeDropDownButton);}
@@ -215,4 +226,21 @@ public class NewAppointmentPage extends NewAppointment {
     public void clickShowAppointmentCloseButton(){clickButtonWithOutScroll(showAppointmentCloseButton);}
     public boolean DateInputTabDisable() {return !isElementEnabled(fromDateInputTab);}
     public boolean ToDateInputTabDisable() {return !isElementEnabled(toDateInputTab);}
+
+    // A P P O I N T M E N T    O U T   O F     H O U R S   P O P - U P
+    public boolean isCloseButtonVisible(){return isElementDisplayed(closeButton);}
+    public void clickHoursPopUpSaveButton(){clickButtonWithOutScroll(hoursPopUpSaveButton);}
+
+    public void handleOutOfHourPopUp(){
+        try{
+            boolean flag = false;
+            flag = isCloseButtonVisible();
+            if(flag){
+                waitElementToBeClickable(hoursPopUpSaveButton);
+                clickHoursPopUpSaveButton();
+            }
+        }catch (NoSuchElementException | TimeoutException | StaleElementReferenceException e){
+            System.out.println("NewAppointmentStep.clickOnBillingButton() - "+e.getClass()+" "+e.getMessage());
+        }
+    }
 }

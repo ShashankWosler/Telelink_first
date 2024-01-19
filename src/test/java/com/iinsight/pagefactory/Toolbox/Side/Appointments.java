@@ -4,8 +4,6 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 public class Appointments extends GenericWrappers {
     // L I S T I N G
     @FindBy(xpath="(//span[@class='b-sch-clock-text'])[1]")
@@ -37,7 +35,7 @@ public class Appointments extends GenericWrappers {
     @FindBy(id="export_appointent")
     public WebElement ExportButton;
     @FindBy(css="[id='calendar_events.filter']")
-    public WebElement FilterInput;
+    public WebElement FilterInput;      //getAttribute - "value"    - [ All appointments, My appointments ]
     @FindBy(css="[name='calendar_events.filter_button']")
     public WebElement FilterDropDown;
     @FindBy(id="calendar_view")
@@ -167,10 +165,32 @@ public class Appointments extends GenericWrappers {
     @FindBy(xpath = "(//div[@class='b-cal-event'])[2]")
     public WebElement agendaAppointmentEvent2;
     @FindBy(xpath="(//div[contains(@class,'event-time')])[1]")
-    public WebElement agendaTime1;              //02:30 - 02:45
+    public WebElement agendaTime1;              // [02:30 - 02:45]     [09:00 - 23:00]
     @FindBy(xpath="(//div[contains(@class,'event-time')])[2]")
     public WebElement agendaTime2;
-    @FindBy(id="agenda_day")
+    @FindBy(css="label[for='agenda_day']")
     public WebElement agendaDayRadio;
+    @FindBy(css="label[for='agenda_week']")
+    public WebElement agendaWeekRadio;
+    @FindBy(css="label[for='agenda_year']")
+    public WebElement agendaYearRadio;
+    @FindBy(css="label[for='agenda_month']")
+    public WebElement agendaMonthRadio;
+    @FindBy(xpath="(//div[contains(@id,'-normalSubgrid')])[1]")
+    public WebElement empltyEvents;
+    @FindBy(css="div#b-calendar-2-event-tip")
+    public WebElement agendaEventToolTip;
+    @FindBy(id="b-tool-10")
+    public WebElement agendaToolTipCancelButton;
+
+    // R I G H T    C L I C K
+    @FindBy(css="[data-ref='goToCase']")
+    public WebElement agendaRightGotoCase;
+    @FindBy(css="[data-ref='eventEdit']")
+    public WebElement agendaRightEdit;
+    @FindBy(css="[data-ref='eventDelete']")
+    public WebElement agendaRightDelete;
+    @FindBy(css="[data-ref='eventaddToCalendar']")
+    public WebElement agendaRightCalender;
 
 }

@@ -6,7 +6,6 @@ import io.cucumber.java.en.And;
 import com.iinsight.pages.CasePage.CaseListing.SearchMenuPage;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.InvalidElementStateException;
 
 public class SearchMenuStep extends SearchMenuPage {
     @And("User select {string} from search criteria dropdown")
@@ -14,15 +13,21 @@ public class SearchMenuStep extends SearchMenuPage {
         waitFor(2000);
         clickDeleteButton();
         try{
-            enterTextSearchMainTab(filterValue);}
-        catch(InvalidElementStateException e){
-            System.out.println("userAddSearchCriteriaDropdown.enterTextSearchMainTab() "+e.getClass());
-            clickSearchCriteriaDropDown();}
-        selectDropDownFromText(filterValue);
-        waitFor(2000);
+            clickSearchCriteriaDropDown();
+            selectDropDownFromText(filterValue);
+            //enterTextSearchMainTab(filterValue);
+        }
+        catch(Exception e){
+            System.out.println("userAddSearchCriteriaDropdown.enterTextSearchMainTab() "+e.getClass()+" "+e.getMessage());
+            enterTextSearchMainTab(filterValue);
+            selectDropDownFromText(filterValue);
+        }
     }
     @And("User enter case type id {string}")
     public void userGetCaseTypeId(String caseType){
+        setImplicit(60);
+        waitVisibilityOfElement(search_criteria_fields);
+        Assert.assertTrue(isElementDisplayed(search_criteria_fields));
         switch(caseType){
             case "Company":
                 enterTextSearchTab(getTestDataValue("CompanyID"));

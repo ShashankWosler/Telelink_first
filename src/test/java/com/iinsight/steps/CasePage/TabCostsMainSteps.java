@@ -13,7 +13,7 @@ public class TabCostsMainSteps extends CostsMainPage {
     public void verifyThatNewCreatedCostIsListedInCostListUnderCostsTab(String cost) {
         getCostID(cost.replaceAll(" ",""));
         if(cost.equals("New cost")){
-            String exp = getTodayDate()+" "+CaseTypeTestData.FromTime+" - "+CaseTypeTestData.Appointment_Title;
+            String exp = getTodayDate()+" "+CaseTypeTestData.FromTimeOneDigitHour+" - "+CaseTypeTestData.Appointment_Title;
             Assert.assertTrue("E:"+getTextAppointmentToolTip()+" A:"+exp,getTextAppointmentToolTip().equalsIgnoreCase(exp));
         }
     }
@@ -58,6 +58,20 @@ public class TabCostsMainSteps extends CostsMainPage {
             clickBillingButton();
         }
     }
-
+    @And("User Click on Edit button from Costs tab")
+    public void clickOnCostsEditButton(){
+        try{
+            clickFirstRow();
+            getAllChargesAmount();
+            waitVisibilityOfElement(editButton);
+            waitElementToBeClickable(editButton);
+            Assert.assertTrue(isBillingButtonIsVisible());
+            clickEditButton();
+        } catch (StaleElementReferenceException | TimeoutException e){
+            System.out.println("TabCostsMainSteps.clickOnCostsBillingButton(): "+e.getClass()+" "+e.getMessage());
+            waitFor(2000);
+            clickEditButton();
+        }
+    }
 
 }

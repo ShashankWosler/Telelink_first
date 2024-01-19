@@ -1,7 +1,7 @@
 package com.iinsight.pages.CasePage.CaseListing;
 
 import com.iinsight.pagefactory.CasePage.CaseListing.SearchMenu;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -26,24 +26,37 @@ public class SearchMenuPage extends SearchMenu {
     }
     public boolean isTextSearchMainTabVisible(){return isElementDisplayed(search_criteria_main_tab);
     }
-    public void enterTextSearchMainTab(String filterValue){enterText(search_criteria_main_tab,filterValue);
+    public void enterTextSearchMainTab(String filterValue){
+        search_criteria_main_tab.clear();
+        enterTextAppend(search_criteria_main_tab,filterValue);
     }
     public boolean isSearchCriteriaDropDownIsVisible(){return isElementDisplayed(search_criteria_field_dropdown);}
     public void clickSearchCriteriaDropDown(){clickButtonWithOutScroll(search_criteria_field_dropdown);}
+    public String getSearchCriteriaInputText(){return getAttributeValue(searchCriteriaInput,"value");
+    }
 
     public void clickDeleteButton(){
-        try{
-            WebElement listElem;
+        WebElement listElem;
             System.out.println("delete_btn.size() "+delete_btn.size());
-            if(delete_btn.size()>0){
-                for(int i=0;i <delete_btn.size();i++){
-                    listElem = delete_btn.get(i);
-                    if(isElementDisplayed(listElem))
+            if(delete_btn.size()!=0){
+                for(int i=delete_btn.size(); i>=1;i--){
+                    waitFor(2000);
+                    By xpath = By.xpath("(//div[contains(@class,'search-criteria-list')]//span)["+i+"]");
+                    listElem = getDriver().findElement(xpath);
+                    if(isElementDisplayed(listElem)){
+                        try{
+                        waitElementToBeClickable(listElem);
+                        mouseOver(listElem);
+                        setImplicit(60);
                         clickButtonWithOutScroll(listElem);
-                }
-            }}catch(NullPointerException | NoSuchElementException e){
-            System.out.println("SearchMenuPage.clickDeleteButton()- "+e.getClass()+" "+e.getMessage());
-        }
+                        waitFor(2000);
+                        System.out.println(listElem);}
+                        catch(Exception e){
+                            waitFor(2000);
+                            clickButtonWithOutScroll(listElem);
+                            waitFor(2000);
+                        }}}
+            }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.iinsight.TestData;
 
 import java.util.ArrayList;
+
 public class CaseTypeTestData {
     public static String CompanyName = "QA Test";
     public static String Title = "Mr";
@@ -25,7 +26,6 @@ public class CaseTypeTestData {
     public static double VatRate = 0.10;        //Used For Both - [Verify : Billing, Adjust]
     public static int ZeroDuration = 2;        //Used For - Verify
     public static int ZeroRate = 1000;        //Used For Both -[Verify : Billing, Adjust]
-
 
     public static int PaymentUpdatedAmountI = 100;        //Used For - Verify [Payments : VAT , NON-VAT]
     public static int AdjustAmountI = 500;        //Used For - Verify [Adjust Amount]
@@ -77,20 +77,21 @@ public class CaseTypeTestData {
     /**
      * CREATE APPOINTMENT [MULTIPLE, SINGLE]
      */
-    public static String FromTime = "09:15 am";
-    public static String EndTime = "09:30 am";
-    public static String FromTimeOneDigitHour = "9:15 AM";
-    public static String EndTimeOneDigitHour = "9:30 AM";
+    public static String FromTime;
+    public static String EndTime;
+    public static String FromTimeOneDigitHour;
+    public static String EndTimeOneDigitHour;
+
 
     public static String AllDayEventFromTime = "12:00 am";
     public static String AllDayEventEndTime = "11:59 pm";
     public static String AllDayEventBothOneDigitHour = "12 AM";
 
     // UPDATE APPOINTMENT
-    public static String UpdateFromTime ="09:45 am";
-    public static String UpdateEndTime="10:00 am";
-    public static String UpdateFromTimeOneDigitHour="9:45 AM";
-    public static String UpdateEndTimeOneDigitHour="10 AM";
+    public static String UpdateFromTime;
+    public static String UpdateEndTime;
+    public static String UpdateFromTimeOneDigitHour;
+    public static String UpdateEndTimeOneDigitHour;
 
     // CLIENT NAME - Get Overlap Client Name = CASE ID
     public static String ClientName;
@@ -101,6 +102,19 @@ public class CaseTypeTestData {
     public static ArrayList<String> DaysList = new ArrayList<String>();
     public static ArrayList<Integer> CheckBoxesList = new ArrayList<Integer>();
 
+    //  T I M E S H E E T   B I L L I N G   [VERIFY]
+    public static ArrayList<String> AmountsList = new ArrayList<String>();
+    public static ArrayList<String> AmountsListTimeSheet = new ArrayList<String>();
 
+    public static int TimeSheetRateI = 100;
+    public static int SubTotalInt = CaseTypeTestData.ZeroDuration * CaseTypeTestData.TimeSheetRateI;
+    public static int VATInt = (int) (SubTotalInt * CaseTypeTestData.VatRate);
+    public static int TotalInt = SubTotalInt + VATInt;
+
+    // Integer to String of Amount Variables - T I M E S H E E T S
+    public static String TimeSheetRate = String.valueOf(TimeSheetRateI);
+    public static String SubTotalS = String.valueOf(SubTotalInt);
+    public static String VATS = String.valueOf(VATInt);
+    public static String TotalS = String.valueOf(TotalInt);
 
 }

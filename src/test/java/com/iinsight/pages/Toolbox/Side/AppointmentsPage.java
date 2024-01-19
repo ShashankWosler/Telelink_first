@@ -1,9 +1,6 @@
 package com.iinsight.pages.Toolbox.Side;
 
 import com.iinsight.pagefactory.Toolbox.Side.Appointments;
-import org.junit.Assert;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class AppointmentsPage extends Appointments {
@@ -12,6 +9,7 @@ public class AppointmentsPage extends Appointments {
     }
 
     // L I S T I N G
+
     public String getToolTip1Text(){
         waitVisibilityOfElement(toolTip1Text);
         return getText(toolTip1Text);
@@ -28,8 +26,7 @@ public class AppointmentsPage extends Appointments {
         waitVisibilityOfElement(appointEvent2);
         return isElementDisplayed(appointEvent2);
     }
-    public void hoverAppointmentEvent(){mouseOver(appointmentEvent);
-    }
+    public void hoverAppointmentEvent(){mouseOver(appointmentEvent);}
     public void hoverZoomInButton(){mouseOver(zoomInButton);
     }
     public void clickAppointmentEvent(){clickButton(appointmentEvent,appointmentEvent);
@@ -38,7 +35,6 @@ public class AppointmentsPage extends Appointments {
     }
     public void click2AppointmentEvent(){clickButton(appointEvent2,appointEvent2);
     }
-
 
     // C O M P A N Y        R E S O U R C E S
     public boolean isCompanyNewButton(){
@@ -49,7 +45,9 @@ public class AppointmentsPage extends Appointments {
     // T O P    W R A P P E R - Common
     public void clickNewButton(){clickButtonWithOutScroll(NewButton);}
     public void clickExportButton(){clickButtonWithOutScroll(ExportButton);}
+    public String getFilterInputText(){return getAttributeValue(FilterInput,"value");}
     public void clickFilterDropDown(){clickButtonWithOutScroll(FilterDropDown);}
+    public String getCalenderInputText(){return getText(CalenderInput);}
     public void clickCalenderDropDown(){clickButtonWithOutScroll(CalenderDropDown);}
 
     // D A T E      S E C T I O N
@@ -155,93 +153,30 @@ public class AppointmentsPage extends Appointments {
         waitVisibilityOfElement(agendaAppointmentEvent1);
         return isElementDisplayed(agendaAppointmentEvent1);
     }
+    public void rightClickAgenda1(){mouseRightClick(agendaAppointmentEvent1);}
+    public void rightClickAgenda2(){mouseRightClick(agendaAppointmentEvent2);}
     public void hoverAgendaAppointmentEvent1(){mouseOver(agendaAppointmentEvent1);}
     public void hoverAgendaAppointmentEvent2(){mouseOver(agendaAppointmentEvent2);}
     public String getTextAgendaTime1(){return getText(agendaTime1);}
     public String getTextAgendaTime2(){return getText(agendaTime2);}
-    public void clickAgendaDayRadio(){clickButtonWithOutScroll(agendaDayRadio);}
-
-
-    public void overEventElementScrollVerify(){
-        boolean flag = false;
-        int i =0;
-        // while(!(TimeList.isEmpty()))
-        {
-            System.out.println("while");
-            waitFor(2000);
-            try{
-                flag = isAppointmentEventVisible();}
-            catch(Exception e) {
-                flag = false;
-                System.out.println("catch");
-            }
-            if(flag){
-                System.out.println("if");
-                waitFor(1000);
-                mouseOver(appointmentEvent);
-            } else {
-                System.out.println("else");
-                waitFor(2000);
-                //clickButtonWithOutScroll(TimeList.get(i));
-                i++;
-            }
-        }
+    public void clickAgendaDayRadio(){mouseDoubleClick(agendaDayRadio);}
+    public void clickAgendaWeekRadio(){mouseDoubleClick(agendaWeekRadio);}
+    public void clickAgendaMonthRadio(){mouseDoubleClick(agendaMonthRadio);}
+    public void clickAgendaYearRadio(){mouseDoubleClick(agendaYearRadio);}
+    public String getEmptyEventText(){
+        waitVisibilityOfElement(empltyEvents);
+        return getAttributeValue(empltyEvents,"data-empty-text");
     }
-    public void overEventElementScrollVerify2(){
-        Actions act = new Actions(getDriver());
-
-        Dimension windowSize = getDriver().manage().window().getSize();
-        int centerX = windowSize.width / 2;
-        int centerY = windowSize.height / 2;
-        boolean flag = false;
-        while(true){
-            //act.clickAndHold(elems);
-            System.out.println("while");
-            waitFor(1000);
-            JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
-            String script = String.format("window.scrollTo(%d, %d);", centerX, centerY);
-            jsExecutor.executeScript(script);
-            System.out.println("try - upper");
-            try{
-                waitFor(1000);
-                flag = isAppointmentEventVisible();
-                System.out.println("try");
-                if(flag){
-                    System.out.println("if");
-                    waitFor(2000);
-                    Assert.assertEquals(getToolTip1Text(),"Jan 10, 2024 11:30 PM");
-                    getDriver().navigate().refresh();
-                    break;
-                }
-            }
-            catch(Exception e){System.out.println("catch");}
-
-            waitFor(1000);
-            System.out.println("action");
-            act.moveByOffset(0,100);
-            act.moveByOffset(0, 200).perform();
-            act.release().perform();}
+    public boolean isAgendaToolTipVisible(){return isElementDisplayed(agendaEventToolTip);
     }
-    public void overEventElementScrollVerify3(){
-        clickPreviousDate();
-        waitFor(4000);
-        Point hoverItem =getDriver().findElement(By.id("b-scheduler-1-normalSubgrid")).getLocation();
-        Actions act = new Actions(getDriver());
-        ((JavascriptExecutor)getDriver()).executeScript("return window.title;");
-        ((JavascriptExecutor)getDriver()).executeScript("window.scrollBy(0,"+(hoverItem.getY())+");");
-        while(true){
-            act.moveByOffset(hoverItem.getY(),100).perform();
-            waitFor(3000);
-            boolean flag = false;
-            try{
-                flag = isAppointmentEventVisible();
-                if(flag){
-                    System.out.println("if");
-                    mouseOver(appointmentEvent);
-                    break;
-                }}catch(Exception e){System.out.println("Exception");}
-        }
+    public void closeAgendaToolTip(){clickButtonWithOutScroll(agendaToolTipCancelButton);
     }
 
+    // R I G H T    C L I C K       A P P O I N T M E N T       E V E N T
+    public void rightAgendaGoToCase(){clickButtonWithOutScroll(agendaRightGotoCase);}
+    public void rightAgendaDelete(){clickButtonWithOutScroll(agendaRightDelete);}
+
+    public void rightAgendaEdit(){clickButtonWithOutScroll(agendaRightEdit);}
+    public void rightAgendaCalender(){clickButtonWithOutScroll(agendaRightCalender);}
 
 }

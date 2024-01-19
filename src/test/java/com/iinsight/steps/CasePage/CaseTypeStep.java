@@ -58,14 +58,17 @@ public class CaseTypeStep extends CreateCasePage {
                 System.out.println("Employment Details Skip : As per Functionality");
                 break;
             case "Individual":
-                try{
-                Assert.assertTrue(isPersonEmpCompanyNameTabVisible());
-                enterPersonEmpCompanyNameTab();
-                clickPersonEmpTitleTab();
-                waitFor(2000);
-                selectDropDownFromText(CaseTypeTestData.Title);
-                setImplicit(10);
-                waitFor(2000);
+                try {
+                    Assert.assertTrue(isPersonEmpCompanyNameTabVisible());
+                    enterPersonEmpCompanyNameTab();
+                    clickPersonEmpTitleDropDown();
+                    selectDropDownFromText(CaseTypeTestData.Title);
+                } catch(StaleElementReferenceException | TimeoutException e){
+                    System.out.println("userFillEmploymentDetailsForm - Individual:"+e.getClass()+" "+e.getMessage());
+                    waitFor(2000);
+                    selectDropDownFromText(CaseTypeTestData.Title);
+                    Assert.assertEquals(getAttributeValue(empTitleInput,"value"),CaseTypeTestData.Title);
+                } try{
                 enterPersonEmpFirstNameTab();
                 enterPersonEmpLastNameTab();
                 clickPersonEmpLocationBtn();
@@ -75,8 +78,9 @@ public class CaseTypeStep extends CreateCasePage {
                 enterPersonEmpPhoneTab();
                 enterEmpEmailTab();
                 clickPersonEmpNextBtn();
-                break;} catch(StaleElementReferenceException | TimeoutException e){
-            System.out.println("CaseTypeStep.userFillEmploymentDetailsForm() - StaleElementReferenceException Caught");
+                break;
+                } catch(StaleElementReferenceException | TimeoutException e){
+            System.out.println("CaseTypeStep.userFillEmploymentDetailsForm()- "+e.getClass()+" "+e.getMessage());
         }
         }
     }

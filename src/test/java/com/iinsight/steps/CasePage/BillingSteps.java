@@ -83,11 +83,27 @@ public class BillingSteps extends BillingPage {
                 Assert.assertTrue(getTotal().replaceAll(" ","").contains(CaseTypeTestData.SubTotal));
                 break;
         }
-
-
-
-
-
+    }
+    @And("User Added Employee Expense {string} VAT From Billing PopUp")
+    public void addEmployeeExpensePrice(String vatValue){
+        Assert.assertTrue(isBillApplyVATCheckBoxVisible());
+        mouseOverClick(consultantDurationInput);
+        waitFor(2000);
+        enterConsultantDurationInput();
+        enterConsultantRateInput();
+        clickConsultantSuperRateInput();
+        Assert.assertTrue(getConsultantSubTotalInputText().contains(CaseTypeTestData.SubTotalS));
+        switch (vatValue){
+            case "With":
+                clickConsultantApplyVatCheckBox();
+                waitFor(2000);
+                Assert.assertTrue(getConsultantTotalInputText().contains(CaseTypeTestData.TotalS));
+                Assert.assertTrue(getConsultantVatInputText().contains(CaseTypeTestData.VATS));
+                break;
+            case "Without":
+                Assert.assertTrue(getConsultantTotalInputText().contains(CaseTypeTestData.SubTotalS));
+                break;
+        }
     }
 
 }

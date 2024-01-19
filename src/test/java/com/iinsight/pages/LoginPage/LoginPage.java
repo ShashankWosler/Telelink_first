@@ -9,7 +9,7 @@ public class LoginPage extends Login {
     public void enterEmail() {
         enterTextWithoutScroll(txt_Username,globalUserName);
     }
-    public static void enterPassword()
+    public void enterPassword()
     {
         enterTextWithoutScroll(txt_Password, globalPassword);
     }
@@ -21,10 +21,11 @@ public class LoginPage extends Login {
     {
         boolean flag = false;
         flag = isElementDisplayed(proceed_Btn);
-        if(flag)
-            clickButtonWithOutScroll(proceed_Btn);
-        else
-            System.out.println("LoginPage.clickProceedButton() Skipped To Click");
+        if(flag){
+            waitElementToBeClickable(proceed_Btn);
+            clickButtonWithOutScroll(proceed_Btn);}
+        else{
+            System.out.println("LoginPage.clickProceedButton() Skipped To Click");}
     }
     public boolean isEmailTextBoxDisplayed() {return isElementDisplayed(txt_Username);
     }

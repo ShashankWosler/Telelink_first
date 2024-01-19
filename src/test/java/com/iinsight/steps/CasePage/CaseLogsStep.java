@@ -117,7 +117,7 @@ public class CaseLogsStep extends CaseLogsPage {
      Assert.assertTrue(getAttributeValue(title_text,"title").contains(billingID));
  }
 
- @Then("Verify that {string} appointment of should be visible in Case logs")
+ @Then("Verify that {string} text should be visible in Case logs")
     public void verifyDeletedAppointmentLogs(String logValue){
      waitFor(3000);
      Assert.assertTrue(getAttributeValue(title_text,"title").contains(logValue));

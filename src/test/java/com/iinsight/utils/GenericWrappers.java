@@ -211,6 +211,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         waitVisibilityOfElement(element);
         new Actions(getDriver()).contextClick(element).perform();
     }
+    public void mouseDoubleClick(WebElement element){
+        waitVisibilityOfElement(element);
+        new Actions(getDriver()).doubleClick(element).perform();
+    }
 
     public String getText(WebElement element){
 
@@ -341,7 +345,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         element.sendKeys(Keys.ENTER);
     }
 
-    public static void enterTextWithoutScroll(WebElement element, String textValue) {
+    public void enterTextWithoutScroll(WebElement element, String textValue) {
         waitElementToBeClickable(element);
         element.clear();
         logger.info("Entered Text - " + textValue);
@@ -372,7 +376,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         webDriverWait().until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void waitElementToBeClickable(WebElement element) {
+    public void waitElementToBeClickable(WebElement element) {
         webDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
@@ -644,11 +648,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         return properties.getProperty(key);
     }
     public void selectDropDownFromText (String dropDownvalue){
-        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[contains(text(),"+'"'+dropDownvalue+'"'+")]");
+        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[text()="+'"'+dropDownvalue+'"'+"]");
         waitPresenceOfElementLocated(elem);
         clickButtonWithOutScroll(getDriver().findElement(elem));
     }
-
 
     public void selectTimeFromDropDown(String time){
         By elem = By.xpath("//div[@class='calendricalTimePopup']//a[text()='"+time+"']");

@@ -13,8 +13,6 @@ public class Billing extends GenericWrappers {
     public WebElement billing_dropdown_icon;
     @FindBy(id="invoice_generator_3_2")
     public WebElement submit_button;
-    @FindBy(id="cost_duplicate_5_1")
-    public WebElement continue_yes_button;
     @FindBy(id="timeslot")
     public WebElement durationInput;
     @FindBy(css="input[id='costs.unit_charge']")
@@ -67,11 +65,9 @@ public class Billing extends GenericWrappers {
     public WebElement linkedAppointmentCheckBox;
     @FindBy(css="img[name='costs.appointment_button']")
     public WebElement LinkedAppointmentDropDown;
-    @FindBy(css="img[name='timesheet_apply_gst']")
-    public WebElement consultantApplyVatCheckBox;         // Consultants time
 
     // C O N S U L T A N T S        T I M E
-    @FindBy(css="[id='costs.consultant_time_expense']")
+    @FindBy(css="[id='timesheet_timeslot']")
     public WebElement consultantDurationInput;
     @FindBy(css="[id='costs.consultant_rate']")
     public WebElement consultantRateInput;
@@ -85,6 +81,9 @@ public class Billing extends GenericWrappers {
     public WebElement consultantSuperRateInput;
     @FindBy(css="[id='costs.consultant_super_expense_net']")
     public WebElement consultantSuperExpenseInput;
+
+    @FindBy(css="img[name='timesheet_apply_gst']")
+    public WebElement consultantApplyVatCheckBox;         // Consultants time
     @FindBy(css="img[name='after_save']")
     public WebElement addEntryCheckBox;     //Add another entry after saving
     @FindBy(css="img[id='add_document']")
@@ -108,14 +107,20 @@ public class Billing extends GenericWrappers {
     public WebElement searchTextInput;
     @FindBy(css="[name='costs.case_button']")
     public WebElement searchTextDropDown;
-    @FindBy(css="[id='costs.role']")
-    public WebElement roleInput;        //getAttribute - "value"
 
     // W A R N I N G    N O T I F I C A T I O N S   - Are you sure you want close this window? Any unsubmitted costs or changes will be lost.
     @FindBy(id="documen")
     public WebElement okButton;
     @FindBy(id="doc")
     public WebElement cancelButtonTimesheet;
+
+    // D U P L I C A T E    C O S T     -   P O P - U P
+    @FindBy(xpath="//div[text()='Duplicate Cost']")
+    public WebElement isDuplicatePopUp;
+    @FindBy(id="cost_duplicate_5_1")
+    public WebElement continue_yes_button;
+    @FindBy(id="cost_duplicate_5_2")
+    public WebElement noButton;
 
 
 

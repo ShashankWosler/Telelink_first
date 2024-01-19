@@ -2,7 +2,6 @@ package com.iinsight.pages.CasePage.CaseListing.CaseTypes;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseListing.CaseTypes.CreateCase;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.PageFactory;
 
 public class CreateCasePage extends CreateCase {
@@ -81,7 +80,7 @@ public class CreateCasePage extends CreateCase {
     public void enterPersonEmpCompanyNameTab(){
         waitElementToBeClickable(emp_company_name);
         enterText(emp_company_name,CaseTypeTestData.CompanyName);}
-    public void clickPersonEmpTitleTab(){
+    public void clickPersonEmpTitleDropDown(){
         clickButtonWithOutScroll(emp_title_dropdown);}
     public void enterPersonEmpFirstNameTab(){
         waitElementToBeClickable(emp_first_name);

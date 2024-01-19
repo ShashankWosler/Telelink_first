@@ -4,12 +4,13 @@ import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments.TaskMainPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.apache.commons.text.WordUtils;
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 
 public class TaskMainStep extends TaskMainPage {
-    public String getUsername = globalUserName.replaceAll("@besoftware.biz","").replace("."," ");
+    public String getUsername = WordUtils.capitalizeFully(globalUserName.substring(0, globalUserName.indexOf("@")).replace("."," "));
 
     @And("User click on {string} Button")
     public void clickNewTask(String buttonValue){
@@ -32,6 +33,10 @@ public class TaskMainStep extends TaskMainPage {
                     enterDescriptionButtonDeletePopUp();
                     clickOkButtonDeletePopUp();
                     break;
+                case "Edit":
+                    Assert.assertTrue(isNewAppointmentButtonVisible());
+                    clickButtonWithOutScroll(compGetAssignToOfFirstRow);
+                    clickWithJS(editButton);
             } } catch(TimeoutException | ElementClickInterceptedException e){
             System.out.println("TaskMainStep.clickNewTask() - "+e.getClass());
         }
@@ -50,8 +55,8 @@ public class TaskMainStep extends TaskMainPage {
             Assert.assertTrue(getTextDateOfCompFirstRow().contains(getTodayDate()));
 
         } else if(statusValue.equals("New cost")){
-            Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.FromTime));
-            Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.EndTime));
+            Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.FromTimeOneDigitHour));
+            Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.EndTimeOneDigitHour));
             Assert.assertTrue("E:"+getTaskFirstAmountOfTableText()+" A:"+CaseTypeTestData.Total,getTaskFirstAmountOfTableText().contains(CaseTypeTestData.Total));
         }
         else if(statusValue.equals("No Value")){
@@ -61,8 +66,8 @@ public class TaskMainStep extends TaskMainPage {
             Assert.assertTrue(getTaskFirstOfTableText().contains("no results"));
         }
         else if(statusValue.equals("New cost Without Billing")){
-            Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.FromTime));
-            Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.EndTime));
+            Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.FromTimeOneDigitHour));
+            Assert.assertTrue(getEndTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.EndTimeOneDigitHour));
 
         } else if(statusValue.equals("All Day Event")){
             Assert.assertTrue(getStartTimeFirstRowText().equalsIgnoreCase(CaseTypeTestData.AllDayEventFromTime));

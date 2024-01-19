@@ -2,12 +2,6 @@ package com.iinsight.pages.CasePage.CaseListing;
 
 import com.iinsight.pagefactory.CasePage.CaseListing.CaseListingMain;
 import org.openqa.selenium.support.PageFactory;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Properties;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 
 public class CaseListingPage extends CaseListingMain {
     public CaseListingPage(){PageFactory.initElements(getDriver(), this);
@@ -46,10 +40,14 @@ public class CaseListingPage extends CaseListingMain {
     }
     public void clickFilterDropDown(){clickButtonWithOutScroll(filterDropDown);
     }
+    public String getFilterInputText(){return getAttributeValue(filterInput,"value");
+    }
     public void clickFilterDropDownMyCaseValue(){clickButtonWithOutScroll(filterDropDownValue4);
     }
     public boolean isSearchButtonVisible(){return isElementDisplayed(searchBtn);
     }
     public boolean isSearchedTableIsVisible(){return isElementDisplayed(getSearchedTableRow);}
+    public void enterPassword() {enterTextWithoutScroll(txt_Password, globalPassword);
+    }
 }
 

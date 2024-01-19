@@ -41,6 +41,8 @@ public class CaseListingMain extends GenericWrappers {
     @FindBy(id="contact_new_1")
     public WebElement deleteCaseBtn;
     @FindBy(css="[id='case_list.filter']")
+    public WebElement filterInput;
+    @FindBy(css="[name='case_list.filter_button']")
     public WebElement filterDropDown;
     @FindBy(css="td[id='case_details.case_n_column']")
     public WebElement getCaseID;
@@ -64,6 +66,7 @@ public class CaseListingMain extends GenericWrappers {
     public WebElement filterDropDownValue8; // Not Yet Assigned
     @FindBy(id="dispcasenum")
     public WebElement caseNoteName;
-
+    @FindBy(css = "[type=password]")
+    public static WebElement txt_Password;
 }
 

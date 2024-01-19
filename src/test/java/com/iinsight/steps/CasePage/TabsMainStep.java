@@ -81,9 +81,10 @@ public class TabsMainStep extends TabsMainPage {
             waitFor(5000);
             Assert.assertTrue(isTaskAppointmentsTabVisible());
             clickTaskAppointmentsTab();
-        }catch (StaleElementReferenceException e){
+        }catch (StaleElementReferenceException | ElementClickInterceptedException e){
             System.out.println("TabsMainStep.userClickTaskAppointmentTab() - "+e.getClass());
             setImplicit(10);
+            waitFor(2000);
             mouseOverClick(task_appointments_tab);
         }
     }

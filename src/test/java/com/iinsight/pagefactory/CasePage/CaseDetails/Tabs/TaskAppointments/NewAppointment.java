@@ -37,6 +37,8 @@ public class NewAppointment extends GenericWrappers {
     public WebElement recurrenceCheckBox;
     @FindBy(css = "div#employees_list div")
     public WebElement selectedEmployee;
+    @FindBy(css="#employees_list div")
+    public WebElement selectedEmployeeText;
     @FindBy(id = "employeelist")
     public WebElement employeeInputTab;
     @FindBy(css="[name='employeelist_button']")
@@ -284,5 +286,11 @@ public class NewAppointment extends GenericWrappers {
     public List<WebElement> showAppointmentCheckBoxes;
     @FindBy(id="level4_form_close")
     public WebElement showAppointmentCloseButton;
+
+    // A P P O I N T M E N T    O U T   O F     H O U R S   P O P - U P
+    @FindBy(xpath="//div[@title='Appointment out of hours']//button[1]")
+    public WebElement closeButton;
+    @FindBy(xpath="//div[@title='Appointment out of hours']//button[2]")
+    public WebElement hoursPopUpSaveButton;
 
 }

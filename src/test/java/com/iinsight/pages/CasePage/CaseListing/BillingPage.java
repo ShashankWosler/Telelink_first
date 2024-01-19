@@ -39,6 +39,7 @@ public class BillingPage extends Billing {
         waitElementToBeClickable(billApplyVatCheckBox);
         clickButtonWithOutScroll(billApplyVatCheckBox);
     }
+    // T A S K      A P P O I N T M E N T S
     public boolean isDescriptionInputVisible(){
         waitVisibilityOfElement(descriptionInput);
         return isElementDisplayed(descriptionInput);}
@@ -49,4 +50,48 @@ public class BillingPage extends Billing {
     public String getDescriptionValue(){return getAttributeValue(descriptionInput,"value");}
     public String getCodeValue(){return getAttributeValue(codeInput,"value");}
 
+    // C O N S U L T A N T S        T I M E
+    public void enterConsultantDurationInput(){
+        enterTextAndClearAll(consultantDurationInput,CaseTypeTestData.Duration);
+    }
+    public void enterConsultantRateInput(){
+        enterTextAndClearAll(consultantRateInput,CaseTypeTestData.TimeSheetRate);
+        waitFor(2000);
+    }
+    public String getConsultantSubTotalInputText(){return getAttributeValue(consultantSubTotalInput,"value");
+    }
+    public String getConsultantVatInputText(){return getAttributeValue(consultantVatInput,"value");
+    }
+    public String getConsultantTotalInputText(){return getAttributeValue(consultantTotalInput,"value");
+    }
+    public String getConsultantSuperRateInputText(){return getAttributeValue(consultantSuperRateInput,"value");
+    }
+    public void clickConsultantSuperRateInput(){clickButtonWithOutScroll(consultantSuperRateInput);
+    }
+    public String getConsultantSuperExpenseInputText(){return getAttributeValue(consultantSuperExpenseInput,"value");
+    }
+    public void clickConsultantApplyVatCheckBox(){clickButtonWithOutScroll(consultantApplyVatCheckBox);
+    }
+    // N E W    T I M S H E E T     B I L L I N G
+    public void clickSearchByDropDown(){clickButtonWithOutScroll(searchByDropDown);
+    }
+    public String getSearchByInputText(){return getAttributeValue(searchByInput,"value");
+    }
+    public void enterSearchTextInput(String value){enterText(searchTextInput,value);
+    }
+
+    // W A R N I N G    N O T I F I C A T I O N S   - Are you sure you want close this window? Any unsubmitted costs or changes will be lost.
+    public void clickOkButton(){clickButtonWithOutScroll(okButton);
+    }
+    public void clickCancelButtonTimesheet(){clickButtonWithOutScroll(cancelButtonTimesheet);
+    }
+
+    // D U P L I C A T E    C O S T     -   P O P - U P
+    public boolean isDuplicatePopUpVisible(){
+        waitVisibilityOfElement(isDuplicatePopUp);
+        return isElementDisplayed(isDuplicatePopUp);
+    }
+
+    public void clickNoButton(){clickButtonWithOutScroll(noButton);
+    }
 }

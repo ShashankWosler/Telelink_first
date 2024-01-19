@@ -1,6 +1,9 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.Costs;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.Costs.CostsMain;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class CostsMainPage extends CostsMain {
@@ -19,7 +22,9 @@ public class CostsMainPage extends CostsMain {
     public boolean isBillingButtonIsVisible(){return isElementDisplayed(billingButton);}
 
     public void clickBillingButton(){clickButtonWithOutScroll(billingButton);}
-    public void clickEditButton(){clickButtonWithOutScroll(editButton);}
+    public void clickEditButton(){
+        waitElementToBeClickable(editButton);
+        mouseOverClick(editButton);}
     public void clickSelectAllButton(){clickButtonWithOutScroll(selectAllButton);}
     public void clickExcludeAllButton(){clickButtonWithOutScroll(excludeAllButton);}
     public void clickSearchTab(){clickButtonWithOutScroll(searchTab);}
@@ -43,6 +48,25 @@ public class CostsMainPage extends CostsMain {
         waitFor(2000);
         mouseOver(costForm);
     }
+    public void getAllChargesAmount(){
+        String getAmount;
+        WebElement listItem;
+        if(getChargedAmount.size()!=0){
+            for(int i=1;i<=getChargedAmount.size();i++) {
+                By xpath= By.xpath("(//td[@id='costs.total_charge_column'])["+i+"]");
+                listItem = getDriver().findElement(xpath);
+                waitVisibilityOfElement(listItem);
+                getAmount  = getAttributeValue(listItem,"title").replaceAll("[^0-9,]","");
+                CaseTypeTestData.AmountsList.add(getAmount.substring(0, getAmount.indexOf(",")));
+            }}
+        System.out.println("AmountsList: "+CaseTypeTestData.AmountsList.toString());
+    }
+    public void clickFirstRow(){
+        waitElementToBeClickable(firstRow);
+        clickButtonWithOutScroll(firstRow);}
+
+    // A P P O I N T M E N T
     public String getTextAppointmentToolTip(){return getAttributeValue(appointmentToolTip,"data-tooltip");}
+
 
 }

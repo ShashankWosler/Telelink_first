@@ -4,15 +4,15 @@ import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.Toolbox.Side.AppointmentsPage;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
+import org.apache.commons.text.WordUtils;
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 
 public class AppointmentsPageStep extends AppointmentsPage {
-    public String getUsername = globalUserName.replaceAll("@besoftware.biz","").replace("."," ");
-    public int appointmentCount=0, appointmentLength=0;
-    public String HardCodedName = getUsername;
+    public String getUsername = WordUtils.capitalizeFully(globalUserName.substring(0, globalUserName.indexOf("@")).replace("."," "));
+    public int appointmentCount, appointmentLength;
     public String ShowAppointmentEndDate = get6DaysLaterDate();
     public int daysDiff = getDaysDifference(ShowAppointmentEndDate,getTodayDate());
 
@@ -22,94 +22,137 @@ public class AppointmentsPageStep extends AppointmentsPage {
         Assert.assertTrue(isAppointmentsTabVisible());
         clickEmployeeDropDown();
         clickEmployeeSelectNone();
-        selectDropDownFromText(HardCodedName);
+        selectDropDownFromText(getUsername);
         waitFor(2000);
         clickEmployeeCancelIcon();
+        // Top Wrapper - Filter Input
+        Assert.assertTrue(isElementDisplayed(FilterInput));
+        clickFilterDropDown();
+        selectDropDownFromText("All appointments");
+        Assert.assertEquals(getFilterInputText(),"All appointments");
+        // Top Wrapper - Calender Input
+        try{
+        waitFor(4000);
+        clickCalenderDropDown();
+        waitFor(2000);
+        selectDropDownFromText("Agenda");
+        }catch(TimeoutException e){
+            System.out.println("AppointmentPageStep.user_select_filter_option_from_appointment_page");
+            selectDropDownFromText("Agenda");
+        }
     }
     @And("User Verify Created Appointment is Shown {string}")
-    public void verifyCreatedAppointment(String appointmentType){
+    public void
+    verifyCreatedAppointment(String appointmentType){
         try{
-
             setImplicit(60);
             waitFor(2000);
             setImplicit(20);
-            hoverAppointmentEvent();
-            Assert.assertTrue(isAppointmentEventVisible());
+            //clickAgendaDayRadio();
+            if(appointmentType.equals("All Day event")){
+                clickNextDate();
+                waitFor(2000);
+            }
+            hoverAgendaAppointmentEvent1();
+            Assert.assertTrue(isAgendaAppointmentEvent1());
 
             if(appointmentType.equals("Common")){
-                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour,
-                        getToolTip1Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour));
-                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour,
-                        getToolTip2Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour));
-                Assert.assertEquals(getAppointmentDateText(),getTodayDate());
+                String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
+                Assert.assertEquals(getTextAgendaTime1(),expected);
                 System.out.println("AppointmentsPage.verifyCreatedAppointment() - getAppointmentCountsText(): "+getAppointmentCountsText());
                 appointmentCount = Integer.parseInt(getAppointmentCountsText());
             }
             else if(appointmentType.equals("All Day event")){
-                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
-                        getToolTip1Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
+                Assert.assertEquals(getTextAgendaTime1(),"All day");
+                mouseOver(todayButton);
+                clickCalenderDropDown();
+                selectDropDownFromText("Day/Employee");
+                waitFor(2000);
+                setImplicit(20);
+                hoverAppointmentEvent();
+                Assert.assertTrue(isAppointmentEventVisible());
+                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
+                        getToolTip1Text().equalsIgnoreCase(getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
 
-                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
-                        getToolTip2Text().equalsIgnoreCase(getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
-                Assert.assertEquals(getAppointmentDateText(),getTodayDate());
+                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTomorrow2DateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
+                        getToolTip2Text().equalsIgnoreCase(getTomorrow2DateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
+                Assert.assertEquals(getAppointmentDateText(),getTomorrowDate());
                 System.out.println("AppointmentsPage.verifyCreatedAppointment() - getAppointmentCountsText(): "+getAppointmentCountsText());
                 appointmentCount = Integer.parseInt(getAppointmentCountsText());
             }
             else if(appointmentType.equals("Edit")){
-                hover2AppointmentEvent();
-                Assert.assertTrue(is2AppointmentEventVisible());
-                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.UpdateFromTimeOneDigitHour,
-                        getToolTip1Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.UpdateFromTimeOneDigitHour));
-                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.UpdateEndTimeOneDigitHour,
-                        getToolTip2Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.UpdateEndTimeOneDigitHour));
-                Assert.assertEquals(getAppointmentDateText(),getTodayDate());
+                String expected = CaseTypeTestData.UpdateFromTime+" - "+ CaseTypeTestData.UpdateEndTime;
+                Assert.assertEquals(getTextAgendaTime2(),expected);
             }
+            if(!(appointmentType.equals("All Day event"))){
+            Assert.assertEquals(getAppointmentDateText(),getTodayDate());}
         }catch (TimeoutException | NoSuchElementException e){
             System.out.println("AppointmentsPageStep.verifyCreatedAppointment() -"+e.getClass()+" "+e.getMessage());
         }
     }
     @And("User Select Event Option {string}")
     public void clickOnDeleteOptionFromRightClick(String optionValue){
-        rightClickAppointmentEvent();
+        if(!(optionValue.equals("Verify Delete Multiple"))){
+        rightClickAgenda1();}
         switch (optionValue){
             case "Delete":
                 try {
-                    clickRightClickDelete();
+                    rightAgendaDelete();
                     waitFor(2000);
                     setImplicit(60);
                     Assert.assertTrue(isDeletePopUpVisible());
                     clickOkButtonDeletePopUp();
+                    waitFor(2000);
+                    clickNextDate();
+                    waitFor(1000);
+                    clickPreviousDate();
                     waitFor(2000);
                     appointmentCount--;
                     Assert.assertEquals(getAppointmentCountsText(), String.valueOf(appointmentCount));
                 }catch(TimeoutException e){System.out.println("AppointmentsPageStep.clickOnDeleteOptionFromRightClick() - TimeoutException: "+e.getMessage());}
                 break;
             case "Edit":
-                clickRightClickEdit();
+                rightAgendaEdit();
                 waitFor(2000);
                 break;
-            case "Billing":
-                clickRightGoToBilling();
-                break;
             case "Case":
-                clickRightClickGoToCase();
+                rightAgendaGoToCase();
                 break;
             case "Calender":
-                clickRightClickAddToCalender();
+                rightAgendaCalender();
                 break;
             case "Recurrence Delete":
                 try{
-                    clickRightClickDelete();
+                    rightAgendaDelete();
                     waitFor(2000);
                     setImplicit(60);
                     Assert.assertTrue(isDeletePopUpVisible());
                     clickAllEventsCheckBox();
                     clickOkButtonDeletePopUp();
                     waitFor(2000);
+                    clickNextDate();
+                    waitFor(2000);
+                    clickPreviousDate();
+                    waitFor(2000);
                     Assert.assertEquals(getAppointmentCountsText(), "0");
                 }catch(TimeoutException | ElementClickInterceptedException e){
-                    System.out.println("AppointmentsPageStep.clickOnDeleteOptionFromRightClick() +"+e.getClass()+" "+e.getMessage());
+                    System.out.println("AppointmentsPageStep.clickOnRecurrenceDeleteOptionFromRightClick() +"+e.getClass()+" "+e.getMessage());
                 }
+                break;
+            case "Verify Delete Multiple":
+                Assert.assertTrue(isAppointmentEventVisible());
+                rightClickAppointmentEvent();
+                clickRightClickDelete();
+                waitFor(2000);
+                setImplicit(60);
+                Assert.assertTrue(isDeletePopUpVisible());
+                clickOkButtonDeletePopUp();
+                waitFor(2000);
+                appointmentCount--;
+                Assert.assertEquals(getAppointmentCountsText(), String.valueOf(appointmentCount));
+                clickCalenderDropDown();
+                selectDropDownFromText("Agenda");
+                Assert.assertEquals(getAppointmentCountsText(), String.valueOf(appointmentCount));
                 break;
         }
     }
@@ -119,12 +162,11 @@ public class AppointmentsPageStep extends AppointmentsPage {
             setImplicit(60);
             waitFor(2000);
             setImplicit(20);
-            hover2AppointmentEvent();
-            Assert.assertTrue(is2AppointmentEventVisible());
-            Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour,
-                    getToolTip1Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour));
-            Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour,
-                    getToolTip2Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour));
+            hoverAgendaAppointmentEvent2();
+            String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
+            Assert.assertEquals(getTextAgendaTime2(),expected);
+            System.out.println("AppointmentsPage.verifyCreatedAppointment() - getAppointmentCountsText(): "+getAppointmentCountsText());
+            appointmentCount = Integer.parseInt(getAppointmentCountsText());
             Assert.assertEquals(getAppointmentDateText(),getTodayDate());
             System.out.println("AppointmentsPage.verifyCreatedAppointment() - getAppointmentCountsText(): "+getAppointmentCountsText());
             appointmentCount = Integer.parseInt(getAppointmentCountsText());
@@ -153,23 +195,29 @@ public class AppointmentsPageStep extends AppointmentsPage {
             try {
                 for(int i=1;i<=appointmentLength;i++){
                     if(i==1) {
-                        rightClickAppointmentEvent1();
+                        rightClickAgenda1();
                     } else if(i==2){
-                        rightClickAppointmentEvent2();}
-                    clickRightClickDelete();
+                        rightClickAgenda2();}
+                    rightAgendaDelete();
                     waitFor(2000);
                     setImplicit(60);
                     Assert.assertTrue(isDeletePopUpVisible());
                     clickOkButtonDeletePopUp();
                     waitFor(2000);
                     appointmentCount--;
-                    Assert.assertEquals(getAppointmentCountsText(), String.valueOf(appointmentCount));
-                } }catch (TimeoutException e) {
+                }
+                clickNextDate();
+                waitFor(2000);
+                clickPreviousDate();
+                waitFor(2000);
+                Assert.assertEquals(getAppointmentCountsText(), String.valueOf(appointmentCount));
+            }catch (TimeoutException e) {
                 System.out.println("AppointmentsPageStep.clickOnDeleteOptionFromRightClick() - TimeoutException: " + e.getMessage());
-            }}
+            }
+        }
         else if(optionValue.equals("Edit")){
-            rightClickAppointmentEvent2();
-            clickRightClickEdit();
+            rightClickAgenda2();
+            rightAgendaEdit();
             waitFor(2000);
         }
     }
@@ -184,27 +232,21 @@ public class AppointmentsPageStep extends AppointmentsPage {
                 if(getAppointmentDateText().equals(ShowAppointmentEndDate)){
                     setImplicit(60);
                     waitFor(4000);
-                    System.out.println("ShowAppointmentEndDate");
-                    hoverAppointmentEvent();
-                    Assert.assertTrue(isAppointmentEventVisible());
-                    Assert.assertTrue("E:"+getToolTip1Text()+" A:"+get6DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour,
-                            getToolTip1Text().equalsIgnoreCase(get6DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour));
+                    System.out.println("ShowAppointmentEndDate: "+ShowAppointmentEndDate);
+                    hoverAgendaAppointmentEvent1();
+                    Assert.assertTrue(isAgendaAppointmentEvent1());
+                    String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
+                    Assert.assertEquals(getTextAgendaTime1(),expected);
 
-                    Assert.assertTrue("E:"+getToolTip2Text()+" A:"+get6DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour,
-                            getToolTip2Text().equalsIgnoreCase(get6DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour));
                 } else if (getAppointmentDateText().equals(get5DaysLaterDate())){
                     setImplicit(60);
                     waitFor(4000);
                     System.out.println("get5DaysLaterDate");
-                    hoverAppointmentEvent();
-                    Assert.assertTrue(isAppointmentEventVisible());
-                    Assert.assertTrue("E:"+getToolTip1Text()+" A:"+get5DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour,
-                            getToolTip1Text().equalsIgnoreCase(get5DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.FromTimeOneDigitHour));
-
-                    Assert.assertTrue("E:"+getToolTip2Text()+" A:"+get5DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour,
-                            getToolTip2Text().equalsIgnoreCase(get5DaysLaterDateWithMonthText()+" "+ CaseTypeTestData.EndTimeOneDigitHour));
-                    hoverZoomInButton();
-                    System.out.println("HoverZoomButton");
+                    hoverAgendaAppointmentEvent1();
+                    Assert.assertTrue(isAgendaAppointmentEvent1());
+                    String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
+                    Assert.assertEquals(getTextAgendaTime1(),expected);
+                    //hoverZoomInButton();
                 } else {System.out.println("verifyRecurrenceAppointmentFromAppointmentPage(): "+i);}
 
             }

@@ -115,7 +115,7 @@ public class Base {
         LocalDate sixDate = currentDate.plusDays(6);
         String sixDateString = sixDate.format(dateWithMonth);
         System.out.println("get6DaysLaterDateWithMonthText: "+sixDateString);
-        System.out.println("getTodayDateWithMonthText: "+currentDate.toString());
+        System.out.println("getTodayDateWithMonthText: "+currentDate);
         return sixDateString;
     }
     public String get5DaysLaterDateWithMonthText() {
@@ -123,7 +123,7 @@ public class Base {
         LocalDate fiveDate = currentDate.plusDays(5);
         String fiveDateString = fiveDate.format(dateWithMonth);
         System.out.println("get5DaysLaterDateWithMonthText: "+fiveDateString);
-        System.out.println("getTodayDateWithMonthText: "+currentDate.toString());
+        System.out.println("getTodayDateWithMonthText: "+currentDate);
         return fiveDateString;
     }
 
@@ -157,6 +157,13 @@ public class Base {
         System.out.println("getTomorrowDateWithMonthText: "+tomorrowDateString);
         return tomorrowDateString;
     }
+    public String getTomorrow2DateWithMonthText(){
+        LocalDate currentDate = LocalDate.now();
+        LocalDate tomorrowDate = currentDate.plusDays(2);
+        String tomorrowDateString = tomorrowDate.format(dateWithMonth);
+        System.out.println("getTomorrowDateWithMonthText: "+tomorrowDateString);
+        return tomorrowDateString;
+    }
 
     public String IntFormatCurrency(int amount, String countryInitial) {
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(new Locale("en", countryInitial));
@@ -177,7 +184,7 @@ public class Base {
 
     public String getCurrentTimeOneHourDigit(){
         LocalTime currentTime = LocalTime.now();
-        String current = currentTime.format(DateTimeFormatter.ofPattern("h:mm a"));
+        String current = currentTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
         System.out.println("getCurrentTime() "+current);
         return current;
     }
@@ -185,7 +192,7 @@ public class Base {
     public String get15TimeDifference(){
         LocalTime currentTime = LocalTime.now();
         LocalTime time15MinutesAhead = currentTime.plusMinutes(15);
-        String diffTime = time15MinutesAhead.format(DateTimeFormatter.ofPattern("hh:mm a"));
+        String diffTime = time15MinutesAhead.format(DateTimeFormatter.ofPattern("kk:mm"));
         System.out.println("get15TimeDifference() "+diffTime);
         return diffTime;
     }
@@ -193,7 +200,7 @@ public class Base {
     public String get15TimeDifferenceOneHourDigit(){
         LocalTime currentTime = LocalTime.now();
         LocalTime time15MinutesAhead = currentTime.plusMinutes(15);
-        String diffTime = time15MinutesAhead.format(DateTimeFormatter.ofPattern("h:mm a"));
+        String diffTime = time15MinutesAhead.format(DateTimeFormatter.ofPattern("hh:mm a"));
         System.out.println("get15TimeDifference() "+diffTime);
         return diffTime;
     }
