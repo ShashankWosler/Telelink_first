@@ -19,6 +19,14 @@ public class PlansProgramsMain extends GenericWrappers {
     public WebElement currentButton;
     @FindBy(id="cases_estimate_preview")
     public WebElement previewButton;
+    @FindBy(xpath="//div[@id='estimates_list']//tr[last()]")
+    public WebElement getLastRow;
+    @FindBy(xpath="//img[contains(@src,'current_1')]")
+    public WebElement getActivePlanRow;
+    @FindBy(id="currentestimate")
+    public WebElement currentPlanInput;
+    @FindBy(xpath="(//td[@id='estimate_summary.plan_id_column'])[last()]")
+    public WebElement currentPlanId;
 
     // P L A N      D E L E T E      P O P       U P
     @FindBy(id="level3_form")

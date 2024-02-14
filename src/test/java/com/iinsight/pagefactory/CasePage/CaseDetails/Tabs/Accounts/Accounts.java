@@ -44,6 +44,22 @@ public class Accounts extends GenericWrappers {
     @FindBy(xpath="(//div[@id='transactions_list']//tr)[1]")
     public WebElement transactionListFirstRow;
 
+    //Top elements
+    @FindBy(id="cases_account_details")
+    public WebElement detailsButton;
+    @FindBy(id="cases_account_print")
+    public WebElement printButton;
+    @FindBy(id="cases_account_print_copy")
+    public WebElement printCopyButton;
+    @FindBy(id="case_transaction_send_email")
+    public WebElement sendEmailButton;
+    @FindBy(id="cases_account_delete")
+    public WebElement deleteButton;
+    @FindBy(id="cases_account_void")
+    public WebElement voidButton;
+    @FindBy(id="cases_account_reverse")
+    public WebElement reverseButton;
+
 
 
 

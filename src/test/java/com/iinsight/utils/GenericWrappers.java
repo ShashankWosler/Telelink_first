@@ -215,7 +215,11 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         waitVisibilityOfElement(element);
         new Actions(getDriver()).doubleClick(element).perform();
     }
-
+    public void doubleClickWithJS(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));", element);
+        waitFor(2000);
+    }
     public String getText(WebElement element){
 
         waitVisibilityOfElement(element);
@@ -538,28 +542,23 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public void selectByIndex(WebElement element, int index) {
-
         selectDropdown(element).selectByIndex(index);
     }
 
     public void SelectByValue(WebElement element, String value) {
-
         selectDropdown(element).selectByValue(value);
     }
 
     public void SelectByVisibleText(WebElement element, String text) {
-
         selectDropdown(element).selectByVisibleText(text);
     }
 
     public void waitForLoadIconDisappear(){
-
         webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".oak-searchResults_preloader")));
     }
 
 
     public void waitForPaypalLoadIconDisappear(){
-
         webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'SpinnerOverlay_SpinnerOverlay')]")));
     }
 

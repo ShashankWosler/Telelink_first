@@ -2,6 +2,9 @@ package com.iinsight.pagefactory.Toolbox.Top.MyDashboard;
 import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
+
 public class Report extends GenericWrappers {
     @FindBy(id="select_mydownloads")
     public WebElement reportSelectAllBtn;
@@ -11,6 +14,10 @@ public class Report extends GenericWrappers {
     public WebElement reportUnSelectAllBtn;
     @FindBy(css="div#mydownloads tr")
     public WebElement sizeTableRow;
+    @FindBy(xpath="//div[@id='mydownloads']//td")
+    public WebElement emptyRow;
+    @FindBy(css="div#mydownloads tr")
+    public List<WebElement> sizeTableRowList;
     @FindBy(css="[alt='Excel 2007']:nth-child(1)")
     public WebElement downloadExcel;
     @FindBy(css="div#mydownloads tr:nth-child(1) td:nth-child(7) img:nth-child(2)")

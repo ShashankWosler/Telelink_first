@@ -7,6 +7,7 @@ public class CaseTypeTestData {
     public static String Title = "Mr";
     public static String FirstName = "Automation";
     public static String LastName = "Test";
+    public static String TemplateLastName = "TestTemplate";
     public static String Email = "qatest1234@gmail.com";
     public static String Phone = "9876543210";
     public static String Bill_To_CompanyName = "Person Bill QA";
@@ -95,7 +96,7 @@ public class CaseTypeTestData {
 
     // CLIENT NAME - Get Overlap Client Name = CASE ID
     public static String ClientName;
-    public static String OverlapAppointmentUsername = "Web Automation";
+    public static String OverlapAppointmentUsername = "Karan Virmani";
 
     // S H O W      A P P O I N T M E N T      S E R V I C E S
     public static ArrayList<String> DatesList = new ArrayList<String>();
@@ -117,4 +118,17 @@ public class CaseTypeTestData {
     public static String VATS = String.valueOf(VATInt);
     public static String TotalS = String.valueOf(TotalInt);
 
+    // Save Plan as Template Test Case
+    public static ArrayList<String> ExistingPlanAmounts = new ArrayList<String>();
+    public static ArrayList<String> TemplateAmounts = new ArrayList<String>();
+
+    // Plan Using Template - Opens in New Tab
+    public static String windowTitle;
+
+    // Report Selection Test Case - Top Bar Dowload Report Count
+    public static String ReportToDownload;
+    public static int ReportToDownloadI;
+
+    // R E C U R R E N C E
+    public static int dateTextGreaterThan20;
 }

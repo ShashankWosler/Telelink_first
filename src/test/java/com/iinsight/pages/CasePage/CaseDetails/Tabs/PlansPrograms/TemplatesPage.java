@@ -14,4 +14,18 @@ public class TemplatesPage extends Templates {
     public void clickByDropDownButton(){clickButtonWithOutScroll(byDropDownButton);}
     public void clickFieldEditButton(){clickButtonWithOutScroll(fieldEditButton);}
     public boolean isFirstRowFieldsVisible(){return isElementDisplayed(firstRowFields);}
+    public boolean isFirstRowVisible(){
+        waitVisibilityOfElement(getFirstRow);
+        return isElementDisplayed(getFirstRow);
+    }
+    public void clickFirstRow(){clickButtonWithOutScroll(getFirstRow);
+    }
+    public String getTitleFirstRowText(){return getAttributeValue(getTitleFirstRow,"title");
+    }
+    public String getEmptyRowText(){
+        waitFor(3000);
+        waitVisibilityOfElement(emptyRow);
+        return getAttributeValue(emptyRow,"title");
+    }
+
 }

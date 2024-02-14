@@ -78,6 +78,10 @@ public class Appointments extends GenericWrappers {
     public WebElement zoomOutButton;
     @FindBy(id="[id='Fields View']")
     public WebElement saveViewButton;
+    @FindBy(css="[data-ref='nextMonth']")
+    public WebElement nextMonthButton;
+    @FindBy(css="[data-ref='nextYear']")
+    public WebElement nextYearButton;
 
     /** D R O P D O W N*/
 
@@ -116,6 +120,7 @@ public class Appointments extends GenericWrappers {
     public WebElement SelectMonthDropDown;
     @FindBy(id="b-readonlycombo-6-input")
     public WebElement SelectYearDropDown;
+
 
     // C O M P A N Y     R E S O U R C E S
     @FindBy(id="b-fieldtrigger-20")

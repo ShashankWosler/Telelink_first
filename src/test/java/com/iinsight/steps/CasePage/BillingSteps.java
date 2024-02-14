@@ -26,6 +26,16 @@ public class BillingSteps extends BillingPage {
         enterTextDurationTab();
         enterTextRateTab();
     }
+
+    @And("User Select {string} Plan Option from the Billing dropdown")
+    public void planTemplateBilling(String arg0) {
+        waitFor(2000);
+        clickOnBillingDropdown();
+        waitFor(5000);
+        SelectByVisibleText(billing_dropdown_icon, arg0);
+        enterTextQuantityTab();
+        enterTextRateTab();
+    }
     @And("User Verify Selected Billing DropDown")
     public void verifyBillingDropDown(){
         enterTextDurationTab();
@@ -87,15 +97,16 @@ public class BillingSteps extends BillingPage {
     @And("User Added Employee Expense {string} VAT From Billing PopUp")
     public void addEmployeeExpensePrice(String vatValue){
         Assert.assertTrue(isBillApplyVATCheckBoxVisible());
+        //SelectByVisibleText(billing_dropdown_icon,"Total Sum: CTP403 : TestAutoActivity");
         mouseOverClick(consultantDurationInput);
         waitFor(2000);
         enterConsultantDurationInput();
         enterConsultantRateInput();
         clickConsultantSuperRateInput();
         Assert.assertTrue(getConsultantSubTotalInputText().contains(CaseTypeTestData.SubTotalS));
+        clickConsultantApplyVatCheckBox(vatValue);
         switch (vatValue){
             case "With":
-                clickConsultantApplyVatCheckBox();
                 waitFor(2000);
                 Assert.assertTrue(getConsultantTotalInputText().contains(CaseTypeTestData.TotalS));
                 Assert.assertTrue(getConsultantVatInputText().contains(CaseTypeTestData.VATS));

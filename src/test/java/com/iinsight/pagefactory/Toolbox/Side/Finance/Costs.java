@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class Costs extends FinanceMain {
-    public Costs(){PageFactory.initElements(getDriver(), this);
-    }
     @FindBy(css="img[name='company_button']")
     public WebElement businessDivisionDropdown;
     @FindBy(css="img[name='category_button']")

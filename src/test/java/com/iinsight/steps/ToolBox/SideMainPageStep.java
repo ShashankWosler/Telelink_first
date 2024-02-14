@@ -38,4 +38,61 @@ public class SideMainPageStep extends SideMainPage {
             clickTimeSheets();
         }
     }
+    @And("User Click on Admins Option")
+    public void clickAdminsOption(){
+        try {
+            clickAdmins();
+        }catch(ElementClickInterceptedException e){
+            System.out.println("SideMainPageStep.clickAdminsOption()");
+            setImplicit(20);
+            clickAdmins();
+        }
+    }
+    @And("User Click on Admins {string} Option")
+    public void clickAdminsOption(String options){
+        waitFor(1000);
+        switch (options){
+            case "Manage User":
+                waitVisibilityOfElement(AdminManageUser);
+                clickAdminManageUser();
+                break;
+            case "Manage Teams":
+                waitVisibilityOfElement(AdminManageTeams);
+                clickAdminManageTeams();
+                break;
+            case "Manage Offices":
+                waitVisibilityOfElement(AdminManageOffices);
+                clickAdminManageOffices();
+                break;
+            case "Manage Roles":
+                waitVisibilityOfElement(AdminManageRoles);
+                clickAdminManageRoles();
+                break;
+            case "Manage Groups":
+                waitVisibilityOfElement(AdminManageGroups);
+                clickAdminManageGroups();
+                break;
+            case "Manage Fields":
+                waitVisibilityOfElement(AdminManageFields);
+                clickAdminManageFields();
+                break;
+            case "System Logs":
+                waitVisibilityOfElement(AdminSystemLogs);
+                clickAdminSystemLogs();
+                break;
+            case "Case Logs":
+                waitVisibilityOfElement(AdminCaseLogs);
+                clickAdminCaseLogs();
+                break;
+            case "Archived Deleted Case":
+                waitVisibilityOfElement(AdminArchivalDeletionCases);
+                clickAdminArchivalDeletionCases();
+                break;
+            case "Manage Profiles":
+                waitVisibilityOfElement(AdminManageProfiles);
+                clickAdminManageProfiles();
+                break;
+        }
+    }
+
 }

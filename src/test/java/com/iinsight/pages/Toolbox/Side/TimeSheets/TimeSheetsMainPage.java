@@ -39,10 +39,8 @@ public class TimeSheetsMainPage extends TimeSheetsMain {
     public void clickEmployeeDropDown(){clickButtonWithOutScroll(employeeDropDown);
     }
     public void clickEmployeeAllFilterButton(){
-        waitFor(2000);
-        waitElementToBeClickable(employeeAllFilterButton);
+        waitFor(4000);
         clickButtonWithOutScroll(employeeAllFilterButton);
-        waitFor(2000);
     }
     public void clickEmployeeCancelButton(){
         try{

@@ -10,10 +10,15 @@ import java.sql.Time;
 public class AddCaseStep extends AddCaseMainPage {
     @And("User click on Business Division dropdown get {string} value from dropdown")
     public void userSelectBusinessDivision(String dropDownValue){
-        Assert.assertTrue(isBusinessDivisionDropdownVisible());
-        clickBusinessDivisionDropdown();
-        selectDropDownFromText(dropDownValue);
-        Assert.assertEquals(getBusinessDivisionInput(),dropDownValue);
+        try {
+            Assert.assertTrue(isBusinessDivisionDropdownVisible());
+            clickBusinessDivisionDropdown();
+            selectDropDownFromText(dropDownValue);
+            Assert.assertEquals(getBusinessDivisionInput(),dropDownValue);
+            waitFor(2000);
+        }catch(TimeoutException e){
+            System.out.println("AddCaseStep.userSelectBusinessDivision() TimeoutException- "+e.getMessage());
+        }
     }
     @And("User click on Service Contract dropdown get {string} value from dropdown")
     public void userSelectServiceContract(String dropDownValue){

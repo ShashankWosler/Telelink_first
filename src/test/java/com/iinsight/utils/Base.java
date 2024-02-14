@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class Base {
     DateTimeFormatter dateWithMonth = DateTimeFormatter.ofPattern("MMM d, yyyy");
-    DateTimeFormatter simpleDateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    DateTimeFormatter simpleDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 
     /***
@@ -104,29 +104,6 @@ public class Base {
         return todayDate;
     }
 
-    public String getTodayDateWithMonthText() {
-        LocalDate currentDate = LocalDate.now();
-        String todayDate = currentDate.format(dateWithMonth);
-        System.out.println("getTodayDateWithMonthText: "+todayDate);
-        return todayDate;
-    }
-    public String get6DaysLaterDateWithMonthText() {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate sixDate = currentDate.plusDays(6);
-        String sixDateString = sixDate.format(dateWithMonth);
-        System.out.println("get6DaysLaterDateWithMonthText: "+sixDateString);
-        System.out.println("getTodayDateWithMonthText: "+currentDate);
-        return sixDateString;
-    }
-    public String get5DaysLaterDateWithMonthText() {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate fiveDate = currentDate.plusDays(5);
-        String fiveDateString = fiveDate.format(dateWithMonth);
-        System.out.println("get5DaysLaterDateWithMonthText: "+fiveDateString);
-        System.out.println("getTodayDateWithMonthText: "+currentDate);
-        return fiveDateString;
-    }
-
     public String getTomorrowDate(){
         LocalDate currentDate = LocalDate.now();
         LocalDate tomorrowDate = currentDate.plusDays(1);
@@ -150,6 +127,38 @@ public class Base {
         return fiveDateString;
     }
 
+    public String get30DaysLaterDate(){
+        LocalDate currentDate = LocalDate.now();
+        LocalDate thirtyDate = currentDate.plusDays(31);
+        String thirtyDateString = thirtyDate.format(simpleDateFormat);
+        System.out.println("get30DaysLaterDate: "+thirtyDateString);
+        return thirtyDateString;
+    }
+
+
+    public String getTodayDateWithMonthText() {
+        LocalDate currentDate = LocalDate.now();
+        String todayDate = currentDate.format(dateWithMonth);
+        System.out.println("getTodayDateWithMonthText: "+todayDate);
+        return todayDate;
+    }
+    public String get6DaysLaterDateWithMonthText() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate sixDate = currentDate.plusDays(6);
+        String sixDateString = sixDate.format(dateWithMonth);
+        System.out.println("get6DaysLaterDateWithMonthText: "+sixDateString);
+        System.out.println("getTodayDateWithMonthText: "+currentDate);
+        return sixDateString;
+    }
+    public String get5DaysLaterDateWithMonthText() {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate fiveDate = currentDate.plusDays(5);
+        String fiveDateString = fiveDate.format(dateWithMonth);
+        System.out.println("get5DaysLaterDateWithMonthText: "+fiveDateString);
+        System.out.println("getTodayDateWithMonthText: "+currentDate);
+        return fiveDateString;
+    }
+
     public String getTomorrowDateWithMonthText(){
         LocalDate currentDate = LocalDate.now();
         LocalDate tomorrowDate = currentDate.plusDays(1);
@@ -160,9 +169,9 @@ public class Base {
     public String getTomorrow2DateWithMonthText(){
         LocalDate currentDate = LocalDate.now();
         LocalDate tomorrowDate = currentDate.plusDays(2);
-        String tomorrowDateString = tomorrowDate.format(dateWithMonth);
-        System.out.println("getTomorrowDateWithMonthText: "+tomorrowDateString);
-        return tomorrowDateString;
+        String tomorrow2DateString = tomorrowDate.format(dateWithMonth);
+        System.out.println("getTomorrowDateWithMonthText: "+tomorrow2DateString);
+        return tomorrow2DateString;
     }
 
     public String IntFormatCurrency(int amount, String countryInitial) {

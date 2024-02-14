@@ -16,26 +16,15 @@ Feature: Validating of the Smoke Test
     And User fill the Referral Details Form
     And User fill the Bill To Company Form
     And User fill the Save Form
+    When User Select Filter "My assigned cases" from HomePage
     Then User Verify the case is created and should be visible in case list "<Type of Case>"
     And User select Case Notes tab
     And User select Case Log tab
     Then Verify that "Case Created" Text is visible in Case Logs Tab
     Examples:
       |Type of Case|
-      |  Individual  |
-
-  @Always
-  Scenario: Verify that user can create a new case as a company and individual type and validate case is created
-    When User click on +case button
-    And User click on Business Division dropdown get "NAT" value from dropdown
-    And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
-    And User select case type "Company" to add
-    And User fill the Cases Type Form of "Company"
-    And User fill the Employment Details Form of "Company"
-    And User fill the Referral Details Form
-    And User fill the Bill To Company Form
-    And User fill the Save Form
-    Then User Verify the case is created and should be visible in case list "Company"
+      |Individual  |
+      |Company     |
 
   @RunLambdaOnly @Always
   Scenario Outline: Verify input fields of company and individual case type
@@ -53,7 +42,7 @@ Feature: Validating of the Smoke Test
       |  Company  |
       |  Individual  |
 
-    @T_12 @RunLambdaOnly
+    @T_12 @RunLambdaOnly @TimeSheetTC
       Scenario Outline: Verify User is able to create Standard billing from case list "+ Billing" Button without plan and validate the newly Created cost is displayed under Case List>Cost tab.
       When User click on search button from HomePage
       And User Select Newly Created "Case"
@@ -72,6 +61,28 @@ Feature: Validating of the Smoke Test
       |Standard cost (included in regular batch invoice run)|
       |This single cost requires invoicing immediately      |
       |This cost completes a 'Milestone'                    |
+
+  @Always
+  Scenario Outline: Verify the user is able to create billing with employee rate from Timesheet Page
+    When User click on search button from HomePage
+    And User select "Case" from search criteria dropdown
+    And User enter case type id "Company"
+    And User click on search button from search popup
+    And User select Costs tab
+    And User Click on Edit button from Costs tab
+    And User Added Employee Expense "<VATValue>" VAT From Billing PopUp
+    And User Click on Submit button
+    And User select Case Notes tab
+    And User select Case Log tab
+    Then Verify that "modified" text should be visible in Case logs
+    When User Click on Menu Icon
+    And User Click on Timesheet Option
+    And User Verify the Billing and Employee Amounts
+    And User Verify Fields From Activity Detail "<VATValue>" VAT
+    Examples:
+      |VATValue|
+      |With    |
+      |Without |
 
       @TC_16 @RunLambdaOnly
         Scenario: Verify user is able to create Payment with Single Type of Invoice
@@ -130,7 +141,7 @@ Feature: Validating of the Smoke Test
     And User select Case Log tab
     Then Verify that Newly created payment of billing ID of should be visible in Case logs
 
- @TC_1-29 @Always @RunLambdaOnly
+ @TC_1-29 @Always @RunLambdaOnly 
  Scenario: User is able to create an admin note on the Admin notes tab
    When User click on search button from HomePage
    And User Select Newly Created "Case"
@@ -142,7 +153,7 @@ Feature: Validating of the Smoke Test
    And User click on the Save button
    Then Verify the Admin Note should be added on Admin notes tab
 
-  @TC_1-653 @RunLambdaOnly
+  @TC_1-653 @RunLambdaOnly 
   Scenario: Verify that the Details button functionality on the admin notes tab (Edit Admin Notes)
     When User click on search button from HomePage
     And User Select Newly Created "Case"
@@ -154,7 +165,7 @@ Feature: Validating of the Smoke Test
     And User Edit the information in Title and Description fields
     And User click on the Save button
 
-  @TC_1-653 @RunLambdaOnly
+  @TC_1-653 @RunLambdaOnly 
   Scenario: Verify that the Delete button functionality on the admin notes tab (Delete Admin Notes)
     When User click on search button from HomePage
     And User Select Newly Created "Case"
@@ -166,7 +177,7 @@ Feature: Validating of the Smoke Test
     And User click on the Ok button from Delete PopUp
     Then Verify Admin Note is Deleted
 
-   @TC_1-28 @Always
+   @TC_1-28 @Always 
    Scenario: Verify that the New button functionality on the user notes tab
      When User click on search button from HomePage
      And User Select Newly Created "Case"
@@ -178,7 +189,7 @@ Feature: Validating of the Smoke Test
      And User click on the Save button
      Then Verify the User Note should be added on User notes tab
 
-  @TC_1-820 @RunLambdaOnly
+  @TC_1-820 @RunLambdaOnly 
   Scenario: Verify that newly created User note and Admin note logs are displaying on the Case log tab
     When User click on search button from HomePage
     And User Select Newly Created "Case"
@@ -192,7 +203,7 @@ Feature: Validating of the Smoke Test
     And User select Case Log tab
     Then Verify the newly created notes logs should be created on the case logs tab
 
-  @Always
+  @Always 
   Scenario: Verify that the Details button functionality on the user notes tab (Edit User Note)
     When User click on search button from HomePage
     And User Select Newly Created "Case"
@@ -204,7 +215,7 @@ Feature: Validating of the Smoke Test
     And User click on the Save button
     Then Verify the User Note should be added on User notes tab
 
-  @Always
+  @Always 
   Scenario: Verify that the Delete button functionality on the user notes tab (Delete User Note)
     When User click on search button from HomePage
     And User Select Newly Created "Case"
@@ -217,7 +228,7 @@ Feature: Validating of the Smoke Test
     Then Verify User Note is Deleted
 
 
-   @TC_1-655 @Always
+   @TC_1-655 @Always 
     Scenario: Verify the search feature functionality on the Case Note/ all sub-tabs
      When User click on search button from HomePage
      And User Select Newly Created "Case"
@@ -230,8 +241,7 @@ Feature: Validating of the Smoke Test
     And User click on the Find button
     Then Verify the Search Result
 
-  @TC_1-657
-  Scenario: Disable and Arranging the sequence of Case Notes all sub-tabs column by using field view edit button
+  Scenario: Disable/Enable and Arranging the sequence of Case Notes all sub-tabs column by using field view edit button
     When User click on search button from HomePage
     And User Select Newly Created "Case"
     And User click on search button from search popup
@@ -239,17 +249,8 @@ Feature: Validating of the Smoke Test
     And User select User Notes tab
     And User click on the Field Edit button From User Notes Tab
     And User select the required custom field on the enabled side
-    And User Use the arrow key for the order of the position needed
     And User click on the Disable button
     Then User click on the Apply button
-
-  @TC_1-656
-  Scenario: Enable and Arranging the sequence of Case Notes all sub-tabs columns by using the field view edit button
-    When User click on search button from HomePage
-    And User Select Newly Created "Case"
-    And User click on search button from search popup
-    And User select Case Notes tab
-    And User select User Notes tab
     And User click on the Field Edit button From User Notes Tab
     And User select the required custom field on the disabled side
     And User click on the Enable button
@@ -282,7 +283,7 @@ Feature: Validating of the Smoke Test
     Then Go to the report
     And User Download The Selected "Pdf" Format Report
 
-  @RunLambdaOnly
+  @RunLambdaOnly @TimeSheetTC
     Scenario Outline: Verify that User is able to create Payment using Multiple Plans
       When User click on search button from HomePage
       And User Select Newly Created "Case"
@@ -294,7 +295,7 @@ Feature: Validating of the Smoke Test
       And User enter title from plan new page and Get Id of "<Plan Type>" "<Billing Type>"
       And User Select ActivityItem "<Plan Type>" and "<Billing Type>" and Enter Updated Amount
       And User click on plan save button
-      And Verify that New created plan will be listed under PlanProgram Tab
+      And Verify that New created "Common" plan will be listed under PlanProgram Tab
       And User select Costs tab
       And User Click on Billing button from Costs tab
       And User Select "Standard cost (included in regular batch invoice run)" from Select your invoice type dropdown
@@ -336,6 +337,41 @@ Feature: Validating of the Smoke Test
       |Service Based Plan    |Time Based    |
       |Total Sum Plan        |Monetary Based|
       |Total Sum Plan        |Time Based    |
+
+  @Always
+  Scenario: Verify The User is Able To Create Billing From Plan Template and Verify Prices
+    When User click on search button from HomePage
+    And User select "Case" from search criteria dropdown
+    And User enter case type id "Company"
+    And User click on search button from search popup
+    Then User click on plans programs tab
+    And User click on Plans button from plans programs tab
+    And User click on Plan Details Button
+    And User store Current Plan Amounts
+    And User click Save As Template Button
+    And User click on Template Tab from plans programs tab
+    And Verify New created template will be listed under template tab
+    Then User click on plans programs tab
+    And User click on Plans New Button
+    And User Create Plan "With" Existing Template
+    And User enter title from plan new page and Get Id of "Template" "Monetary Based"
+    And User click on plan save button
+    And Verify that New created "Template" plan will be listed under PlanProgram Tab
+    And User click on Template Tab from plans programs tab
+    And Verify New created template will be listed under template tab
+    And User click on Plans Delete Button
+    And Verify New created template will be Deleted under template tab
+    And User select Case Notes tab
+    And User select Case Log tab
+    Then Verify that Plan Template Logs is visible in Case Logs Tab
+    And User Click on +Billing button
+    And User Select "Standard cost (included in regular batch invoice run)" from Select your invoice type dropdown
+    And User Select "Total Sum: CTP504 : TestAutoItem" Plan Option from the Billing dropdown
+    And User Click on Submit button
+    Then User click on plans programs tab
+    And User Select Active Plan
+    And User click on Plan Details Button
+    Then Verify Active Plan Remaining Amount
 
   @RunLambdaOnly
   Scenario Outline: Verify User is able to Refund and Adjust Invoice with/ without VAT for New Created Case and verifies all Amounts and IDs
@@ -410,7 +446,7 @@ Feature: Validating of the Smoke Test
     |Without |
 
   @RunLambdaOnly
-  Scenario Outline: Verify user is able to create New Task From Accounts Tab
+  Scenario Outline: Verify user is able to create New Task From Task/Appointments Tab
     When User click on search button from HomePage
     And User select "Case" from search criteria dropdown
     And User enter case type id "Company"
@@ -437,7 +473,7 @@ Feature: Validating of the Smoke Test
     |On Hold      |high    |
     |Completed    |low     |
 
-  @VerifyTest
+  @Always
   Scenario: Verify User is able to create Billing from appointment and Deletion of Appointment
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
@@ -454,6 +490,7 @@ Feature: Validating of the Smoke Test
     And User Verify Selected Billing DropDown
     And User Verify The Updated Price "With" VAT
     And User Click on Submit button
+    And User Click on Save Button from Edit Appointment Entry PopUp
     And User select Costs tab
     And Verify that new Created "New cost" is listed in Cost list under Costs Tab
     And User Select Tasks Appointments Tab
@@ -474,7 +511,7 @@ Feature: Validating of the Smoke Test
     And User select Case Log tab
     Then Verify that "deleted" text should be visible in Case logs
 
-  @RunLambdaOnly @VerifyTest
+  @RunLambdaOnly
   Scenario: Verify User is able to create Overlap Appointments, Edit Appointment and Delete Appointments
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
@@ -541,23 +578,16 @@ Feature: Validating of the Smoke Test
     And User select Case Log tab
     Then Verify that "deleted" text should be visible in Case logs
 
-  @RunLambdaOnly @VerifyTest
+  @RunLambdaOnly
   Scenario Outline:Verify User is able to create Recurrence Appointments
-    When User click on +case button
-    And User click on Business Division dropdown get "NAT" value from dropdown
-    And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
-    And User select case type "Individual" to add
-    And User fill the Cases Type Form of "Individual"
-    And User fill the Employment Details Form of "Individual"
-    And User fill the Referral Details Form
-    And User fill the Bill To Company Form
-    And User Click on Add Appointment Button from Add Case Save Form
+    When User Select Filter "My assigned cases" from HomePage
+    And User Select Tasks Appointments Tab
+    And User click on "New Appointment" Button
     And User Enter all the mandatory fields for creating "Recurrence" appointment
     And User Select "Recurrence" Checkbox From +New Appointment Page
     And User Enter enter fields of "<Recurrence Type>" appointment
     And User Click on Save Button from Appointment Entry PopUp
     And User Verify the Appointment case is created and should be visible in case list
-    And User Select Tasks Appointments Tab
     Then User Verify Task Added in Appointment List "Recurrence"
     And User select Case Notes tab
     And User select Case Log tab
@@ -581,11 +611,7 @@ Feature: Validating of the Smoke Test
 
   @RunLambdaOnly
   Scenario: Verify User is able to create All Day Event From Appointment
-    When User click on search button from HomePage
-    And User select "Case" from search criteria dropdown
-    And User enter case type id "Appointment"
-    And User click on search button from search popup
-    And User verify the case type id "Appointment"
+    When User Select Filter "My assigned cases" from HomePage
     And User Select Tasks Appointments Tab
     And User click on "New Appointment" Button
     And User Enter all the mandatory fields for creating "All Day Event" appointment
@@ -608,49 +634,21 @@ Feature: Validating of the Smoke Test
     And User select Case Log tab
     Then Verify that "deleted" text should be visible in Case logs
 
-  @Always @RunOnce
-  Scenario Outline: Verify the user is able to create billing with employee rate from Timesheet Page
-    When User click on search button from HomePage
-    And User select "Case" from search criteria dropdown
-    And User enter case type id "Company"
-    And User click on search button from search popup
-    And User select Costs tab
-    And User Click on Edit button from Costs tab
-    And User Added Employee Expense "<VATValue>" VAT From Billing PopUp
-    And User Click on Submit button
-    And User select Case Notes tab
-    And User select Case Log tab
-    Then Verify that "modified" text should be visible in Case logs
+  @Always
+  Scenario: Verify User Detail, User View, User Access and User Modify Fields From Manage User Page
     When User Click on Menu Icon
-    And User Click on Timesheet Option
-    And User Verify the Billing and Employee Amounts
-    And User Verify Fields From Activity Detail "<VATValue>" VAT
-    Examples:
-      |VATValue|
-      |With    |
-      |Without |
-
-  @Always
-  Scenario: Verify that the user is able to delete case by click on Delete Case in dropdown menu button
-    When User click on search button from HomePage
-    And User select "Case" from search criteria dropdown
-    And User enter case type id "Individual"
-    And User click on search button from search popup
-    And User verify the case type id "Individual"
-    And User click on ellipses and Select Delete Case
-    And User click on Proceed Anyway From Delete PopUp
-    And Verify case is deleted from listing page
-
-  @Always
-  Scenario:Verify that the user is not able to archive open case by click on "Archive case" in dropdown menu button
-    When User click on search button from HomePage
-    And User select "Case" from search criteria dropdown
-    And User enter case type id "Individual"
-    And User click on search button from search popup
-    And User verify the case type id "Individual"
-    And User click on ellipses and Select Archive Case
-    And User click on Proceed Anyway From Archive PopUp
-    And User select Case Notes tab
-    And User select Case Log tab
-    Then Verify that "Case archived" Text is visible in Case Logs Tab
-
+    And User Click on Admins Option
+    And User Click on Admins "Manage User" Option
+    Then User click on search button from Manage User
+    And User select "Name" from search criteria dropdown
+    And User enter Name to Search
+    And User click on search button from "Manage User" search popup
+    Then User verify the Email Address of searched Name
+    And User click on "User Detail" Tab from Manage User page
+    Then User verify fields of User Detail Tab
+    And User click on "User Access" Tab from Manage User page
+    Then User verify fields of "User Access" Tab
+    And User click on "User View" Tab from Manage User page
+    Then User verify fields of "User View" Tab
+    And User click on "User Modify" Tab from Manage User page
+    Then User verify fields of "User Modify" Tab

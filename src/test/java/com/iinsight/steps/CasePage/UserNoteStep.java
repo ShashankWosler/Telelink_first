@@ -81,6 +81,12 @@ public class UserNoteStep extends UserNotesPage {
         //Assert.assertEquals(verify_table_size-1,getSizeOfTable());
     }
 
+    @Then("Verify the New, Details and Delete Button is Disabled on User Notes")
+    public void verifyTheNewDetailsAndDeleteButtonIsDisabledOnUserNotes() {
+        Assert.assertEquals(getAttributeValue(add_new_btn,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(delete_btn,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(details_btn,"disabled"),"true");
+    }
 
 
 }

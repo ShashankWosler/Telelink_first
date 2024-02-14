@@ -1,7 +1,9 @@
 package com.iinsight.steps.CasePage;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.CasePage.CaseDetails.Tabs.PlansPrograms.PlanNewPage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.ElementNotInteractableException;
@@ -9,8 +11,10 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 
 import java.net.StandardSocketOptions;
+import java.util.ArrayList;
 
 public class TabPlansNewStep extends PlanNewPage {
+
     @And("User Select the plan {string} and billing {string} to add")
     public void userSelectPlanBillingType(String invoiceType, String billingType){
         try{
@@ -33,9 +37,14 @@ public class TabPlansNewStep extends PlanNewPage {
     }
     @And("User enter title from plan new page and Get Id of {string} {string}")
     public void userEnterTitle(String invoiceType, String billingType){
+        if(invoiceType.contains("Template")){
+            enterTemplateTitleInput();
+            getID(invoiceType,clickIdInput());
+        } else{
         enterTitleInput();
         String concatenatedValue = invoiceType.replaceAll(" ", "") + billingType.replaceAll(" ", "");
         getID(concatenatedValue,clickIdInput());
+        }
     }
     @And("User Select ActivityItem {string} and {string} and Enter Updated Amount")
     public void userSelectActivityItem(String invoiceType, String billingType){
@@ -97,6 +106,7 @@ public class TabPlansNewStep extends PlanNewPage {
     }
     @And("User click on plan save button")
     public void userClickOnSaveButton(){
+        CaseTypeTestData.windowTitle = getWindowTitle();
         boolean flag = false;
         try{
         setImplicit(10);
@@ -113,5 +123,40 @@ public class TabPlansNewStep extends PlanNewPage {
         if(flag)
             clickCurrentPlanSaveButton();
         }
+    }
+    @And("User Create Plan {string} Existing Template")
+    public void createUsingExistingPlan(String checkBoxValue){
+        Assert.assertTrue(isYesCheckBoxVisible());
+        verifyZeroValues();
+        switch (checkBoxValue){
+            case "With":
+                clickYesCheckBox();
+                clickSelectTemplateDropDown();
+                selectDropDownFromText(CaseTypeTestData.FirstName+CaseTypeTestData.LastName);
+                Assert.assertEquals(getTemplateInput(),CaseTypeTestData.FirstName+CaseTypeTestData.LastName);
+                waitFor(6000);
+                getAllTemplateAmounts();
+                Assert.assertEquals(CaseTypeTestData.ExistingPlanAmounts, CaseTypeTestData.TemplateAmounts);
+                break;
+            case "Without":
+                System.out.println("TabPlansNewStep.createUsingExistingPlan()");
+                break;
+        }
+    }
+    @And("User store Current Plan Amounts")
+    public void getAmountsToVerify3Sections(){
+        Assert.assertTrue(isYesCheckBoxVisible());
+        waitFor(3000);
+        getExistingPlanAmounts();
+        clickCancelButton();
+    }
+
+    @Then("Verify Active Plan Remaining Amount")
+    public void verifyRemainingAmount(){
+        Assert.assertTrue(isYesCheckBoxVisible());
+        waitFor(3000);
+        Assert.assertTrue(getAmountRemaining().contains("0.00"));
+        Assert.assertTrue(getAmountRemainingGST().contains("0.00"));
+        Assert.assertTrue(getAmountRemainingEx().contains("0.00"));
     }
 }

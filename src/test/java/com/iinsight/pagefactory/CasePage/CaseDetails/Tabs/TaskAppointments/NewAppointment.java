@@ -15,6 +15,8 @@ public class NewAppointment extends GenericWrappers {
     public WebElement titleDropDown;
     @FindBy(id="appointment_name")
     public WebElement titleInput;
+    @FindBy(id="date_dialog")
+    public WebElement dateDialog;
     @FindBy(id="appointment_start_date")
     public WebElement fromDateInputTab;
     @FindBy(name="appointment_start_date_button")
@@ -29,6 +31,8 @@ public class NewAppointment extends GenericWrappers {
     public WebElement startTime;
     @FindBy(css="[name='appointment.time_zone_button']")
     public WebElement timeZone;
+    @FindBy(id="advButton")
+    public WebElement appointmentTypeOption;
     @FindBy(css="img[name='can_overlap']")
     public WebElement allowOverlapCheckBox;
     @FindBy(css="img[name='all_day_event']")
@@ -272,8 +276,18 @@ public class NewAppointment extends GenericWrappers {
     public WebElement recurrenceCountInput;
     @FindBy(id="recurrence_end_by_date")
     public WebElement endDateInput;     //getAttribute = "value" - MM-DD-YYY : getAttribute = "value" - DD-MM-YYYY
+    @FindBy(css="[name=recurrence_end_by_date_button]")
+    public WebElement endDateDropDown;
     @FindBy(xpath="//div[@id='recurrence-html-c']//button")
     public WebElement showAppointmentButton;
+
+    // C A L E N D E R
+    @FindBy(xpath = "//td[@class='date_button'][1]")
+    public WebElement datePickPrevMonthBtn;
+    @FindBy(xpath = "//td[@class='date_button'][2]")
+    public WebElement datePickNextMonthBtn;
+    @FindBy(xpath="//table[@class='tables date_table2']//tr[3]/td[1]")
+    public WebElement datePickDateGr20;
 
     // S H O W      A P P O I N T M E N T      S E R V I C E S
     @FindBy(xpath="//div[contains(text(),'Show Appointment Series')]")

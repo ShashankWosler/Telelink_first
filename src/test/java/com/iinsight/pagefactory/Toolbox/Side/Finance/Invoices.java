@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class Invoices extends Costs {
-    public Invoices(){PageFactory.initElements(getDriver(), this);
-    }
     @FindBy(id="i_remit")
     public WebElement remittanceAmountField;
     @FindBy(id="i_total_balance")

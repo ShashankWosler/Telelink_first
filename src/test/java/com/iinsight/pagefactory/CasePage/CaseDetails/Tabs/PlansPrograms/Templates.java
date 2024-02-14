@@ -16,4 +16,10 @@ public class Templates extends GenericWrappers {
     public WebElement fieldEditButton;
     @FindBy(xpath = "//div[@id='estimates_template_list']//tr[1]/td")
     public List<WebElement> firstRowFields;
+    @FindBy(css="div#estimates_template_list tr:nth-child(1)")
+    public WebElement getFirstRow;
+    @FindBy(xpath="(//div[@id='estimates_template_list']//td[@id='estimate_template_summary.title_column'])[1]")
+    public WebElement getTitleFirstRow;
+    @FindBy(css="div#estimates_template_list tr td")
+    public WebElement emptyRow;
 }

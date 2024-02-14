@@ -6,6 +6,9 @@ import org.openqa.selenium.support.PageFactory;
 public class ReportSelectionCriteriaPage extends ReportSelectionCriteria {
     public ReportSelectionCriteriaPage(){PageFactory.initElements(getDriver(), this);
     }
+    public String getDownloadedReportCount(){
+        waitElementToBeClickable(downloadedReportCount);
+        return getText(downloadedReportCount);}
     public boolean isFromDateButtonVisible(){
         return isElementDisplayed(from_btn);
     }

@@ -19,6 +19,12 @@ public class Plans extends GenericWrappers {
     public WebElement TitleOfCreatedPlan;    // GetAttribute : title
     @FindBy(xpath="//div[@id='estimates_list']//tr[last()]//td[5]")
     public WebElement IdOfCreatedPlan;
+    @FindBy(xpath="//div[@id='estimates_list']//tr[last()]")
+    public WebElement getLastRow;
+    @FindBy(xpath="(//div[@id='estimates_list']//td[@id='estimate_summary.plan_id_column'])[1]")
+    public WebElement getPlanIDTemplateFirstRow;
+    @FindBy(xpath="(//div[@id='estimates_list']//td[@id='estimate_summary.title_column'])[1]")
+    public WebElement getTitleTemplateFirstRow;
 
     // P L A N      R E P O R T         P R E V I E W
     @FindBy(className = "report_name")
@@ -27,4 +33,12 @@ public class Plans extends GenericWrappers {
     public WebElement cancelReportPreview;
     @FindBy(xpath="//table[@class='report_table' and @align='right']//tr[2]//td[3]")
     public WebElement actualCaseBillingAmt; // getInnerText : Actual Case Billed Amount
+
+    // C O P Y      E S T I M A T E     T E M P L A T E
+    @FindBy(xpath="//div[text()='Copy Estimate Template']")
+    public WebElement copyEstimatePopUp;
+    @FindBy(id="estimate_delete_1")
+    public WebElement copyEstimateOkButton;
+    @FindBy(id="estimate_delete_2")
+    public WebElement copyEstimateCancelButton;
 }

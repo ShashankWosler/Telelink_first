@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class EmailedTransactions extends Invoices {
-    public EmailedTransactions(){PageFactory.initElements(getDriver(), this);
-    }
     @FindBy(id="emailed_invoices_check_all_button")
     public WebElement selectAllBtn;
     @FindBy(id="ifinance_emailed_invoice_send")

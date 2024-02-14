@@ -57,7 +57,9 @@ public class AppointmentsPage extends Appointments {
     public void clickEmployeeName(){clickButtonWithOutScroll(employeeName);}
 
     // C A L E N D E R      T O P       R I G H T
-    public String getAppointmentCountsText(){return getText(appointmentCounts);}
+    public String getAppointmentCountsText(){
+        waitFor(4000);
+        return getText(appointmentCounts);}
     public void clickTodayButton(){clickButtonWithOutScroll(todayButton);}
     public void clickReloadButton(){clickButtonWithOutScroll(reloadButton);}
     public void clickShareButton(){clickButtonWithOutScroll(shareButton);}
@@ -73,6 +75,8 @@ public class AppointmentsPage extends Appointments {
     public void clickZoomInButton(){clickButtonWithOutScroll(zoomInButton);}
     public void clickZoomOutButton(){clickButtonWithOutScroll(zoomOutButton);}
     public void clickSaveViewButton(){clickButtonWithOutScroll(saveViewButton);}
+    public void clickNextMonthButton(){clickButtonWithOutScroll(nextMonthButton);}
+    public void clickNextYearButton(){clickButtonWithOutScroll(nextYearButton);}
 
     /** D R O P D O W N*/
 

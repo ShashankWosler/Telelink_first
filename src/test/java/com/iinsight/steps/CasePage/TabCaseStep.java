@@ -12,4 +12,20 @@ public class TabCaseStep extends CaseDetailsPage {
         Assert.assertEquals(getTextBillToCompanyName(), CaseTypeTestData.CompanyName);
         Assert.assertEquals(getTextBillToCompanyStatus(), CaseTypeTestData.CaseStatus);
     }
+
+    @Then("Verify {string} is enabled")
+    public void viewIsEnabled(String viewType){
+        switch (viewType){
+            case "Case Listing View":
+                try{
+                    Assert.assertEquals(getAttributeValue(bill_company_name,"disabled"),"true");
+                } catch(Exception e){
+                    System.out.println("viewIsEnabled() - Case Listing View: Listing View Enabled");
+                }
+                break;
+            case "Case Details View":
+                Assert.assertTrue(isBillToCompanyNameIsVisible());
+
+        }
+    }
 }

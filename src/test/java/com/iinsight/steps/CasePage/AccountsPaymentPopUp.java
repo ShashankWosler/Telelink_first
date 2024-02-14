@@ -51,6 +51,7 @@ public class AccountsPaymentPopUp extends PaymentPopUpPage {
     @And("User Edit the Amount From PopUp")
     public void clickOnEditAmountPopUp(){
         setImplicit(3);
+        waitFor(4000);
         clickEditAmountButton();
          String getAmountFromConfig = config.getString("AmountID").replace("R", "").replace(",", ".");
         waitFor(3000);

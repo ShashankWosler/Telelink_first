@@ -21,6 +21,10 @@ public class NewTaskPopUp extends GenericWrappers {
     public WebElement createdByDropDown;
     @FindBy(css="[id='tasks.task_due_date_dialog']")
     public WebElement dueDateInput;
+    @FindBy(css="[name='tasks.task_due_date_dialog_button']")
+    public WebElement dueDateDropDown;
+    @FindBy(id="date_dialog")
+    public WebElement dateDialog;
     @FindBy(id="id_task_status")
     public WebElement statusDropDown;       //Select
     @FindBy(css="[id='tasks.task_priority_dialog']")

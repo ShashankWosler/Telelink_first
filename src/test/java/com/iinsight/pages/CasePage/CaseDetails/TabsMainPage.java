@@ -48,6 +48,20 @@ public class TabsMainPage extends TabsMain {
     public void clickTaskAppointmentsTab(){clickButtonWithOutScroll(task_appointments_tab);
     }
 
+    public boolean isGoalsTabVisible(){
+        waitVisibilityOfElement(goals_tab);
+        return isElementDisplayed(goals_tab);
+    }
+    public void clickGoalsTab(){clickButtonWithOutScroll(goals_tab);
+    }
+
+    public boolean isSettingsTabVisible(){
+        waitVisibilityOfElement(settings_tab);
+        return isElementDisplayed(settings_tab);
+    }
+    public void clickSettingTab(){clickButtonWithOutScroll(settings_tab);
+    }
+
     // D R O P D O W N     V A L U E S     ----->>     COMMON IN ALL TABS
     public void SelectFirstValueFromByDropDown(){clickButtonWithOutScroll(get_by_dropdown_index1);
     }

@@ -1,5 +1,6 @@
 package com.iinsight.steps.CasePage;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote.ReportSelectionCriteriaPage;
 import io.cucumber.java.en.And;
 import org.junit.Assert;
@@ -8,6 +9,8 @@ import org.openqa.selenium.ElementNotInteractableException;
 public class ReportSelectionStep extends ReportSelectionCriteriaPage {
     @And("User Go to the Report Selection Criteria Select {string} from DropDown")
     public void selectDateRangeFromBottomOfPage(String dateDropDownValue){
+        CaseTypeTestData.ReportToDownload = getDownloadedReportCount();
+        CaseTypeTestData.ReportToDownloadI = Integer.parseInt(CaseTypeTestData.ReportToDownload);
         waitFor(4000);
         isDateDropDownVisible();
         clickDateDropDown();
@@ -36,6 +39,10 @@ public class ReportSelectionStep extends ReportSelectionCriteriaPage {
         }
     }
     @And("User click on the Export button")
-    public void userClickOnExportButton(){ clickOnExportButton();
+    public void userClickOnExportButton(){
+        clickOnExportButton();
+        waitFor(5000);
+        String exp = String.valueOf(++CaseTypeTestData.ReportToDownloadI);
+        Assert.assertEquals(getDownloadedReportCount(),exp);
     }
 }

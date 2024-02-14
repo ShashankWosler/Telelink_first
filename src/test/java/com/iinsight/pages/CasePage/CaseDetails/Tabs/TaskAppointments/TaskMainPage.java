@@ -51,7 +51,6 @@ public class TaskMainPage extends TaskMain {
     }
     public String getTextTitleOfCompFirstRow(){return getAttributeValue(compGetTitleOfFirstRow,"title");}
     public String getTextStatusOfCompFirstRow(){return getAttributeValue(compGetStatusOfFirstRow,"title");}
-    public String getTextDateOfCompFirstRow(){return getAttributeValue(compGetDateOfFirstRow,"title");}
     public String getTextAssignToOfCompFirstRow(){return getAttributeValue(compGetAssignToOfFirstRow,"title");}
 
     // T A S K    A P P O I N T M E N T    T A B

@@ -3,6 +3,7 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.CaseNote;
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.CaseNote.CaseLogs;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 public class CaseLogsPage extends CaseLogs{
@@ -71,4 +72,20 @@ public class CaseLogsPage extends CaseLogs{
             CaseTypeTestData.CheckBoxesList.clear();
         }
     }
+    public void getTemplatePlanCaseLog(){
+        for(int i=0; i<templatePlanCaseLogList.size();i++){
+            String getText = getAttributeValue(templatePlanCaseLogList.get(i),"title");
+            switch (i) {
+                case 0:
+                    Assert.assertTrue(getText.contains("deleted"));
+                    break;
+                case 1:
+                    Assert.assertTrue(getText.contains("is made current"));
+                    break;
+                case 2:
+                    Assert.assertTrue(getText.contains("saved as a template"));
+                    break;
+            }}
+    }
+
 }

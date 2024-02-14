@@ -22,9 +22,11 @@ public class NewAppointmentStep extends NewAppointmentPage {
                 clickAllowOverlapCheckBox();
                 break;
             case "Recurrence":
+                clickAppointmentTypeOption();
                 clickRecurrenceCheckBox();
                 break;
             case "All Day Event":
+                clickAppointmentTypeOption();
                 clickAllDayEventCheckBox();
                 break;
         }
@@ -34,62 +36,84 @@ public class NewAppointmentStep extends NewAppointmentPage {
         waitFor(10000);
         try {
             setImplicit(60);
+            //  Add Title
             Assert.assertTrue(dropDownDisplayed());
             insertTitleInput();
+            // Select CheckBox
             if(appointmentType.equals("Recurrence")){
+                // Date Tab is Not Displayed
                 System.out.println("Skip To Enter Date");
                 DateInputTabDisable();
                 ToDateInputTabDisable();
             } else if (appointmentType.equals("Non Recurrence")){
+                // Enter Today Date - When No CheckBox is Selected
                 insertDateInputTab();
                 insertToDateInputTab();
             } else if(appointmentType.equals("All Day Event")){
-                enterText(fromDateInputTab,getTomorrowDate());
-                enterText(toDateInputTab,getTomorrowDate());
+                // Enter Tomorrow Date
+                clickButtonWithOutScroll(fromDateDropDown);
+                waitVisibilityOfElement(dateDialog);
+                //enterText(fromDateInputTab,getTomorrowDate());
+                clickButtonWithOutScroll(fromDateDropDown);
+                // Enter Tomorrow Date
+                clickButtonWithOutScroll(toDateDropDown);
+                waitVisibilityOfElement(dateDialog);
+                //enterText(toDateInputTab,getTomorrowDate());
+                clickButtonWithOutScroll(toDateDropDown);
             }
+            // Enter Time
             enterStartTime();
             enterEndTime();
+            // Clear Existing Selected Employee
             clickAddAppClearButton();
             Assert.assertEquals(getText(selectedEmployeeText),"0 employees selected");
+            // Enter Employee Name
             enterEmployeeName(HardCodedName[0]);
             enterTextAppend(employeeInputTab," "+HardCodedName[1]);
             selectDropDownFromText(HardCodedName[0]+" "+HardCodedName[1]);
+
         }catch(NoSuchElementException | TimeoutException | StaleElementReferenceException e){
             System.out.println("NewAppointmentStep.enterAppointmentDetails()1 - "+e.getClass()+" "+e.getMessage());
         }finally {
             try {
                 waitFor(4000);
+                // Verify Selected Employee Name is Updated or Not
                 if (!(getText(selectedEmployeeText).equals(HardCodedName[0] + " " + HardCodedName[1]))) {
                     selectDropDownFromText(HardCodedName[0] + " " + HardCodedName[1]);
                     waitFor(2000);
                     Assert.assertEquals(getText(selectedEmployeeText), HardCodedName[0] + " " + HardCodedName[1]);
                 }
                 clickSelectedEmployee();
+                // Verify Selected Employee
                 Assert.assertEquals(getText(selectedEmployeeText), HardCodedName[0] + " " + HardCodedName[1]);
                 SelectByVisibleText(billingDropDown, "CTP403 : TestAutoActivity");
             } catch (NoSuchElementException e) {
                 System.out.println("NewAppointmentStep.Biiling Exception- " + e.getMessage());
             } try{
-            waitFor(2000);
-            clickOfficeLocationDropDown();
-            //waitFor(2000);
-            selectDropDownFromText(locationValue);
-            waitFor(2000);
-            Assert.assertEquals(getOfficeLocationInput(), locationValue);
-            isAddressInput();
-            Assert.assertFalse(getAutoGenerateAddress().isEmpty());
-            //waitFor(2000);
-            clickCategoryDropDown();
-            selectDropDownFromText(categoryValue);
-            waitFor(2000);
-            Assert.assertEquals(getCategoryInputText(), categoryValue);
-            clickStatusDropDown();
-            //waitFor(2000);
-            selectDropDownFromText(statusValue);
-            waitFor(2000);
-            Assert.assertEquals(getStatusInputText(), statusValue);
+                // Select Location
+                waitFor(2000);
+                clickOfficeLocationDropDown();
+                //waitFor(2000);
+                selectDropDownFromText(locationValue);
+                waitFor(2000);
+                Assert.assertEquals(getOfficeLocationInput(), locationValue);
+                // Verify Address
+                isAddressInput();
+                Assert.assertFalse(getAutoGenerateAddress().isEmpty());
+                //waitFor(2000);
+                clickCategoryDropDown();
+                selectDropDownFromText(categoryValue);
+                waitFor(2000);
+                Assert.assertEquals(getCategoryInputText(), categoryValue);
+                // Select Status
+                clickStatusDropDown();
+                //waitFor(2000);
+                selectDropDownFromText(statusValue);
+                waitFor(2000);
+                Assert.assertEquals(getStatusInputText(), statusValue);
+            // If Appointment Type is All Day Event - Need to Select Client Name (Case)
             if (appointmentType.equals("All Day Event")) {
-                enterClientName();
+                enterClientName();      // Existing Appointment Name
                 waitFor(4000);
                 try {
                     clickLastValueFromClientDropDown();
@@ -236,11 +260,13 @@ public class NewAppointmentStep extends NewAppointmentPage {
                 break;
             case "Weekly":
                 clickRecWeeklyCheckBox();
+                waitFor(2000);
                 clickRecWeeklys();
                 break;
         }
         clickEndByCheckBox();
-        enterEndDate();
+        //enterEndDate();
+        enterDateInEndDateInput();
         ClickShowAppointmentButton();
         setImplicit(60);
         Assert.assertTrue(isShowAppointmentVisible());

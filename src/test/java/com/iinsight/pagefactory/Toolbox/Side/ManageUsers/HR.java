@@ -6,8 +6,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HR extends GenericWrappers {
-    public HR(){PageFactory.initElements(getDriver(), this);
-    }
     @FindBy(id="_tab_level2h_form_b")
     public WebElement hrTab;
     //Role Tab

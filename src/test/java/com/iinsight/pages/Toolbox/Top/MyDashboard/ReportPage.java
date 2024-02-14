@@ -11,6 +11,10 @@ public class ReportPage extends Report {
     public boolean isReportDeleteBtnBtn(){return isElementDisplayed(reportDeleteBtn);}
     public boolean isReportUnSelectAllBtnBtn(){return isElementDisplayed(reportUnSelectAllBtn);}
     public boolean isTableRowBtn(){return isElementDisplayed(sizeTableRow);}
+    public String getEmptyRowText(){
+        waitElementToBeClickable(emptyRow);
+        return getAttributeValue(emptyRow,"title");
+    }
     public boolean isDownloadExcelBtn(){return isElementDisplayed(downloadExcel);}
     public boolean isDownloadWordBtn(){return isElementDisplayed(downloadWord);}
     public boolean isDownloadPdfBtn(){return isElementDisplayed(downloadPdf);}
@@ -27,6 +31,6 @@ public class ReportPage extends Report {
         clickButtonWithOutScroll(downloadWord);}
     public void clickDownloadPdfBtn(){
         waitElementToBeClickable(downloadPdf);
-        clickButtonWithOutScroll(downloadPdf);}
-
+        clickButtonWithOutScroll(downloadPdf);
+    }
 }

@@ -15,13 +15,7 @@ public class NewTaskPopUpStep extends NewTaskPopUpPage {
             Assert.assertTrue(isCancelButtonVisible());
             enterTitleInput();
             enterAssignTo();
-            waitFor(2000);
-            selectDropDownFromText(getUsername);
-            waitFor(4000);
             enterCreatedBy();
-            waitFor(2000);
-            selectDropDownFromText(getUsername);
-            waitFor(4000);
             enterDueDate();
             selectStatusFromDropdown(statusValue);
             waitFor(2000);

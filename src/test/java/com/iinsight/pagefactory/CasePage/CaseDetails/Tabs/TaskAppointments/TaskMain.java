@@ -33,15 +33,13 @@ public class TaskMain extends GenericWrappers {
     public WebElement compFindButton;
     @FindBy(id="small_fields_view_hist_app_task")
     public WebElement compFieldEditButton;
-    @FindBy(xpath="//div[@id='hist_app_task']//tr[1]//td[2]")
+    @FindBy(xpath="//div[@id='hist_app_task']//tr[1]//td[1]")
     public WebElement compGetTitleOfFirstRow;
     @FindBy(xpath="//div[@id='hist_app_task']//tr[1]")
     public WebElement compGetFirstRow;
     @FindBy(xpath="//div[@id='hist_app_task']//tr[1]//td[3]")
     public WebElement compGetStatusOfFirstRow;
-    @FindBy(xpath="//div[@id='hist_app_task']//tr[1]//td[4]")
-    public WebElement compGetDateOfFirstRow;
-    @FindBy(xpath="//div[@id='hist_app_task']//tr[1]//td[5]")
+    @FindBy(css="td[id='assigned_to_column']")
     public WebElement compGetAssignToOfFirstRow;
 
     // T A S K    A P P O I N T M E N T    T A B
@@ -53,17 +51,17 @@ public class TaskMain extends GenericWrappers {
     public WebElement taskFindButton;
     @FindBy(id="small_fields_view_task_appoinment")
     public WebElement taskFieldEditButton;
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[1]")
+    @FindBy(css="td[id='name_column']")
     public WebElement taskFirstTitleOfTable;    //getAttribute "title"
     @FindBy(xpath="//div[@id='task_appoinment']//tr[1]/td")
     public WebElement taskFirstOfTableEmptyRow;
     @FindBy(xpath="//div[@id='task_appoinment']//tr[1]")
     public WebElement taskFirstOfTable;
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[2]")
+    @FindBy(id="status_column")
     public WebElement taskFirstStatusOfTable;    //getAttribute "title"
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[4]")
+    @FindBy(xpath="//td[@id='date_column' and @class='table-cell-ellipsis']")
     public WebElement taskFirstDateOfTable;    //getAttribute "title"
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[5]")
+    @FindBy(css="td[id='assigned_to_column']")
     public WebElement taskFirstAssignToOfTable;    //getAttribute "title"
     @FindBy(xpath="(//td[@title='The search criteria provided have returned no results'])[1]")
     public WebElement emptyRowTaskAppointment;

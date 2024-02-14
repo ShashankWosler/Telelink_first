@@ -13,13 +13,16 @@ public class SearchMenuStep extends SearchMenuPage {
         waitFor(2000);
         clickDeleteButton();
         try{
+            waitFor(2000);
             clickSearchCriteriaDropDown();
             selectDropDownFromText(filterValue);
             //enterTextSearchMainTab(filterValue);
         }
         catch(Exception e){
             System.out.println("userAddSearchCriteriaDropdown.enterTextSearchMainTab() "+e.getClass()+" "+e.getMessage());
-            enterTextSearchMainTab(filterValue);
+            waitFor(2000);
+            clickSearchCriteriaDropDown();
+            //enterTextSearchMainTab(filterValue);
             selectDropDownFromText(filterValue);
         }
     }
@@ -40,6 +43,13 @@ public class SearchMenuStep extends SearchMenuPage {
                 break;
             case "Appointment":
                 enterTextSearchTab(getTestDataValue("AppointmentCaseID"));
+                break;
+            case "Regression":
+                enterTextSearchTab(getTestDataValue("RegressionID"));
+                break;
+            case "Restore Archive - New Case":
+                enterTextSearchTab(getTestDataValue("RestoreArchiveCreateNewCaseID"));
+                break;
         }
     }
     @And("User click on search button from search popup")
@@ -51,5 +61,21 @@ public class SearchMenuStep extends SearchMenuPage {
     public void userSelectNewlyCreatedCase(String filterValue) {
         userAddSearchCriteriaDropdown(filterValue);
         enterTextSearchTab(getTestDataValue("CompanyID"));
+    }
+    @And("User enter Name to Search")
+    public void enterNameToSearch(){
+        setImplicit(60);
+        waitVisibilityOfElement(search_criteria_fields);
+        Assert.assertTrue(isElementDisplayed(search_criteria_fields));
+        enterTextSearchTab((globalUserName.substring(0, globalUserName.indexOf("@")).replace("."," ")));
+    }
+    @And("User click on search button from {string} search popup")
+    public void clickOnSearchButtonAdmins(String adminOption){
+        switch (adminOption){
+            case "Manage User":
+                Assert.assertTrue(isCancelButtonMU());
+                clickSearchButtonMU();
+                break;
+        }
     }
 }

@@ -6,15 +6,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.commons.text.WordUtils;
 import org.junit.Assert;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 
 public class AppointmentsPageStep extends AppointmentsPage {
     public String getUsername = WordUtils.capitalizeFully(globalUserName.substring(0, globalUserName.indexOf("@")).replace("."," "));
     public int appointmentCount, appointmentLength;
     public String ShowAppointmentEndDate = get6DaysLaterDate();
-    public int daysDiff = getDaysDifference(ShowAppointmentEndDate,getTodayDate());
+    //public int daysDiff = getDaysDifference(ShowAppointmentEndDate,getTodayDate());
 
     @Then("User Select Filter Option From Appointment Page")
     public void user_select_filter_option_from_appointment_page() {
@@ -50,7 +48,7 @@ public class AppointmentsPageStep extends AppointmentsPage {
             setImplicit(20);
             //clickAgendaDayRadio();
             if(appointmentType.equals("All Day event")){
-                clickNextDate();
+                //clickNextDate();
                 waitFor(2000);
             }
             hoverAgendaAppointmentEvent1();
@@ -71,12 +69,12 @@ public class AppointmentsPageStep extends AppointmentsPage {
                 setImplicit(20);
                 hoverAppointmentEvent();
                 Assert.assertTrue(isAppointmentEventVisible());
-                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
-                        getToolTip1Text().equalsIgnoreCase(getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
+                Assert.assertTrue("E:"+getToolTip1Text()+" A:"+getTodayDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
+                        getToolTip1Text().equalsIgnoreCase(getTodayDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
 
-                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTomorrow2DateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
-                        getToolTip2Text().equalsIgnoreCase(getTomorrow2DateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
-                Assert.assertEquals(getAppointmentDateText(),getTomorrowDate());
+                Assert.assertTrue("E:"+getToolTip2Text()+" A:"+getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour,
+                        getToolTip2Text().equalsIgnoreCase(getTomorrowDateWithMonthText()+" "+ CaseTypeTestData.AllDayEventBothOneDigitHour));
+                Assert.assertEquals(getAppointmentDateText(),getTodayDate());
                 System.out.println("AppointmentsPage.verifyCreatedAppointment() - getAppointmentCountsText(): "+getAppointmentCountsText());
                 appointmentCount = Integer.parseInt(getAppointmentCountsText());
             }
@@ -223,32 +221,30 @@ public class AppointmentsPageStep extends AppointmentsPage {
     }
     @And("User Verify Created Recurrence Appointment is Shown")
     public void verifyRecurrenceAppointmentFromAppointmentPage(){
-        try{
             setImplicit(60);
             waitFor(4000);
-            for(int i=1; i<=daysDiff;i++){
+            String getAppointmentLastDate = CaseTypeTestData.DatesList.get(CaseTypeTestData.DatesList.size()-1);
+            System.out.println("getAppointmentLastDate: "+getAppointmentLastDate);
+
+            String getAppointmentSecondLastDate = CaseTypeTestData.DatesList.get(CaseTypeTestData.DatesList.size()-2);
+            System.out.println("getAppointmentSecondLastDate: "+getAppointmentSecondLastDate);
+            try{
+            //for(int i=1; i<=CaseTypeTestData.DatesList.size();i++){
+            int i =1;
+            while(i!=0){
+                if(getAppointmentDateText().equals(getAppointmentSecondLastDate) || getAppointmentDateText().equals(getAppointmentLastDate)){
+                    setImplicit(60);
+                    waitFor(4000);
+                    hoverAgendaAppointmentEvent1();
+                    Assert.assertTrue(isAgendaAppointmentEvent1());
+                    String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
+                    Assert.assertEquals(getTextAgendaTime1(),expected);
+                    if (getAppointmentDateText().equals(getAppointmentLastDate)) {
+                        break;
+                }}
                 clickNextDate();
                 waitFor(2000);
-                if(getAppointmentDateText().equals(ShowAppointmentEndDate)){
-                    setImplicit(60);
-                    waitFor(4000);
-                    System.out.println("ShowAppointmentEndDate: "+ShowAppointmentEndDate);
-                    hoverAgendaAppointmentEvent1();
-                    Assert.assertTrue(isAgendaAppointmentEvent1());
-                    String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
-                    Assert.assertEquals(getTextAgendaTime1(),expected);
-
-                } else if (getAppointmentDateText().equals(get5DaysLaterDate())){
-                    setImplicit(60);
-                    waitFor(4000);
-                    System.out.println("get5DaysLaterDate");
-                    hoverAgendaAppointmentEvent1();
-                    Assert.assertTrue(isAgendaAppointmentEvent1());
-                    String expected = CaseTypeTestData.FromTime+" - "+ CaseTypeTestData.EndTime;
-                    Assert.assertEquals(getTextAgendaTime1(),expected);
-                    //hoverZoomInButton();
-                } else {System.out.println("verifyRecurrenceAppointmentFromAppointmentPage(): "+i);}
-
+                i++;
             }
         }catch (Exception e){
             System.out.println("AppointmentsPageStep.verifyCreatedAppointment() -"+e.getClass()+" "+e.getMessage());

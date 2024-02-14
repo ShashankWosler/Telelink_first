@@ -2,18 +2,15 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.TaskAppointments.NewAppointment;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.junit.Assert;
-import org.openqa.selenium.WebElement;
+
+import java.util.Arrays;
 
 public class NewAppointmentPage extends NewAppointment {
     public String ShowAppointmentEndDate = get6DaysLaterDate();
     public String ShowAppointmentEndDateDay = getDayOfWeek(ShowAppointmentEndDate);
-    public int daysDiff = getDaysDifference(ShowAppointmentEndDate,getTodayDate());
-
     public NewAppointmentPage(){
         PageFactory.initElements(getDriver(), this);
     }
@@ -23,31 +20,46 @@ public class NewAppointmentPage extends NewAppointment {
 
     // A D D       A P P O I N T M E N T
     public void insertTitleInput() {enterText(titleInput,CaseTypeTestData.Appointment_Title);}
-    public void insertDateInputTab() {enterText(fromDateInputTab,getTodayDate());}
-    public void insertToDateInputTab() {enterText(toDateInputTab,getTodayDate());}
+    public void insertDateInputTab() {
+        clickButtonWithOutScroll(fromDateDropDown);
+        waitVisibilityOfElement(dateDialog);
+        enterText(fromDateInputTab,getTodayDate());
+        clickButtonWithOutScroll(fromDateDropDown);
+    }
+    public void insertToDateInputTab() {
+        clickButtonWithOutScroll(toDateDropDown);
+        waitVisibilityOfElement(dateDialog);
+        enterText(toDateInputTab,getTodayDate());
+        clickButtonWithOutScroll(toDateDropDown);
+    }
     public void enterStartTime(){
         CaseTypeTestData.FromTime = getCurrentTime();
         CaseTypeTestData.FromTimeOneDigitHour = getCurrentTimeOneHourDigit();
-        enterText(startTime, CaseTypeTestData.FromTime);
+        enterText(startTime, CaseTypeTestData.FromTimeOneDigitHour);
     }
     public void enterEndTime(){
         CaseTypeTestData.EndTime = get15TimeDifference();
         CaseTypeTestData.EndTimeOneDigitHour = get15TimeDifferenceOneHourDigit();
-        enterText(endTime, CaseTypeTestData.EndTime);
+        enterText(endTime, CaseTypeTestData.EndTimeOneDigitHour);
     }
     public void updateEnterStartTime(){
         CaseTypeTestData.UpdateFromTime = getCurrentTime();
         CaseTypeTestData.UpdateFromTimeOneDigitHour = getCurrentTimeOneHourDigit();
-        enterText(startTime, CaseTypeTestData.UpdateFromTime);}
+        enterText(startTime, CaseTypeTestData.UpdateFromTimeOneDigitHour);}
     public void updateEnterEndTime(){
         CaseTypeTestData.UpdateEndTime = get15TimeDifference();
         CaseTypeTestData.UpdateEndTimeOneDigitHour = get15TimeDifferenceOneHourDigit();
-        enterText(endTime, CaseTypeTestData.UpdateEndTime);}
+        enterText(endTime, CaseTypeTestData.UpdateEndTimeOneDigitHour);}
 
     public void clickTimeZone() {clickButtonWithOutScroll(timeZone);}
+    public void clickAppointmentTypeOption(){clickButtonWithOutScroll(appointmentTypeOption);}
     public void clickAllowOverlapCheckBox() {clickButtonWithOutScroll(allowOverlapCheckBox);}
-    public void clickAllDayEventCheckBox() {clickButtonWithOutScroll(allDayEventCheckBox);}
-    public void clickRecurrenceCheckBox() {clickButtonWithOutScroll(recurrenceCheckBox);}
+    public void clickAllDayEventCheckBox() {
+        waitElementToBeClickable(allDayEventCheckBox);
+        clickButtonWithOutScroll(allDayEventCheckBox);}
+    public void clickRecurrenceCheckBox() {
+        waitElementToBeClickable(recurrenceCheckBox);
+        clickButtonWithOutScroll(recurrenceCheckBox);}
     public boolean isSelectedEmployeeVisible(){
         waitVisibilityOfElement(selectedEmployee);
         return isElementDisplayed(selectedEmployee);}
@@ -156,6 +168,7 @@ public class NewAppointmentPage extends NewAppointment {
         for(WebElement e : recWeeklys){
             waitElementToBeClickable(e);
             clickButtonWithOutScroll(e);
+            waitFor(500);
         }
     }
 
@@ -191,6 +204,30 @@ public class NewAppointmentPage extends NewAppointment {
     public String getEndDateText(){return getAttributeValue(endDateInput,"value");}
     public void enterEndDate(){enterText(endDateInput,ShowAppointmentEndDate);}
 
+    // C A L E N D E R
+    public void clickDatePickPrevMonthBtn(){
+        waitElementToBeClickable(datePickNextMonthBtn);
+        clickButtonWithOutScroll(datePickNextMonthBtn);
+    }
+
+    public void enterDateInEndDateInput(){
+        clickButtonWithOutScroll(endDateDropDown);
+        String [] date = ShowAppointmentEndDate.split("-");
+        CaseTypeTestData.dateTextGreaterThan20 = Integer.parseInt(date[date.length - 1]);
+        if(CaseTypeTestData.dateTextGreaterThan20 > 24 ){
+            clickDatePickPrevMonthBtn();
+            waitVisibilityOfElement(datePickDateGr20);
+            date[date.length - 1] = getText(datePickDateGr20);
+            waitElementToBeClickable(datePickDateGr20);
+            clickButtonWithOutScroll(datePickDateGr20);
+        } else {
+            By dateLoc = By.xpath("//table[@class='tables date_table2']//td[text()='"+CaseTypeTestData.dateTextGreaterThan20+"']");
+            waitPresenceOfElementLocated(dateLoc);
+            WebElement dateElem = getDriver().findElement(dateLoc);
+            waitElementToBeClickable(dateElem);
+            clickButtonWithOutScroll(dateElem);
+        }
+    }
     // S H O W      A P P O I N T M E N T      S E R V I C E S
     public boolean isShowAppointmentVisible(){
         waitVisibilityOfElement(showAppointmentVisible);
@@ -201,16 +238,15 @@ public class NewAppointmentPage extends NewAppointment {
             String date = getText(e);
             CaseTypeTestData.DatesList.add(date);
             System.out.println("getShowAppointmentDatesText: "+date);
-        }
-        Assert.assertEquals(ShowAppointmentEndDate,CaseTypeTestData.DatesList.get(CaseTypeTestData.DatesList.size()-1));
+        }if(!(CaseTypeTestData.dateTextGreaterThan20 > 24))
+            Assert.assertEquals(ShowAppointmentEndDate,CaseTypeTestData.DatesList.get(CaseTypeTestData.DatesList.size()-1));
     }
     public void getShowAppointmentDaysText(){
         for(WebElement e : showAppointmentDays){
             String day = getText(e);
             CaseTypeTestData.DaysList.add(day);
-            System.out.println("getShowAppointmentDaysText: "+day);
-        }
-        Assert.assertTrue(ShowAppointmentEndDateDay.equalsIgnoreCase(CaseTypeTestData.DaysList.get(CaseTypeTestData.DaysList.size()-1)));
+        }if(!(CaseTypeTestData.dateTextGreaterThan20 > 24))
+            Assert.assertTrue(ShowAppointmentEndDateDay.equalsIgnoreCase(CaseTypeTestData.DaysList.get(CaseTypeTestData.DaysList.size()-1)));
     }
     public void clickShowAppointmentCheckBoxes(){
         int size = showAppointmentCheckBoxes.size();

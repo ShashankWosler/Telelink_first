@@ -35,14 +35,14 @@ public class FieldsEditPage extends FieldsEdit {
     public void selectTitleFromEnableDropDown(){
         int count = sizeOfEnabledOptions();
         if(count!=0)
-            selectByIndex(enabledBox,1);
+            SelectByValue(enabledBox,"4320");
     }
     public boolean isFirstIndexFromDisableDropDownDisplayed(){return isElementDisplayed(enabledBox);
     }
     public void selectFirstIndexFromDisableDropDown(){
         int count = sizeOfDisabledOptions();
         if(count!=0){
-            selectByIndex(enabledBox,1);
+            SelectByValue(disabledBox,"896");
         }
     }
     public void clickEnableButton(){ clickButtonWithOutScroll(enableBtn);
@@ -54,7 +54,7 @@ public class FieldsEditPage extends FieldsEdit {
     public void clickCancelButton(){ clickButtonWithOutScroll(cancelBtn);
     }
     public void clickUpArrowButton(){
-        for(int i=1;i<=sizeOfDisabledOptions()-1;i++){
+        for(int i=0;i<sizeOfEnabledOptions()-1;i++){
             clickButtonWithOutScroll(upArrowBtn);}
     }
     public void clickDownArrowButton(){ clickButtonWithOutScroll(downArrowBtn);

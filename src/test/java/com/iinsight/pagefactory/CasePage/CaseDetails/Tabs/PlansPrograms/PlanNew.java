@@ -7,12 +7,14 @@ import java.util.List;
 
 public class PlanNew extends GenericWrappers {
     // New Plan Bases on Existing Based Template
-    @FindBy(name="[name='estimate_summary.yes']")
+    @FindBy(css="[name='estimate_summary.yes']")
     public WebElement YesCheckBox;
-    @FindBy(name="[name='estimate_summary.no']")
+    @FindBy(css="[name='estimate_summary.no']")
     public WebElement NoCheckBox;
     @FindBy(css="[name='estimate_summary_template_button']")
     public WebElement selectTemplateDropDown;
+    @FindBy(css="[id='estimate_summary_template']")
+    public WebElement getTemplateInput;
 
     // Select Plan Type For Billing
     @FindBy(css="[name='type_of_plan_1_button']")
@@ -63,8 +65,15 @@ public class PlanNew extends GenericWrappers {
     public WebElement planTotalValue;   // GetAttribute By data-real_value : Only number 123
     @FindBy(id="total_plans_todate_total")
     public WebElement planTotalCostToDate;  // GetAttribute By value : R0.00
+    @FindBy(xpath="//div[@id='edit_plan_details_tab_2']//input")
+    public List<WebElement> getAllAmountsInputs;
     @FindBy(id="amount_remaining_total")
     public WebElement amountRemaining;   // GetAttribute By data-real_value : Only number 123
+    @FindBy(id="amount_remaining_gst")
+    public WebElement amountRemainingGST;
+    @FindBy(id="amount_remaining_ex_gst")
+    public WebElement amountRemainingEx;
+
 
     // F I L T E R
     @FindBy(css="input#estimate_edit_list_search_text")
@@ -113,7 +122,7 @@ public class PlanNew extends GenericWrappers {
     // S A V E      B U T T O N
     @FindBy(id="addinvoice_3_next")
     public WebElement saveButton;
-    @FindBy(className = "btn.btn-default.btn-cancel")
+    @FindBy(css = "button[class='btn btn-default btn-cancel']")
     public WebElement cancelButton;
 
     // C U R R E N T    P L A N     P O P   U P

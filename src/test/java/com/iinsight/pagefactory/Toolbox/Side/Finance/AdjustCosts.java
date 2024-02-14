@@ -7,9 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import javax.swing.*;
 
 public class AdjustCosts extends Invoices {
-    public AdjustCosts(){PageFactory.initElements(getDriver(), this);
-    }
-
     @FindBy(id="ifinance_adjusted_costs_export")
     public WebElement exportAdjustCostsBtn;
     @FindBy(id="ifinance_adjusted_costs_search_text")

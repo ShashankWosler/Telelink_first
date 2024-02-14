@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 public class SearchMenuPage extends SearchMenu {
     public SearchMenuPage(){PageFactory.initElements(getDriver(), this);
     }
+
+    // C A S E      L I S T
     public boolean isClearButtonIsVisible(){return isElementDisplayed(clear_btn);}
     public void clickClearButton(){clickButtonWithOutScroll(clear_btn);
     }
@@ -31,7 +33,9 @@ public class SearchMenuPage extends SearchMenu {
         enterTextAppend(search_criteria_main_tab,filterValue);
     }
     public boolean isSearchCriteriaDropDownIsVisible(){return isElementDisplayed(search_criteria_field_dropdown);}
-    public void clickSearchCriteriaDropDown(){clickButtonWithOutScroll(search_criteria_field_dropdown);}
+    public void clickSearchCriteriaDropDown(){
+        waitElementToBeClickable(search_criteria_field_dropdown);
+        clickButtonWithOutScroll(search_criteria_field_dropdown);}
     public String getSearchCriteriaInputText(){return getAttributeValue(searchCriteriaInput,"value");
     }
 
@@ -59,4 +63,13 @@ public class SearchMenuPage extends SearchMenu {
             }
     }
 
+    // M A N A G E      U S E R S
+    public void clickClearButtonMU(){clickButtonWithOutScroll(clearButtonMU);
+    }
+    public void clickSearchButtonMU(){clickButtonWithOutScroll(searchButtonMU);
+    }
+    public boolean isCancelButtonMU(){
+        waitVisibilityOfElement(cancelButtonMU);
+        return isElementDisplayed(cancelButtonMU);
+    }
 }

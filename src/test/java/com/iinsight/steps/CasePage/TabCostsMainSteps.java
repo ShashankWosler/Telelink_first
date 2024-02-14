@@ -3,6 +3,7 @@ package com.iinsight.steps.CasePage;
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pages.CasePage.CaseDetails.Tabs.Costs.CostsMainPage;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
@@ -19,6 +20,7 @@ public class TabCostsMainSteps extends CostsMainPage {
     }
     @And("Verify that new Created {string} with {string} is listed in Zero Cost list under Costs Tab")
     public void getBillIdForZeroCreatedCase(String cost, String vatValue){
+        waitFor(4000);
         isCostFormVisible();
         System.out.println(getChargeText()+" "+CaseTypeTestData.Total);
         System.out.println(getDurationTab()+" "+CaseTypeTestData.Duration);
@@ -72,6 +74,13 @@ public class TabCostsMainSteps extends CostsMainPage {
             waitFor(2000);
             clickEditButton();
         }
+    }
+
+    @Then("Verify Button on Costs Tab are Disabled")
+    public void verifyButtonOnCostsTabAreDisabled() {
+        Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(billingButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(editButton,"disabled"),"true");
     }
 
 }

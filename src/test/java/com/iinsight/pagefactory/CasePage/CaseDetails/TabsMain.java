@@ -36,6 +36,14 @@ public class TabsMain extends GenericWrappers {
     @FindBy(id="_tab_level2j_form_b")
     public WebElement task_appointments_tab;
 
+    @FindBy(id="_tab_level2k_form_b")
+    public WebElement goals_tab;
+
+    @FindBy(id="_tab_level2m_form_b")
+    public WebElement settings_tab;
+
+
+
     // D R O P D O W N     V A L U E S     ----->>     COMMON IN ALL TABS
 
     //Created By

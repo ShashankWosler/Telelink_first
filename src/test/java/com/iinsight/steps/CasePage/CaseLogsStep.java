@@ -37,7 +37,12 @@ public class CaseLogsStep extends CaseLogsPage {
 
     @Then("Verify that {string} Text is visible in Case Logs Tab")
     public void verifyThatTextIsVisibleInTitleColumnUnderCaseLogsTab(String arg0) {
-        verifyCreatedCaseLog(arg0);
+        try {
+            verifyCreatedCaseLog(arg0);
+        }catch(TimeoutException e){
+            waitFor(2000);
+            verifyCreatedCaseLog(arg0);
+        }
     }
 
     @Then("Verify that Case log is generated for the Newly created Invoice")
@@ -108,23 +113,27 @@ public class CaseLogsStep extends CaseLogsPage {
         System.out.println(actual);
         Assert.assertTrue(actual.contains(value));
     }
- @Then("Verify that {string} billing ID of should be visible in Case logs")
+    @Then("Verify that {string} billing ID of should be visible in Case logs")
     public void verifyCaseLogAppointmentBilling(String verifyText){
-     waitFor(3000);
-     String value = verifyText.replaceAll(" ", "");
-     String billingID = config.getString(value+"ID");
-     System.out.println("Case Log - Billing ID: "+getAttributeValue(title_text,"title"));
-     Assert.assertTrue(getAttributeValue(title_text,"title").contains(billingID));
- }
+         waitFor(3000);
+         String value = verifyText.replaceAll(" ", "");
+         String billingID = config.getString(value+"ID");
+         System.out.println("Case Log - Billing ID: "+getAttributeValue(title_text,"title"));
+         Assert.assertTrue(getAttributeValue(title_text,"title").contains(billingID));
+    }
 
- @Then("Verify that {string} text should be visible in Case logs")
+    @Then("Verify that {string} text should be visible in Case logs")
     public void verifyDeletedAppointmentLogs(String logValue){
-     waitFor(3000);
-     Assert.assertTrue(getAttributeValue(title_text,"title").contains(logValue));
- }
+         waitFor(3000);
+        Assert.assertTrue(getAttributeValue(title_text,"title").contains(logValue));
+    }
     @Then("Verify that {string} Recurrence appointment of should be visible in Case logs")
     public void verifyRecurrenceAppointmentLogs(String logValue){
         waitFor(3000);
         getRecurrenceCaseLog(logValue);
+    }
+    @Then("Verify that Plan Template Logs is visible in Case Logs Tab")
+    public void verifyTemplatePlanLogs(){
+        getTemplatePlanCaseLog();
     }
 }

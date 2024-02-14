@@ -33,4 +33,6 @@ public class CaseLogs extends GenericWrappers {
     public WebElement title_text;
     @FindBy(xpath="//div[@id='log_list']//tr//td[position() mod 7 = 2]")
     public List<WebElement> caseLogsList;
+    @FindBy(xpath="(//div[@id='log_list']//tr//td[position() mod 7 = 2])[position() <= 3]")
+    public List<WebElement> templatePlanCaseLogList;
 }

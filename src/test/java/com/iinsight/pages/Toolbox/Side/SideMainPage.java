@@ -37,6 +37,8 @@ public class SideMainPage extends SideMain {
     public void clickAdminManageGroups(){clickButtonWithOutScroll(AdminManageGroups);}
     public void clickAdminManageFields(){clickButtonWithOutScroll(AdminManageFields);}
     public void clickAdminSystemLogs(){clickButtonWithOutScroll(AdminSystemLogs);}
+    public void clickAdminCaseLogs(){clickButtonWithOutScroll(AdminCaseLogs);}
+
     public void clickAdminArchivalDeletionCases(){clickButtonWithOutScroll(AdminArchivalDeletionCases);}
     public void clickAdminManageProfiles(){clickButtonWithOutScroll(AdminManageProfiles);}
 

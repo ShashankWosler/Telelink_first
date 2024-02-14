@@ -19,7 +19,9 @@ public class BillingPage extends Billing {
     }
     public void enterTextDurationTab(){
         setImplicit(10);
+        mouseOver(durationInput);
         waitElementToBeClickable(durationInput);
+        setImplicit(30);
         enterTextAndClearAll(durationInput, CaseTypeTestData.Duration);
     }
     public void enterTextRateTab(){
@@ -28,6 +30,14 @@ public class BillingPage extends Billing {
         enterTextAndClearAll(rateInput, CaseTypeTestData.Rate);
         waitFor(2000);
     }
+    public void enterTextQuantityTab(){
+        setImplicit(10);
+        waitElementToBeClickable(quantityInput);
+        enterTextAndClearAll(quantityInput, CaseTypeTestData.Duration);
+        waitFor(2000);
+    }
+
+
     public void clickFileNote(){clickButtonWithOutScroll(fileNotes);} // To Update Duration & Input
     public String getSubtotal(){return getInnerText(subTotal);}
     public String getVAT(){return getInnerText(vat);}
@@ -70,7 +80,22 @@ public class BillingPage extends Billing {
     }
     public String getConsultantSuperExpenseInputText(){return getAttributeValue(consultantSuperExpenseInput,"value");
     }
-    public void clickConsultantApplyVatCheckBox(){clickButtonWithOutScroll(consultantApplyVatCheckBox);
+    public void clickConsultantApplyVatCheckBox(String vatValue){
+        mouseOver(consultantApplyVatCheckBox);
+        waitFor(2000);
+        String getValue = getAttributeValue(consultantApplyVatCheckBox,"value");
+        switch (vatValue){
+            case "With":
+                if(!(getValue.equals("1"))){
+                    clickButtonWithOutScroll(consultantApplyVatCheckBox);
+                }
+                break;
+            case "Without":
+                if(!(getValue.equals("0"))){
+                    clickButtonWithOutScroll(consultantApplyVatCheckBox);
+                }
+                break;
+        }
     }
     // N E W    T I M S H E E T     B I L L I N G
     public void clickSearchByDropDown(){clickButtonWithOutScroll(searchByDropDown);

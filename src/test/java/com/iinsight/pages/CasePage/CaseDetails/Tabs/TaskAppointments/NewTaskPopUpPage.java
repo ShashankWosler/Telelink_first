@@ -3,6 +3,7 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.TaskAppointments;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.TaskAppointments.NewTaskPopUp;
+import org.apache.commons.text.WordUtils;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.PageFactory;
@@ -11,8 +12,8 @@ public class NewTaskPopUpPage extends NewTaskPopUp {
     public NewTaskPopUpPage(){
         PageFactory.initElements(getDriver(), this);
     }
-    public String getUsername = "Karan";
-    //public String getUsername = globalUserName.replaceAll("@besoftware.biz","").replace("."," ");
+    public String getUsername = WordUtils.capitalizeFully(globalUserName.substring(0, globalUserName.indexOf("@")).replace("."," "));;
+    public String[] getUsernameArray = getUsername.split(" ");
     public boolean isNewTaskPopUpVisible(){
         waitVisibilityOfElement(newTaskPopUpVisible);
         return isElementDisplayed(newTaskPopUpVisible);
@@ -25,21 +26,41 @@ public class NewTaskPopUpPage extends NewTaskPopUp {
         waitElementToBeClickable(titleDropDown);
         clickButtonWithOutScroll(titleDropDown);
     }
+
     public void enterAssignTo(){
         try{
-        enterText(assignToInput,getUsername);
-       }catch (StaleElementReferenceException e){
+            //enterText(assignToInput,getUsernameArray[0]);
+            enterTextAppend(assignToInput," "+getUsernameArray[0]);
+            waitFor(2000);
+            selectDropDownFromText(getUsernameArray[0]+" "+getUsernameArray[1]);
+            String exp = getAttributeValue(assignToInput,"value");
+            waitFor(2000);
+            Assert.assertEquals(exp,getUsername);
+            waitFor(2000);
+        }catch (StaleElementReferenceException e){
             System.out.println("NewTaskPopUpPage.enterAssignTo() - StaleElementReferenceException");
         }
     }
     public void enterCreatedBy(){
         try{
-        enterText(createdByInput,getUsername);
-    }catch (StaleElementReferenceException e){
-        System.out.println("NewTaskPopUpPage.enterCreatedBy() - StaleElementReferenceException");
-    }}
+            //  enterText(createdByInput,getUsernameArray[0]);
+            enterTextAppend(createdByInput," "+getUsernameArray[0]);
+            waitFor(2000);
+            selectDropDownFromText(getUsernameArray[0]+" "+getUsernameArray[1]);
+            String exp = getAttributeValue(createdByInput,"value");
+            Assert.assertEquals(exp,getUsername);
+            waitFor(2000);
+
+        }catch (StaleElementReferenceException e){
+            System.out.println("NewTaskPopUpPage.enterCreatedBy() - StaleElementReferenceException");
+        }}
     public void enterDueDate(){
+        clickButtonWithOutScroll(dueDateDropDown);
+        waitVisibilityOfElement(dateDialog);
         enterText(dueDateInput,getTodayDate());
+        //Assert.assertTrue(isElementDisplayed(dateDialog));
+        clickButtonWithOutScroll(dueDateDropDown);
+
     }
     public void selectStatusFromDropdown(String status){
         SelectByVisibleText(statusDropDown,status);

@@ -18,6 +18,7 @@ public class AdminNoteStep extends AdminNotesPage {
     }
     @And("User click on Admin Add New button")
     public void UserClickOnAddNewButton(){
+        waitFor(3000);
         clickAddNewButton();
     }
     @Then("Verify the Admin Note should be added on Admin notes tab")
@@ -65,6 +66,13 @@ public class AdminNoteStep extends AdminNotesPage {
     public void verifyUpdatedNotesList(){
         System.out.println("verify_table_size -"+verify_table_size);
         //Assert.assertEquals(verify_table_size-1,getSizeOfTable());
+    }
+
+    @Then("Verify the New, Details and Delete Button is Disabled on Admin Notes")
+    public void verifyTheNewDetailsAndDeleteButtonIsDisabledOnAdminNotes() {
+        Assert.assertEquals(getAttributeValue(add_new_btn,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(delete_btn,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(details_btn,"disabled"),"true");
     }
 
 }

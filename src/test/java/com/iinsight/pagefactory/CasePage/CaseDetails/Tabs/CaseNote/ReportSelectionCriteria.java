@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class ReportSelectionCriteria extends GenericWrappers {
+    @FindBy(id="msg_download_number")
+    public WebElement downloadedReportCount;
     @FindBy(id="case_notes_print_console")
     public WebElement reportSelectionTab;
     @FindBy(xpath="(//input[@id='dates'])[1]")

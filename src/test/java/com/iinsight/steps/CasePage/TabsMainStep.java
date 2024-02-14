@@ -88,4 +88,19 @@ public class TabsMainStep extends TabsMainPage {
             mouseOverClick(task_appointments_tab);
         }
     }
+
+    @And("User select Settings tab")
+    public void userClickSettingsTabStep() {
+        try {
+            waitFor(5000);
+            Assert.assertTrue(isSettingsTabVisible());
+            clickSettingTab();
+        }catch (StaleElementReferenceException | ElementClickInterceptedException e){
+            System.out.println("TabsMainStep.userClickSettingsTabStep() - "+e.getClass());
+            setImplicit(10);
+            waitFor(2000);
+            mouseOverClick(settings_tab);
+        }
+    }
+
 }

@@ -5,8 +5,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class Appointment extends Invoices {
-    public Appointment(){PageFactory.initElements(getDriver(), this);
-    }
     @FindBy(css="img[name='show_all_appointments']")
     public WebElement includeAppointmentChkBox;
     @FindBy(id="time_sheet_activity_new")

@@ -18,10 +18,12 @@ public class FieldsEditStep extends FieldsEditPage {
     }
     @And("User Use the arrow key for the order of the position needed")
     public void shiftTitleToTop(){
+        selectTitleFromEnableDropDown();
         clickUpArrowButton();
     }
     @And("User click on the Disable button")
     public void userClickOnDisableButton(){
+        selectFirstIndexFromDisableDropDown();
         clickDisableButton();
     }
     @And("User click on the Enable button")
@@ -31,5 +33,6 @@ public class FieldsEditStep extends FieldsEditPage {
     @Then("User click on the Apply button")
     public void userClickOnApplyButton(){
         clickApplyButton();
+        waitFor(4000);
     }
 }

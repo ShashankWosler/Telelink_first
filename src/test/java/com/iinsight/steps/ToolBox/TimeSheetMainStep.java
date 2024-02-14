@@ -8,6 +8,7 @@ import org.junit.Assert;
 public class TimeSheetMainStep extends TimeSheetsMainPage {
     @And("User Verify the Billing and Employee Amounts")
     public void verifyBillingPriceFromInputsTab(){
+        waitFor(2000);
         // SEARCH SIDE BAR
         Assert.assertTrue(isBillingButtonVisible());
         clickSearchButton();
@@ -18,11 +19,12 @@ public class TimeSheetMainStep extends TimeSheetsMainPage {
         enterSideBarInput(getTestDataValue("CompanyID"));
         Assert.assertTrue(isBackButtonVisible());
         clickSideBarSearchButton();
-
+        waitFor(2000);
+        Assert.assertTrue(isBillingButtonVisible());
         // MAIN PAGE LISTING
         clickEmployeeDropDown();
         clickEmployeeAllFilterButton();
-        waitElementToBeClickable(employeeInput);
+        waitFor(2000);
         Assert.assertTrue(getEmployeeInputText().contains("Selected"));
         Assert.assertTrue(isTableListingVisible());
         getAllTimesheetChargesAmount();

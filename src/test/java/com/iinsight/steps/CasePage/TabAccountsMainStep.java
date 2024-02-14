@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 
-public class TabAccountsMain extends AccountsPage {
+public class TabAccountsMainStep extends AccountsPage {
     @And("User Click on +Invoice Button")
     public void userClickOnInvoiceButton() {
         clickOnAddInvoiceButton();
@@ -24,7 +24,7 @@ public class TabAccountsMain extends AccountsPage {
         waitFor(4000);
         String ConcatenatedValue = planType.replaceAll(" ", "") + billingType.replaceAll(" ", "");
         getID(ConcatenatedValue+"Invoice",getMultipleInvoiceIdsOfDifferentPlans()); //Store Invoice ID
-        getID(ConcatenatedValue+"Amount",getMultipleAmountIdsOfDifferentPlans());   // Store Amount
+        //getID(ConcatenatedValue+"Amount",getMultipleAmountIdsOfDifferentPlans());   // Store Amount
     }
 
     @Then("Click On Payment Button from Accounts Tab")
@@ -174,5 +174,19 @@ public class TabAccountsMain extends AccountsPage {
         }
         Assert.assertTrue("E:"+getTotalPaymentsText()+" A: -"+CaseTypeTestData.PaymentUpdatedAmount,getTotalPaymentsText().contains("-"+CaseTypeTestData.PaymentUpdatedAmount));
         Assert.assertTrue("E:"+getTotalRefundsText(),getTotalRefundsText().contains(CaseTypeTestData.AdjustAmount));
+    }
+
+    @Then("Verify Button on Account Tab are Disabled")
+    public void verifyButtonOnAccountTabAreDisabled() {
+        Assert.assertEquals(getAttributeValue(detailsButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(sendEmailButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(voidButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(reverseButton,"disabled"),"true");
+
+        Assert.assertEquals(getAttributeValue(invoiceButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(paymentButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(adjustButton,"disabled"),"true");
+        Assert.assertEquals(getAttributeValue(refundButton,"disabled"),"true");
     }
 }

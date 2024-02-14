@@ -2,8 +2,13 @@ package com.iinsight.pages.CasePage.CaseDetails.Tabs.PlansPrograms;
 
 import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.PlansPrograms.PlanNew;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class PlanNewPage extends PlanNew {
     public PlanNewPage(){
@@ -17,6 +22,9 @@ public class PlanNewPage extends PlanNew {
     public void clickYesCheckBox(){clickButtonWithOutScroll(YesCheckBox);}
     public void clickNoCheckBox(){clickButtonWithOutScroll(NoCheckBox);}
     public void clickSelectTemplateDropDown(){clickButtonWithOutScroll(selectTemplateDropDown);}
+    public String getTemplateInput(){
+        waitElementToBeClickable(getTemplateInput);
+        return getAttributeValue(getTemplateInput,"value");}
 
     // Select Plan Type For Billing
     public void clickSelectPlanDropDown1(){clickButtonWithOutScroll(selectPlanDropDown1);}
@@ -25,6 +33,9 @@ public class PlanNewPage extends PlanNew {
     // D E T A I L S
     public void enterTitleInput(){
         String fullName=CaseTypeTestData.FirstName+CaseTypeTestData.LastName;
+        enterText(titleInput, fullName);}
+    public void enterTemplateTitleInput(){
+        String fullName=CaseTypeTestData.FirstName+CaseTypeTestData.TemplateLastName;
         enterText(titleInput, fullName);}
     public String clickIdInput(){return getAttributeValue(idInput,"value");}
     public void enterCaseNoteInput(){enterText(caseNoteInput,CaseTypeTestData.Description);}
@@ -54,7 +65,54 @@ public class PlanNewPage extends PlanNew {
     public String getPlanTotalCostToDate(){   // GetAttribute By value : R0.00
         return getAttributeValue(planTotalCostToDate,"value");}
     public String getAmountRemaining(){     // GetAttribute By data-real_value : Only number 123
-        return getAttributeValue(amountRemaining,"data-real_value");}
+        return getAttributeValue(amountRemaining,"value").replaceAll(",",".");}
+
+    public String getAmountRemainingGST(){return getAttributeValue(amountRemainingGST,"value").replaceAll(",",".");
+    }
+    public String getAmountRemainingEx(){return getAttributeValue(amountRemainingEx,"value").replaceAll(",",".");
+    }
+    public void getExistingPlanAmounts(){
+        ArrayList<String> amountList = new ArrayList<String>();
+        for(WebElement e : getAllAmountsInputs){
+            String amountS = getAttributeValue(e,"data-real_value");
+            amountList.add(amountS);
+        }
+        CaseTypeTestData.ExistingPlanAmounts = amountList.stream()
+                .filter(value -> !value.equals("0"))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+    public void getAllTemplateAmounts(){
+        ArrayList<String> amountList = new ArrayList<String>();
+        for(WebElement e : getAllAmountsInputs){
+            String amountS = getAttributeValue(e,"data-real_value");
+            amountList.add(amountS);
+        }
+        CaseTypeTestData.TemplateAmounts = amountList.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+    public void verifyZeroValues(){
+        String DefaultPlanTotalValueSection = "0.00"; //9 + 3 (Activity) Elements
+        String DefaultPlanTotalActivitiesSection = "00:00"; //3 Elements
+        String DefaultPlanTotalItemsSection = "0"; //6 Elements
+
+        for(int i=0;i<getAllAmountsInputs.size();i++){
+            String amountS = getAttributeValue(getAllAmountsInputs.get(i),"value").replaceAll("[^0-9]","");
+            //int amountI = Integer.parseInt(amountS);
+            Assert.assertTrue(amountS.contains(DefaultPlanTotalItemsSection));
+            /*if(amountI < 9){
+                Assert.assertEquals(amountS,DefaultPlanTotalValueSection);
+            } else if(amountI < 12){
+                Assert.assertEquals(amountS,DefaultPlanTotalActivitiesSection);
+            } else if (amountI < 15){
+                Assert.assertEquals(amountS,DefaultPlanTotalValueSection);
+            } else if(amountI < 18){
+                Assert.assertEquals(amountS,DefaultPlanTotalItemsSection);
+            } else if(amountI < 21){
+                Assert.assertTrue(amountS.contains(DefaultPlanTotalItemsSection));
+            }*/
+        }
+    }
 
 
     // F I L T E R
