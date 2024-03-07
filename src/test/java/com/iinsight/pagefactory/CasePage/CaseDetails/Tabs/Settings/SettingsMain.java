@@ -57,4 +57,9 @@ public class SettingsMain extends GenericWrappers {
     @FindBy(id="plan_time_template_id")
     public WebElement timeBasedInput;          //value (Attribute) = Service Contract (default)
 
+    // A L E R T
+    @FindBy(id="case_details.alert_message")
+    public WebElement caseAlertMessageBox;
+
+
 }

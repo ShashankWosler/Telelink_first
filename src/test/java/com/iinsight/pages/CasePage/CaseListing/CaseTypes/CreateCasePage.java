@@ -168,5 +168,10 @@ public class CreateCasePage extends CreateCase {
         clickButtonWithOutScroll(saveAddAppointmentsButton);
     }
 
+    public String getCaseIDText(){
+        waitElementToBeClickable(getCaseID);
+        return getAttributeValue(getCaseID,"value");
+
+    }
 
 }

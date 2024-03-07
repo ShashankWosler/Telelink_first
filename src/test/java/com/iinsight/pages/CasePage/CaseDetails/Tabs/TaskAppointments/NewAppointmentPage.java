@@ -214,7 +214,9 @@ public class NewAppointmentPage extends NewAppointment {
         clickButtonWithOutScroll(endDateDropDown);
         String [] date = ShowAppointmentEndDate.split("-");
         CaseTypeTestData.dateTextGreaterThan20 = Integer.parseInt(date[date.length - 1]);
-        if(CaseTypeTestData.dateTextGreaterThan20 > 24 ){
+        String[] todayDateS = getTodayDate().split("-");
+        int todayDate = Integer.parseInt(todayDateS[todayDateS.length - 1]);
+        if(CaseTypeTestData.dateTextGreaterThan20 > 24 || todayDate > 24){
             clickDatePickPrevMonthBtn();
             waitVisibilityOfElement(datePickDateGr20);
             date[date.length - 1] = getText(datePickDateGr20);

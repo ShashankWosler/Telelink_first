@@ -29,6 +29,8 @@ public class TimeSheetMainStep extends TimeSheetsMainPage {
         Assert.assertTrue(isTableListingVisible());
         getAllTimesheetChargesAmount();
         Assert.assertEquals(CaseTypeTestData.AmountsList, CaseTypeTestData.AmountsListTimeSheet);
+        CaseTypeTestData.AmountsList.clear();
+        CaseTypeTestData.AmountsListTimeSheet.clear();
         //int amountsSum = CaseTypeTestData.AmountsListTimeSheet.stream().mapToInt(Integer::parseInt).sum();
     }
 

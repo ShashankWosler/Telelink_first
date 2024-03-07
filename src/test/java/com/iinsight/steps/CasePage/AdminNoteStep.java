@@ -12,7 +12,7 @@ public class AdminNoteStep extends AdminNotesPage {
     int verify_table_size;
     @And("User select Admin Notes tab")
     public void userSelectAdminNotesTab(){
-        setImplicit(10);
+        waitFor(5000);
         Assert.assertTrue(isAdminNoteTabIsVisible());
         clickAdminNotesTab();
     }

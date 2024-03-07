@@ -78,4 +78,11 @@ public class SearchMenuStep extends SearchMenuPage {
                 break;
         }
     }
+    @And("User Delete Selected Search Filter")
+    public void deleteAllFilter(){
+        clickDeleteButton();
+        Assert.assertTrue(isCancelButtonMU());
+        clickButtonWithOutScroll(cancelButtonMU);
+
+    }
 }

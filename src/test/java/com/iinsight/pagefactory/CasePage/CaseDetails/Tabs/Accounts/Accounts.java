@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class Accounts extends GenericWrappers {
     @FindBy(id="cases_account_invoice")
     public WebElement invoiceButton;
@@ -43,6 +45,11 @@ public class Accounts extends GenericWrappers {
     public WebElement transactionListLastRow;
     @FindBy(xpath="(//div[@id='transactions_list']//tr)[1]")
     public WebElement transactionListFirstRow;
+
+    @FindBy(css = "td[title='Invoice']")
+    public  List<WebElement> invoiceCount;
+    @FindBy(css = "td[id='transaction_types.description_column']")
+    public  List<WebElement> transactionsCount;
 
     //Top elements
     @FindBy(id="cases_account_details")

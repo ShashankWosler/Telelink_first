@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class PlansProgramsMain extends GenericWrappers {
     @FindBy(id="case_estimates_tab2")
     public WebElement plansTab;
@@ -27,6 +29,8 @@ public class PlansProgramsMain extends GenericWrappers {
     public WebElement currentPlanInput;
     @FindBy(xpath="(//td[@id='estimate_summary.plan_id_column'])[last()]")
     public WebElement currentPlanId;
+    @FindBy(xpath="//div[@id='estimates_list']//table//td[contains(@id, 'estimate_summary.plan_id_column')]")
+    public List<WebElement> plansCount;
 
     // P L A N      D E L E T E      P O P       U P
     @FindBy(id="level3_form")

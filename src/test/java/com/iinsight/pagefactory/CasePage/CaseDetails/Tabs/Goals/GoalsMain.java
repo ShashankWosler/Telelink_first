@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class GoalsMain extends GenericWrappers {
 
     @FindBy(id="cases_goal_new")
@@ -12,6 +14,12 @@ public class GoalsMain extends GenericWrappers {
     public WebElement editButton;
     @FindBy(id="cases_goal_delete")
     public WebElement deleteButton;
+    @FindBy(id="contact_new_1")
+    public WebElement deleteOkButton;       //Disable Goal Button
+    @FindBy(id="contact_new_2")
+    public WebElement deleteCancelButton;
+    @FindBy(xpath = "//div[text()='Unable to detele']")
+    public WebElement unableDeletePopUp;
     @FindBy(id="cases_goal_export")
     public WebElement exportButton;
     @FindBy(id="cases_goal_progress_new")
@@ -46,8 +54,16 @@ public class GoalsMain extends GenericWrappers {
     public WebElement getPriority;  //getAttribute - "data-tooltip" = low, medium, high
     @FindBy(xpath="//div[@id='goals_list']//progress")
     public WebElement getProgress;   //getAttribute - "value", "max" = 100
+    @FindBy(css="img[data-tooltip = 'Disabled']")
+    public WebElement goalDisbaleIcon;
 
     // G O A L S    T R A C K I N G     T A B
+    @FindBy(id="cases_goal_progress_edit")
+    public WebElement goalTrackEditButton;
+    @FindBy(id="cases_goal_progress_delete")
+    public WebElement goalTrackDeleteButton;
+    @FindBy(id="cases_goal_progress_export")
+    public WebElement goalTrackExportButton;
     @FindBy(css="input#goals_progress_list_search_text")
     public WebElement goalTrackSearchInput;
     @FindBy(id="goals_progress_list_search_field")
@@ -64,5 +80,11 @@ public class GoalsMain extends GenericWrappers {
     public WebElement getGoalTrackTitle;    //getAttribute - "title"
     @FindBy(xpath="//div[@id='goals_progress_list']//td[@id='goal_progress.progress_note_column']")
     public WebElement getGoalTrackProgress;    //getAttribute - "title"
+    @FindBy(xpath = "//div[@id='goals_progress_list']//tr")
+    public List<WebElement> addedProgressList;
 
+    @FindBy(xpath = "(//td[contains(text(),'no results')])[1]")
+    public WebElement goalsEmptyRow;
+    @FindBy(xpath = "(//td[contains(text(),'no results')])[2]")
+    public WebElement goalsTrackingEmptyRow;
 }

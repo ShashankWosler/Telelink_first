@@ -4,6 +4,7 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.nio.file.WatchEvent;
 import java.util.List;
 
 public class CostsMain extends GenericWrappers {
@@ -55,9 +56,12 @@ public class CostsMain extends GenericWrappers {
     public List<WebElement> getChargedAmount;   //getAttribute - "title" : R2&nbsp;200,00
     @FindBy(xpath = "//div[@id='costs_list']//tr[1]")
     public WebElement firstRow;
+    @FindBy(xpath = "//div[@id='costs_list']//table//td[contains(@id, 'record_id_column')]")
+    public List<WebElement> costList;
 
     // A P P O I N T M E N T
     @FindBy(xpath = "//div[@id='costs_list']//tr[1]//i")
     public WebElement appointmentToolTip;    //getAttribute - data-tooltip = 18-12-2023 04:06 pm - Test Appointment Automation
-
+    @FindBy(xpath="//td[@id='durn_column']")
+    public List<WebElement> getDurations;       //getAttribute - "title" : 02:00
 }

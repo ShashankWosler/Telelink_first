@@ -87,5 +87,23 @@ public class SettingsMainStep extends SettingsMainPage {
                 break;
         } waitFor(4000);
     }
+    @And("Verify {string} are Visible")
+    public void verifyContactNotificationCheckBoxes(String fieldToVerify){
+        switch (fieldToVerify){
+            case "Contact Notification checkboxes":
+                Assert.assertTrue(isReceiveSmsNotificationsCheckBoxVisible());
+                Assert.assertTrue(isReceiveEmailNotificationsCheckBoxVisible());
+                break;
+            case "Finance Template":
+                Assert.assertTrue(isElementDisplayed(invoiceTemplateDropDown));
+                Assert.assertTrue(isElementDisplayed(paymentTemplateDropDown));
+                Assert.assertTrue(isElementDisplayed(refundTemplateDropDown));
+                Assert.assertTrue(isElementDisplayed(adjustmentTemplateDropDown));
+                Assert.assertTrue(isElementDisplayed(MonetaryBasedDropDown));
+                Assert.assertTrue(isElementDisplayed(timeBasedDropDown));
+                break;
+        }
+
+    }
 }
 

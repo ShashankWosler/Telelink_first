@@ -25,7 +25,13 @@ public class UserViewAccessModifyStep extends UserViewAccessModifyPage {
     }
     @Then("User {string} {string} CheckBox From User Modify Page")
     public void userModifyPermission(String permission,String checkBoxValue){
-        clickUserModifyCheckBox(permission, checkBoxValue);
+        clickCheckBox(permission, checkBoxValue);
         clickUserModifySaveButton();
+    }
+
+    @Then("User {string} {string} CheckBox From User Access Page")
+    public void userAccessPermission(String permission,String checkBoxValue){
+        clickCheckBox(permission, checkBoxValue);
+        clickUserAccessSaveButton();
     }
 }

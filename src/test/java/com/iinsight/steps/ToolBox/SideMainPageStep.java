@@ -94,5 +94,14 @@ public class SideMainPageStep extends SideMainPage {
                 break;
         }
     }
-
+    @And("User Click on Reports Option")
+    public void clickReportsOption(){
+        try {
+            clickReports();
+        }catch(ElementClickInterceptedException e){
+            System.out.println("SideMainPageStep.clickReportsOption()");
+            setImplicit(20);
+            clickReports();
+        }
+    }
 }

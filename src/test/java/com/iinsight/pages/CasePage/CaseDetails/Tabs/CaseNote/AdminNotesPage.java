@@ -15,6 +15,7 @@ public class AdminNotesPage extends AdminNotes{
     public void clickAdminNotesTab(){
         waitElementToBeClickable(admin_notes_tab);
         clickButtonWithOutScroll(admin_notes_tab);
+
     }
     public void clickAddNewButton(){clickButtonWithOutScroll(add_new_btn);
     }

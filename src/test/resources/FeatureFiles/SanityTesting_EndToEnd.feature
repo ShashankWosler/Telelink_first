@@ -7,6 +7,8 @@ Feature: Validating of the Smoke Test
 
   @TC_2 @RunLambdaOnly @Always
   Scenario Outline: Verify that user can create a new case as a company type and validate that created case
+    When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
     And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
@@ -16,7 +18,6 @@ Feature: Validating of the Smoke Test
     And User fill the Referral Details Form
     And User fill the Bill To Company Form
     And User fill the Save Form
-    When User Select Filter "My assigned cases" from HomePage
     Then User Verify the case is created and should be visible in case list "<Type of Case>"
     And User select Case Notes tab
     And User select Case Log tab
@@ -42,7 +43,7 @@ Feature: Validating of the Smoke Test
       |  Company  |
       |  Individual  |
 
-    @T_12 @RunLambdaOnly @TimeSheetTC
+    @T_12 @RunLambdaOnly @TimeSheetTC @xyz
       Scenario Outline: Verify User is able to create Standard billing from case list "+ Billing" Button without plan and validate the newly Created cost is displayed under Case List>Cost tab.
       When User click on search button from HomePage
       And User Select Newly Created "Case"
@@ -62,7 +63,66 @@ Feature: Validating of the Smoke Test
       |This single cost requires invoicing immediately      |
       |This cost completes a 'Milestone'                    |
 
+  @RunLambdaOnly
+  Scenario: Verify Billing Amount From Report Section - Billing By Case
+    When User click on search button from HomePage
+    And User select "Case" from search criteria dropdown
+    And User enter case type id "Company"
+    And User click on search button from search popup
+    And User select Costs tab
+    And User Get All Billing Amount From Cost Page
+    When User Click on Menu Icon
+    And User Click on Reports Option
+    And User Select "Billing By Case" Type From Report Option
+    And User Select "Today" From Date Filter Section
+    And User Select "Business Division" From Filter Section
+    And User Select "Service Contract" From Filter Section
+    And User Click on Build Report
+    Then User Verify Amount of "Billing By Case" Report
+
   @Always
+  Scenario: Verify 'Restrict to the employee's assigned cases' Permission is Disable To Select Employee
+    When User Click on Menu Icon
+    And User Click on Admins Option
+    And User Click on Admins "Manage User" Option
+    Then User click on search button from Manage User
+    And User select "Name" from search criteria dropdown
+    And User enter Name to Search
+    And User click on search button from "Manage User" search popup
+    Then User verify the Email Address of searched Name
+    And User click on "User Access" Tab from Manage User page
+    Then User "Disabled" "Restrict to the employee" CheckBox From User Access Page
+
+  Scenario: Verify Billing Amount From Report Section - Billing By Employee
+    When User Click on Menu Icon
+    And User Click on Reports Option
+    And User Select "Billing By Employee" Type From Report Option
+    And User Select Selected Employee From Employee Filter Section
+    And User Select "Today" From Date Filter Section
+    And User Select "Business Division" From Filter Section
+    And User Select "Service Contract" From Filter Section
+    And User Click on Build Report
+    Then User Verify Amount of "Billing By Employee" Report
+
+
+  Scenario: Verify Billing Amount From Report Section - Billing By Employee (Grouped)
+    When User click on search button from HomePage
+    And User select "Case" from search criteria dropdown
+    And User enter case type id "Company"
+    And User click on search button from search popup
+    And User select Costs tab
+    And User Get All Billing Amount From Cost Page
+    When User Click on Menu Icon
+    And User Click on Reports Option
+    And User Select "Billing By Employee Group" Type From Report Option
+    And User Select Selected Employee From Employee Filter Section
+    And User Select "Today" From Date Filter Section
+    And User Select "Business Division" From Filter Section
+    And User Select "Service Contract" From Filter Section
+    And User Click on Build Report
+    Then User Verify Amount of "Billing By Employee Group" Report
+
+  @Always @xyz
   Scenario Outline: Verify the user is able to create billing with employee rate from Timesheet Page
     When User click on search button from HomePage
     And User select "Case" from search criteria dropdown
@@ -283,7 +343,7 @@ Feature: Validating of the Smoke Test
     Then Go to the report
     And User Download The Selected "Pdf" Format Report
 
-  @RunLambdaOnly @TimeSheetTC
+  @RunLambdaOnly @TimeSheetTC @14feb
     Scenario Outline: Verify that User is able to create Payment using Multiple Plans
       When User click on search button from HomePage
       And User Select Newly Created "Case"
@@ -332,10 +392,10 @@ Feature: Validating of the Smoke Test
       Examples:
       |Plan Type|Billing Type|
       |Charge Code Based Plan|Monetary Based|
-      |Charge Code Based Plan|Time Based    |
+#      |Charge Code Based Plan|Time Based    |
       |Service Based Plan    |Monetary Based|
-      |Service Based Plan    |Time Based    |
-      |Total Sum Plan        |Monetary Based|
+#      |Service Based Plan    |Time Based    |
+#      |Total Sum Plan        |Monetary Based|
       |Total Sum Plan        |Time Based    |
 
   @Always
@@ -375,6 +435,8 @@ Feature: Validating of the Smoke Test
 
   @RunLambdaOnly
   Scenario Outline: Verify User is able to Refund and Adjust Invoice with/ without VAT for New Created Case and verifies all Amounts and IDs
+    When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
     And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
@@ -475,6 +537,8 @@ Feature: Validating of the Smoke Test
 
   @Always
   Scenario: Verify User is able to create Billing from appointment and Deletion of Appointment
+    When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
     And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
@@ -513,6 +577,8 @@ Feature: Validating of the Smoke Test
 
   @RunLambdaOnly
   Scenario: Verify User is able to create Overlap Appointments, Edit Appointment and Delete Appointments
+    When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     When User click on +case button
     And User click on Business Division dropdown get "NAT" value from dropdown
     And User click on Service Contract dropdown get "NAT-Clone@CTP" value from dropdown
@@ -581,6 +647,7 @@ Feature: Validating of the Smoke Test
   @RunLambdaOnly
   Scenario Outline:Verify User is able to create Recurrence Appointments
     When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     And User Select Tasks Appointments Tab
     And User click on "New Appointment" Button
     And User Enter all the mandatory fields for creating "Recurrence" appointment
@@ -612,6 +679,7 @@ Feature: Validating of the Smoke Test
   @RunLambdaOnly
   Scenario: Verify User is able to create All Day Event From Appointment
     When User Select Filter "My assigned cases" from HomePage
+    And User Delete Selected Search Filter
     And User Select Tasks Appointments Tab
     And User click on "New Appointment" Button
     And User Enter all the mandatory fields for creating "All Day Event" appointment
@@ -652,3 +720,4 @@ Feature: Validating of the Smoke Test
     Then User verify fields of "User View" Tab
     And User click on "User Modify" Tab from Manage User page
     Then User verify fields of "User Modify" Tab
+

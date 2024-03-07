@@ -1,6 +1,7 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.PlansPrograms;
 
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.PlansPrograms.PlansProgramsMain;
 
 import org.openqa.selenium.StaleElementReferenceException;
@@ -52,7 +53,10 @@ public class PlansProgramsMainPage extends PlansProgramsMain {
     public String getCurrentActivePlanID(){
         waitVisibilityOfElement(currentPlanId);
         return getAttributeValue(currentPlanId,"title");}
-
+    public void getPlansCount(){
+        CaseTypeTestData.plansSize = String.valueOf(plansCount.size());
+        System.out.println("Plans List Size: "+CaseTypeTestData.plansSize);
+    }
 
 
     // P L A N      D E L E T E      P O P       U P

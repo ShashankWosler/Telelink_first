@@ -7,6 +7,7 @@ import io.cucumber.java.en.Then;
 import org.junit.Assert;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 
 public class TabCostsMainSteps extends CostsMainPage {
 
@@ -76,11 +77,32 @@ public class TabCostsMainSteps extends CostsMainPage {
         }
     }
 
-    @Then("Verify Button on Costs Tab are Disabled")
-    public void verifyButtonOnCostsTabAreDisabled() {
-        Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(billingButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(editButton,"disabled"),"true");
+    @Then("Verify Button on Costs Tab are {string}")
+    public void verifyButtonOnCostsTabAreDisabled(String buttonType) {
+        switch (buttonType){
+            case "Disabled":
+                Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(billingButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(editButton,"disabled"),"true");
+                break;
+            case "Enabled":
+                Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(billingButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(editButton,"disabled"),"false");
+                break;
+        }
+
+    }
+    @And("User Get All Billing Amount From Cost Page")
+    public void getAmountsFromCostPage(){
+        clickFirstRow();
+        getAllChargesAmount();
+        getAllDurations();
+    }
+    @And("Verify Number of Cost added")
+    public void verifyNumberOfCostAdded() {
+        waitFor(5000);
+        getCostList();
     }
 
 }

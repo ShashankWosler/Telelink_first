@@ -22,6 +22,7 @@ public class BillingPage extends Billing {
         mouseOver(durationInput);
         waitElementToBeClickable(durationInput);
         setImplicit(30);
+        durationInput.clear();
         enterTextAndClearAll(durationInput, CaseTypeTestData.Duration);
     }
     public void enterTextRateTab(){

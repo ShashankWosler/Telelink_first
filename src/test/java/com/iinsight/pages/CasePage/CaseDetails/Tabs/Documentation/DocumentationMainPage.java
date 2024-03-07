@@ -1,5 +1,6 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.Documentation;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.Documentation.DocumentationsMain;
 import org.openqa.selenium.support.PageFactory;
 
@@ -21,6 +22,9 @@ public class DocumentationMainPage extends DocumentationsMain {
     public void clickFindBtn(){clickButtonWithOutScroll(documentation_find_btn);}
     public void clickFieldsEditBtn(){clickButtonWithOutScroll(documentation_fieldEdit_btn);}
     public void clickAllStatusDrpDownBtn(){clickButtonWithOutScroll(documentation_AllStatus_dropdown_icon);}
-
+    public void getDocumentationsCount(){
+        CaseTypeTestData.documentSize = String.valueOf(documentationCount.size());
+        System.out.println("Documentation List Size: "+CaseTypeTestData.documentSize);
+    }
 
 }

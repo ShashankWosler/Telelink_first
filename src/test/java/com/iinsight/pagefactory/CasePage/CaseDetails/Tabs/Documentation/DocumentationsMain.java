@@ -4,6 +4,8 @@ import com.iinsight.utils.GenericWrappers;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.List;
+
 public class DocumentationsMain extends GenericWrappers {
 
     @FindBy(id = "cases_documentation_new")
@@ -36,4 +38,6 @@ public class DocumentationsMain extends GenericWrappers {
     public WebElement documentation_fieldEdit_btn;
     @FindBy(css = "img[name='documentation_list_filter_by_special_button']")
     public WebElement documentation_AllStatus_dropdown_icon;
+    @FindBy(xpath="//div[@id='documentation_list']//table//td[contains(@id, 'documentation.title_column')]")
+    public List<WebElement> documentationCount;
 }

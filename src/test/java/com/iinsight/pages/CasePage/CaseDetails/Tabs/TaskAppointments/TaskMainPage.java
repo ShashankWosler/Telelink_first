@@ -33,6 +33,7 @@ public class TaskMainPage extends TaskMain {
     public boolean isFirstRowTaskAppointmentVisible(){return isElementDisplayed(emptyRowTaskAppointment);}
     public boolean isFirstRowCompletedAppointmentVisible(){return isElementDisplayed(emptyRowCompletedAppointment);}
 
+
     // C O M P L E T E D    A P P O I N T M E N T    T A B
     public boolean isSearchInputCompVisible(){
         waitVisibilityOfElement(compSearchInput);

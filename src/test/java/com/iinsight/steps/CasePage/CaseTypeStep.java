@@ -114,7 +114,17 @@ public class CaseTypeStep extends CreateCasePage {
         selectStatus();
         selectDropDownFromText("Active");
         clickOnSubmitButton();
+        waitFor(5000);
     }
+
+    @And("User fill the Save Form Regression")
+    public void userFillSaveFormRegression(){
+        getID("RegressionID",getCaseIDText());
+        selectStatus();
+        selectDropDownFromText("Active");
+        clickOnSubmitButton();
+    }
+
     @And("User Click on Add Appointment Button from Add Case Save Form")
     public void clickOnAppointmentBillingFromForm(){
         selectStatus();

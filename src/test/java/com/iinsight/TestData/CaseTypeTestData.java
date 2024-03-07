@@ -2,7 +2,7 @@ package com.iinsight.TestData;
 
 import java.util.ArrayList;
 
-public class CaseTypeTestData {
+public class CaseTypeTestData{
     public static String CompanyName = "QA Test";
     public static String Title = "Mr";
     public static String FirstName = "Automation";
@@ -105,12 +105,22 @@ public class CaseTypeTestData {
 
     //  T I M E S H E E T   B I L L I N G   [VERIFY]
     public static ArrayList<String> AmountsList = new ArrayList<String>();
+    public static ArrayList<String> DurationsList = new ArrayList<String>();
+
     public static ArrayList<String> AmountsListTimeSheet = new ArrayList<String>();
 
     public static int TimeSheetRateI = 100;
     public static int SubTotalInt = CaseTypeTestData.ZeroDuration * CaseTypeTestData.TimeSheetRateI;
     public static int VATInt = (int) (SubTotalInt * CaseTypeTestData.VatRate);
     public static int TotalInt = SubTotalInt + VATInt;
+    public static String contactsSize;
+    public static String costSize;
+    public static String invoiceSize;
+    public static String transactionsSize;
+    public static String plansSize;
+    public static String tasksSize;
+    public static int appointmentSize;
+    public static String documentSize;
 
     // Integer to String of Amount Variables - T I M E S H E E T S
     public static String TimeSheetRate = String.valueOf(TimeSheetRateI);
@@ -131,4 +141,9 @@ public class CaseTypeTestData {
 
     // R E C U R R E N C E
     public static int dateTextGreaterThan20;
+    // R E P O R T S    S I D E     T A B
+    public static int TotalSalesSum;
+    public static int TotalCostSum;
+    public static int TotalActualCostSum;
+
 }

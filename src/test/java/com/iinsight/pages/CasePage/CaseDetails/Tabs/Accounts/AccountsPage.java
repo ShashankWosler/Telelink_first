@@ -1,5 +1,6 @@
 package com.iinsight.pages.CasePage.CaseDetails.Tabs.Accounts;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseDetails.Tabs.Accounts.Accounts;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.support.PageFactory;
@@ -72,4 +73,12 @@ public class AccountsPage extends Accounts {
         clickButtonWithOutScroll(transactionListFirstRow);
     }
     public String getAmountText(){return getAttributeValue(getAmount,"title").replace("R","").replaceAll("[^0-9-,]","");}
+    public void getInvoiceCount(){
+        CaseTypeTestData.invoiceSize = String.valueOf(invoiceCount.size());
+        System.out.println("Invoice Count: "+CaseTypeTestData.invoiceSize);
+    }
+    public void getTransactionsCount(){
+        CaseTypeTestData.transactionsSize = String.valueOf(transactionsCount.size());
+        System.out.println("Transactions Count: "+CaseTypeTestData.transactionsSize);
+    }
 }

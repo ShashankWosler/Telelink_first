@@ -65,7 +65,7 @@ public class UserViewAccessModifyPage extends UserViewAccessModify {
             isElementDisplayed(e);
         }
     }
-    public void clickUserModifyCheckBox(String permission,String checkBoxValue){
+    public void clickCheckBox(String permission,String checkBoxValue){
         By permissionPath = By.xpath("//td[contains(text(),'"+checkBoxValue+"')]/preceding-sibling::td/img");
         WebElement permissionElement = getDriver().findElement(permissionPath);
         mouseOver(permissionElement);

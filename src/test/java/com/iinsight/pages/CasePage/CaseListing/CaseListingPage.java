@@ -1,6 +1,9 @@
 package com.iinsight.pages.CasePage.CaseListing;
 
+import com.iinsight.TestData.CaseTypeTestData;
 import com.iinsight.pagefactory.CasePage.CaseListing.CaseListingMain;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 
 public class CaseListingPage extends CaseListingMain {
@@ -30,13 +33,23 @@ public class CaseListingPage extends CaseListingMain {
     }
 
     // T O P    W R A P P E R   -   B U T T O N S
-    public void clickAddCaseButton(){clickButtonWithOutScroll(addCaseBtn);
+    public void clickAddCaseButton(){
+        waitElementToBeClickable(addCaseBtn);
+        clickButtonWithOutScroll(addCaseBtn);
     }
+
     public void clickCaseBillingButton(){clickButtonWithOutScroll(addCaseBillingBtn);
     }
     public void clickSearchButton(){
-        waitElementToBeClickable(searchBtn);
-        clickWithJS(searchBtn);
+        try {
+            waitElementToBeClickable(searchBtn);
+            clickWithJS(searchBtn);
+        }catch (Exception e){
+            System.out.println("CaseListingPage.clickSearchButton()- "+e.getClass()+" "+e.getMessage());
+            waitFor(2000);
+            waitElementToBeClickable(searchBtn);
+            clickWithJS(searchBtn);
+        }
     }
     public void clickFieldsEditButton(){clickButtonWithOutScroll(fieldsEditBtn);
     }
@@ -80,17 +93,87 @@ public class CaseListingPage extends CaseListingMain {
         return getIDArray[2];
     }
 
-   // D E L E T E   -   P O P - U P
+    // S A V E  P O P - U P
+    public void enterViewName(String text){
+        enterText(viewNameField, text);
+    }
+    public void clickOnOrganisationCheckbox(){
+        clickButtonWithOutScroll(organisationViewBtn);
+    }
+    public void clickOnNewViewCheckbox(){
+        clickButtonWithOutScroll(newViewSaveBtn);
+    }
+    // S A V E  P O P - U P -- Delete Popup
+    public void clickONOKBtn(){
+        clickButtonWithOutScroll(okBtn);
+    }
+    public void clickONCancelBtn(){
+        clickButtonWithOutScroll(cancelDeleteBtn);
+    }
+    // D E L E T E   -   P O P - U P
     public void clickProceedAnywayDeleteBtn(){clickButtonWithOutScroll(proceedAnywayBtn);
     }
     public void clickDeleteCaseBtn(){clickButtonWithOutScroll(deleteCaseBtn);
     }
 
+    public void verifyCostCount(){
+        String str = getAttributeValue(costCount, "Value");
+        System.out.println("Costs Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.costSize);
+    }
+    public void verifyInvoiceCount(){
+        String str = getAttributeValue(invoicesCount, "Value");
+        System.out.println("Invoices Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.invoiceSize);
+    }
+    public void verifyTransactionsCount(){
+        String str = getAttributeValue(transactionsCount, "Value");
+        System.out.println("Transactions Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.transactionsSize);
+    }
+    public void verifyTasksCount(){
+        String str = getAttributeValue(tasksCount, "Value");
+        System.out.println("Tasks Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.tasksSize);
+    }
+    public void verifyContactsCount(){
+        String str = getAttributeValue(contactCount, "Value");
+        System.out.println("Contacts Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.contactsSize);
+    }
+    public void verifyPlansCount(){
+        String str = getAttributeValue(planCount, "Value");
+        System.out.println("Plans Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.plansSize);
+    }
+    public void verifyAppointmentsCount(){
+        int str = Integer.parseInt(getAttributeValue(appointmentCount, "Value"));
+        System.out.println("Appointment Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.appointmentSize);
+    }
+    public void verifyDocumentsCount(){
+        String str = getAttributeValue(documentationCount, "Value");
+        System.out.println("Documents Count in Delete Popup: "+ str);
+
+        Assert.assertEquals(str, CaseTypeTestData.documentSize);
+    }
     public void clickFilterDropDown(){
         waitElementToBeClickable(filterDropDown);
         clickButtonWithOutScroll(filterDropDown);
     }
     public String getFilterInputText(){return getAttributeValue(filterInput,"value");
+    }
+    public void clickDeleteIconFromDropdown(String dropDownvalue){
+        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[text()="+'"'+dropDownvalue+'"'+"]//i[@title='Remove']");
+        waitPresenceOfElementLocated(elem);
+        clickButtonWithOutScroll(getDriver().findElement(elem));
     }
     public void clickFilterDropDownMyCaseValue(){clickButtonWithOutScroll(filterDropDownValue4);
     }
@@ -112,6 +195,9 @@ public class CaseListingPage extends CaseListingMain {
 
     // T A B L E    H E A D E R
     public int getCaseListHeadersSize(){return caseListingHeaderCount.size();
+    }
+    public void clickOnCaseIDColumnSort(){
+        clickWithJS(caseIDColumn);
     }
 }
 

@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.ArrayList;
+
 public class CostsMainPage extends CostsMain {
     public CostsMainPage(){
         PageFactory.initElements(getDriver(), this);
@@ -68,5 +70,22 @@ public class CostsMainPage extends CostsMain {
     // A P P O I N T M E N T
     public String getTextAppointmentToolTip(){return getAttributeValue(appointmentToolTip,"data-tooltip");}
 
+    public void getAllDurations(){
+        String duration;
+        WebElement listItem;
+        if(getDurations.size()!=0){
+            for(int i=1;i<=getDurations.size();i++) {
+                By xpath= By.xpath("    (//td[@id='durn_column'])["+i+"]");
+                listItem = getDriver().findElement(xpath);
+                waitVisibilityOfElement(listItem);
+                duration  = getAttributeValue(listItem,"title").replaceAll("[:0]", "");
+                CaseTypeTestData.DurationsList.add(duration);
+            }}
+        System.out.println("DurationList: "+CaseTypeTestData.DurationsList.toString());
+    }
+    public void getCostList(){
+        CaseTypeTestData.costSize = String.valueOf(costList.size());
+        System.out.println("Cost List Size: "+CaseTypeTestData.costSize);
+    }
 
 }

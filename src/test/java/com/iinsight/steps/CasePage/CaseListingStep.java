@@ -11,7 +11,9 @@ import org.openqa.selenium.TimeoutException;
 public class CaseListingStep extends CaseListingPage {
 
     @When("User click on +case button")
-    public void userClickOnAddCaseButton(){ clickAddCaseButton();
+    public void userClickOnAddCaseButton(){
+        waitFor(4000);
+        clickAddCaseButton();
     }
 
     @Then("User Verify the case is created and should be visible in case list {string}")
@@ -20,6 +22,13 @@ public class CaseListingStep extends CaseListingPage {
         String keyToBeCreated = getText(caseNoteName);
         getID(caseType, keyToBeCreated);
     }
+    @Then("User Verify the Regression case is created and should be visible in case list")
+    public void userVerifyTheCaseRegression() {
+        waitFor(4000);
+        Assert.assertEquals(getText(caseNoteName),getTestDataValue("RegressionID"));
+    }
+
+
     @Then("User Verify the Zero case is created and should be visible in case list")
     public void getCaseIDOfZeroCase(){
         waitFor(4000);
@@ -55,12 +64,16 @@ public class CaseListingStep extends CaseListingPage {
     }
     @When("User Select Filter {string} from HomePage")
     public void userClickOnSearchButton(String filterValue){
+        waitFor(4000);
         Assert.assertTrue(isSearchButtonVisible());
         if(!(getFilterInputText().equals(filterValue))){
             clickFilterDropDown();
             selectDropDownFromText(filterValue);
         }
+        waitFor(2000);
         Assert.assertEquals(getFilterInputText(),filterValue);
+        clickSearchButton();
+        waitFor(2000);
     }
     @And("User verify the case type id {string}")
     public void userVerifyCaseIDFromHomePage(String caseType){
@@ -101,6 +114,9 @@ public class CaseListingStep extends CaseListingPage {
             case "Restore Archived":
                 clickRestoreArchiveBtn();
                 break;
+            case "Save":
+                clickDropDownSaveViewValue();
+                break;
         }
     }
 
@@ -138,7 +154,56 @@ public class CaseListingStep extends CaseListingPage {
                 break;
         }
     }
-
+    @And("User click on {string} From Save View PopUp")
+    public void userVerifySaveViewPopUp(String button) {
+        switch (button){
+            case "OK Button":
+                clickArchiveConfirmBtn();
+                break;
+            case "Cancel":
+                clickArchiveCancelBtn();
+                break;
+            case "Cross Button":
+                clickPopUpCrossBtn();
+                break;
+        }
+    }
+    @And("User Enter View Name {string} in the Text Field")
+    public void userEnterViewNameInTheTextField(String txt) {
+        enterViewName(txt);
+    }
+    @And("User Enable {string} checkbox")
+    public void userEnableCheckbox(String arg) {
+        switch (arg){
+            case "Organisation View":
+                clickOnOrganisationCheckbox();
+                break;
+            case "Save as New view":
+                clickOnNewViewCheckbox();
+                break;
+        }
+    }
+    @And("User click on the delete icon of {string} from dropdown")
+    public void userClickOnTheDeleteIconOfFromDropdown(String arg0) {
+        clickFilterDropDown();
+        clickDeleteIconFromDropdown(arg0);
+    }
+    @And("User click on {string} from delete Popup")
+    public void userClickOnFromDeletePopup(String arg0) {
+        switch (arg0){
+            case "OK Button":
+                clickONOKBtn();
+                waitFor(6000);
+                Assert.assertEquals(getFilterInputText(),"");
+                break;
+            case "Cancel":
+                clickONCancelBtn();
+                break;
+            case "Cross Button":
+                clickPopUpCrossBtn();
+                break;
+        }
+    }
     @And("User click on {string} From Restore Archive PopUp")
     public void userVerifyRestoreArchivePopUp(String button) {
         switch (button){
@@ -259,4 +324,33 @@ public class CaseListingStep extends CaseListingPage {
         Assert.assertTrue(isElementDisplayed(fieldsEditBtn));
         Assert.assertTrue(isElementDisplayed(ellipsesIcon));
     }
+
+    @And("User click on case sort icon")
+    public void userClickOnCaseSortIcon() {
+        clickOnCaseIDColumnSort();
+    }
+
+    @When("User select the column")
+    public void userSelectTheColumn() {
+        waitVisibilityOfElement(caseIDColumn);
+    }
+
+    @Then("Verify the selected column is sorted")
+    public void verifyTheSelectedColumnIsSorted() {
+    }
+
+    @And("Verify Correct Count on Delete Popup")
+    public void verifyCorrectCount() {
+        verifyCostCount();
+        verifyInvoiceCount();
+        verifyTransactionsCount();
+        verifyTasksCount();
+        verifyAppointmentsCount();
+        verifyDocumentsCount();
+        verifyContactsCount();
+        verifyPlansCount();
+    }
+
+
+
 }

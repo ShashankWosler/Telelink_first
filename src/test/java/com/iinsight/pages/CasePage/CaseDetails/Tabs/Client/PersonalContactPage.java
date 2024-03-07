@@ -6,7 +6,10 @@ import org.openqa.selenium.support.PageFactory;
 public class PersonalContactPage extends PersonalContact {
     public PersonalContactPage(){PageFactory.initElements(getDriver(), this);
     }
-    public boolean isTitleTabIsVisible(){return isElementDisplayed(titleTab);}
+    public boolean isTitleTabIsVisible(){
+        waitFor(2000);
+        waitElementToBeClickable(titleTab);
+        return isElementDisplayed(titleTab);}
     public String getTextTitleTabText(){return getAttributeValue(titleTab, "value");}
     public String getTextFirstNameTab(){return getAttributeValue(firstNameTab, "value");}
     public String getTextLastNameTab(){return getAttributeValue(lastNameTab, "value");}

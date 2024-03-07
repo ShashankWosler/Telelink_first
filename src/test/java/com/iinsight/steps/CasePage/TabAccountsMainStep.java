@@ -176,17 +176,42 @@ public class TabAccountsMainStep extends AccountsPage {
         Assert.assertTrue("E:"+getTotalRefundsText(),getTotalRefundsText().contains(CaseTypeTestData.AdjustAmount));
     }
 
-    @Then("Verify Button on Account Tab are Disabled")
-    public void verifyButtonOnAccountTabAreDisabled() {
-        Assert.assertEquals(getAttributeValue(detailsButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(sendEmailButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(voidButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(reverseButton,"disabled"),"true");
+    @Then("Verify Button on Account Tab are {string}")
+    public void verifyButtonOnAccountTabAreDisabled(String buttonType) {
+        switch (buttonType){
+            case "Disabled":
+                Assert.assertEquals(getAttributeValue(detailsButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(sendEmailButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(voidButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(reverseButton,"disabled"),"true");
 
-        Assert.assertEquals(getAttributeValue(invoiceButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(paymentButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(adjustButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(refundButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(invoiceButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(paymentButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(adjustButton,"disabled"),"true");
+                Assert.assertEquals(getAttributeValue(refundButton,"disabled"),"true");
+                break;
+            case "Enabled":
+                Assert.assertEquals(getAttributeValue(detailsButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(sendEmailButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(voidButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(reverseButton,"disabled"),"false");
+
+                Assert.assertEquals(getAttributeValue(invoiceButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(paymentButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(adjustButton,"disabled"),"false");
+                Assert.assertEquals(getAttributeValue(refundButton,"disabled"),"false");
+                break;
+        }
+
+    }
+
+    @And("Verify Number of Invoices and Transactions on the Case")
+    public void verifyNumberOfInvoicesAndTransactionsOnTheCase() {
+        waitFor(3000);
+        getInvoiceCount();
+        waitFor(3000);
+        getTransactionsCount();
     }
 }

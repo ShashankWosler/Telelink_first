@@ -30,6 +30,7 @@ public class ActivityDetailStep extends ActivityDetailPage {
         // EMPLOYEE EXPENSE TAB
         clickEmployeeExpenseTab();
         Assert.assertTrue(isSaveButtonVisible());
+        waitFor(2000);
         Assert.assertEquals(getEmployeeDurationInputText(),CaseTypeTestData.Duration);
         Assert.assertTrue(getEmployeeRateInputText().replaceAll(" ","").contains(String.valueOf(CaseTypeTestData.TimeSheetRate)));
         Assert.assertTrue(getEmployeeSubTotalInputText().replaceAll(" ","").contains(CaseTypeTestData.SubTotalS));

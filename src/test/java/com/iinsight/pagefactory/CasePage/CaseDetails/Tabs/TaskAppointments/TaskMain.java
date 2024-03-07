@@ -67,11 +67,11 @@ public class TaskMain extends GenericWrappers {
     public WebElement emptyRowTaskAppointment;
     @FindBy(xpath="(//td[@title='The search criteria provided have returned no results'])[2]")
     public WebElement emptyRowCompletedAppointment;
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[7]")
+    @FindBy(id="timeto_column")
     public WebElement EndTimeFirstRow;      //getAttribute - title="04:21 pm"
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[6]")
+    @FindBy(id="timefrom_column")
     public WebElement StartTimeFirstRow;      //getAttribute - title="04:21 pm"
-    @FindBy(xpath="//div[@id='task_appoinment']//tr[1]//td[14]")
+    @FindBy(id="amount_column")
     public WebElement taskFirstAmountOfTable;  //getAttribute - value=R2&nbsp;200,00
     // R E C U R R E N C E
     @FindBy(xpath="//div[@id='task_appoinment']//tr")

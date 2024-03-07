@@ -103,4 +103,27 @@ public class TabsMainStep extends TabsMainPage {
         }
     }
 
+    @And("User select Contacts Tab")
+    public void userSelectContactsTab() {
+        clickContactsTab();
+    }
+
+    @And("User Select Documentations Tab")
+    public void userSelectDocumentationsTab() {
+        waitFor(3000);
+        clickDocumentationTab();
+    }
+    @And("User select Goals tab")
+    public void userClickGoalsTabStep() {
+        try {
+            waitFor(5000);
+            Assert.assertTrue(isGoalsTabVisible());
+            clickGoalsTab();
+        }catch (StaleElementReferenceException | ElementClickInterceptedException e){
+            System.out.println("TabsMainStep.userClickGoalsTabStep() - "+e.getClass());
+            setImplicit(10);
+            waitFor(2000);
+            mouseOverClick(goals_tab);
+        }
+    }
 }

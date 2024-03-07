@@ -60,12 +60,26 @@ public class TabPlansProgramsStep extends PlansProgramsMainPage {
         Assert.assertEquals(getCurrentActivePlanID(),getTestDataValue("TemplateID"));
     }
 
-    @Then("Verify Button on Plan Program Tab are Disabled")
-    public void verifyButtonOnPlanProgramTabAreDisabled() {
-        Assert.assertEquals(getAttributeValue(detailsButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(newButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(deleteButton,"disabled"),"true");
-        Assert.assertEquals(getAttributeValue(currentButton,"disabled"),"true");
+    @Then("Verify Button on Plan Program Tab are {string}")
+    public void verifyButtonOnPlanProgramTabAreDisabled(String buttonType) {
+        switch (buttonType) {
+            case "Disabled":
+                Assert.assertEquals(getAttributeValue(detailsButton, "disabled"), "true");
+                Assert.assertEquals(getAttributeValue(newButton, "disabled"), "true");
+                Assert.assertEquals(getAttributeValue(deleteButton, "disabled"), "true");
+                Assert.assertEquals(getAttributeValue(currentButton, "disabled"), "true");
+                break;
+            case "Enabled":
+                Assert.assertEquals(getAttributeValue(detailsButton, "disabled"), "false");
+                Assert.assertEquals(getAttributeValue(newButton, "disabled"), "false");
+                Assert.assertEquals(getAttributeValue(deleteButton, "disabled"), "false");
+                Assert.assertEquals(getAttributeValue(currentButton, "disabled"), "false");
+                break;
+        }
     }
 
+    @And("Verify Numbers of Plans added")
+    public void verifyNumbersOfPlansAdded() {
+        getPlansCount();
+    }
 }

@@ -33,6 +33,15 @@ public class SettingsMainPage extends SettingsMain {
     }
     public String getExcludeCaseCheckBox(){return getAttributeValue(excludeCaseCheckBox,"value");
     }
+    // I S  -   D I S P L A Y E D
+    public boolean isReceiveSmsNotificationsCheckBoxVisible(){
+        waitVisibilityOfElement(receiveSmsNotificationsCheckBox);
+        return isElementDisplayed(receiveSmsNotificationsCheckBox);
+    }
+    public boolean isReceiveEmailNotificationsCheckBoxVisible(){
+        waitVisibilityOfElement(receiveEmailNotificationsCheckBox);
+        return isElementDisplayed(receiveEmailNotificationsCheckBox);
+    }
     public String getReceiveSmsNotificationsCheckBox(){return getAttributeValue(receiveSmsNotificationsCheckBox,"value");
     }
     public String getReceiveEmailNotificationsCheckBox(){return getAttributeValue(receiveEmailNotificationsCheckBox,"value");
@@ -71,5 +80,9 @@ public class SettingsMainPage extends SettingsMain {
     public String getRefundTemplateInputText(){return getAttributeValue(refundTemplateInput,"value");}
     public String getMonetaryInputText(){return getAttributeValue(monetaryInput,"value");}
     public String getTimeBasedInputText(){return getAttributeValue(timeBasedInput,"value");}
+
+    // A L E R T
+    public void enterAlertMessage(){enterText(caseAlertMessageBox,"test");}
+
 
 }

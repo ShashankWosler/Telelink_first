@@ -25,6 +25,7 @@ public class TabsMainPage extends TabsMain {
     }
     public void clickDocumentationTab(){clickButtonWithOutScroll(documentation_tab);
     }
+
     public void clickContactsTab(){clickButtonWithOutScroll(contacts_tab);
     }
     public boolean isClickCostsTabVisible(){

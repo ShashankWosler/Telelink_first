@@ -72,6 +72,36 @@ public class CaseListingMain extends GenericWrappers {
     public WebElement allCasesDropDownValue;
     @FindBy(css="td[id='case_details.case_n_column']")
     public WebElement getCaseID;
+    @FindBy(id="costs")
+    public WebElement costCount;
+    @FindBy(id="invoices")
+    public WebElement invoicesCount;
+    @FindBy(id="transactions")
+    public WebElement transactionsCount;
+    @FindBy(id="tasks")
+    public WebElement tasksCount;
+    @FindBy(id="documentation")
+    public WebElement documentationCount;
+    @FindBy(id="contacts")
+    public WebElement contactCount;
+    @FindBy(id="appointment")
+    public WebElement appointmentCount;
+    @FindBy(id="estimates")
+    public WebElement planCount;
+
+    // S A V E  P O P U P
+    @FindBy(id="org_view_name")
+    public WebElement viewNameField;
+    @FindBy(id="organisation")
+    public WebElement organisationViewBtn;
+    @FindBy(id="view_save_edit")
+    public WebElement newViewSaveBtn;
+
+    // S A V E  P O P U P -- Delete Popup
+    @FindBy(id="rate_delete_1")
+    public WebElement okBtn;
+    @FindBy(id="rate_delete_2")
+    public WebElement cancelDeleteBtn;
 
     //  W A R N I N G - S E T T I N G S : [Archival,Deletion]
     @FindBy(xpath="//span[@id='discasewarning']/span[3]")
@@ -108,5 +138,7 @@ public class CaseListingMain extends GenericWrappers {
     // T A B L E    H E A D E R
     @FindBy(css="div#case_list_head td")
     public List<WebElement> caseListingHeaderCount;
+    @FindBy(id="table_header_col_new_2")
+    public WebElement caseIDColumn;
 }
 
