@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.iisight.com</groupId>
-    <artifactId>Iinsight_Automation</artifactId>
+    <groupId>org.wosler.com</groupId>
+    <artifactId>Wosler_Automation</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -223,6 +223,12 @@
             <artifactId>poi</artifactId>
             <version>4.1.2</version>
         </dependency>
+        <dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-email</artifactId>
+    <version>1.5</version> <!-- Replace with the latest version -->
+</dependency>
+
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -248,6 +254,12 @@
 		    <artifactId>webdrivermanager</artifactId>
 		    <version>5.6.2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+
 
     </dependencies>
 </project>

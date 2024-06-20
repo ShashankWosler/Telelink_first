@@ -1,5 +1,6 @@
 package com.iinsight.runner;
 
+import com.iinsight.utils.EmailSender;
 import com.iinsight.utils.GenericWrappers;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -19,36 +20,27 @@ public class Hooks extends GenericWrappers {
      */
 
     //@After
-    public void close_the_browser(Scenario scenario) {
-        getDriver().executeScript("lambda-status=" + (scenario.isFailed() ? "failed" : "passed"));
-        System.out.println(getDriver().getSessionId());
-        quitBrowser();
-    }
+
     @After
     public void afterClass(Scenario scenario) throws Exception {
+    	//EmailSender.EmailSend();
+    	EmailSender.main();
+    	EmailSender.main();
 //        GenericWrappers genericWrappers = new GenericWrappers();
         if(scenario.isFailed()) {
+        	
             System.out.println("Scenario Failed...Taking screenshot....");
 //            takeSnap(scenario);
             TakesScreenshot tk= (TakesScreenshot) getDriver();
             byte[] b1 = tk.getScreenshotAs(OutputType.BYTES);
             scenario.attach(b1, "image/png", "Screenshot on Failure");
-            quitBrowser();
+            //quitBrowser();
         }
-//        getDriver().executeScript("lambda-status=" + (scenario.isFailed() ? "failed" : "passed"));
-//        System.out.println(getDriver().getSessionId());
-//        quitBrowser();
-    }
-    //@AfterClass
-    public void tearDown() throws Exception{
-        boolean status = false;
-        ((JavascriptExecutor)getDriver()).executeScript("lambda-status=" + status);
-        quitBrowser();
+
     }
 
     @Before
     public void updateName(Scenario scenario) throws InterruptedException {
         new GenericWrappers().invokeApp();
-//      getDriver().executeScript("lambda-name=" + scenario.getName());
     }
 }

@@ -8,11 +8,9 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.ConfigurationFactory;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -24,6 +22,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -62,10 +62,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         getDriver().manage().window().maximize();
         getDriver().manage().deleteAllCookies();
         //setImplicit(implicit);
-        getUrl(setUrl());
+//        getUrl(setUrl());
     }
     public void openURL(){
-
+        getUrl(setUrl());
     }
     public void refresh(){
 
@@ -73,19 +73,17 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
     }
 
     public String setUrl(){
-        if (config.getString("defaultCountry").equalsIgnoreCase("USA")) {
+
             appUrl = config.getString("url");
-            globalUserName = config.getString("usa_username");
-            globalPassword = config.getString("usa_password");
-        }
+            globalUserName = config.getString("username");
+            globalPassword = config.getString("password");
+
         return appUrl;
     }
 
     public void launchWinBrowser() {
-        String username = System.getenv("rajus") == null ? "rajus" : System.getenv("LT_USERNAME");
-        String accesskey = System.getenv("gQvMdzDsejcUM2I5R2hTflz0fIfti88OB350cURKh52uL9IOAX") == null ? "gQvMdzDsejcUM2I5R2hTflz0fIfti88OB350cURKh52uL9IOAX" : System.getenv("LT_ACCESS_KEY");
         DesiredCapabilities capability = new DesiredCapabilities();
-        capability.setCapability("build", "IinsightSanity"+config.getString("defaultCountry"));
+        capability.setCapability("build", "wosler");
         capability.setCapability("network", true);
         capability.setCapability("video", true);
         capability.setCapability("console", true);
@@ -95,20 +93,11 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
             if (browser.toLowerCase().equals(Variable.CHROME)) {
                 capability.setCapability(CapabilityType.BROWSER_NAME, "chrome");
                 capability.setCapability(CapabilityType.VERSION, "latest");
-                try {
-                    String gridURL = "https://" + username + ":" + accesskey + "@hub.lambdatest.com/wd/hub";
-                    driver.set(new RemoteWebDriver(new URL(gridURL), capability));
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+
             } else if (browser.toLowerCase().equals(Variable.FIREFOX)){
                 capability.setCapability(CapabilityType.BROWSER_NAME, "firefox");
                 capability.setCapability(CapabilityType.VERSION, "latest");
-                try {
-                    String gridURL = "https://" + username + ":" + accesskey + "@hub.lambdatest.com/wd/hub";
-                    driver.set(new RemoteWebDriver(new URL(gridURL), capability));                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
+
             }
 
         } else if (parallelExecution.equalsIgnoreCase("false")) {
@@ -553,114 +542,14 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
         selectDropdown(element).selectByVisibleText(text);
     }
 
-    public void waitForLoadIconDisappear(){
-        webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".oak-searchResults_preloader")));
-    }
 
 
-    public void waitForPaypalLoadIconDisappear(){
-        webDriverWait().until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'SpinnerOverlay_SpinnerOverlay')]")));
-    }
 
-    public boolean isVerifyTitleOfPage(String title){
-        System.out.println(getDriver()+"TITLELLLLLLLLLLLLLLLLLLLL");
-        setImplicit(5);
-        logger.info("Actual -- "+getPageTitle()+" ||   Expected -- "+title);
-        return getPageTitle().equalsIgnoreCase(title);
-    }
 
     public String getPageTitle() {
 
         waitFor(2000);
         return getDriver().getTitle();
-    }
-
-    /****
-     * swipe element right or left by co-ordinated
-     * @param element
-     * @param offSet - (-1 swipe left or +1 swipe right)
-     */
-    public void swipeByX(WebElement element, int offSet){
-
-        Point point = element.getLocation();
-        Actions actions = new Actions(getDriver());
-        System.out.println("val: "+point.getX());
-        actions.dragAndDropBy(element, point.getX()-offSet, point.getY()).build().perform();
-    }
-
-    public void swipeByXCoordinates(WebElement element, int offSet){
-
-        Point point = element.getLocation();
-        Actions actions = new Actions(getDriver());
-        System.out.println("val: "+point.getX());
-        actions.dragAndDropBy(element, offSet, point.getY()).build().perform();
-    }
-
-    public WebElement getXpathElement(String xpath){
-        return getDriver().findElement(By.xpath(xpath));
-    }
-
-    public void switchToFirstFrame() {
-
-        List<WebElement> frames = getDriver().findElements(By.xpath("//iframe"));
-        getDriver().switchTo().frame(frames.get(0));
-
-    }
-
-    public void switchToFrameByIndex(int frameIndex) {
-        List<WebElement> frames = getDriver().findElements(By.xpath("//iframe"));
-        getDriver().switchTo().frame(frames.get(frameIndex));
-    }
-    public void switchToDefaultContent(){
-        getDriver().switchTo().defaultContent();
-    }
-
-    public void getID(String keyToBeCreated, String ID) {
-        String filePath = "src/test/configFile/temp.properties";
-        Properties properties = new Properties();
-        String key = keyToBeCreated+"ID";
-        try (InputStream input = new FileInputStream(filePath)) {
-            properties.load(input);
-            properties.setProperty(key,ID.replaceAll(" ",""));
-            System.out.println("To Write: "+ key+" "+ID);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try (OutputStream output = new FileOutputStream(filePath)) {
-            // Save the updated properties back to the file
-            properties.store(output, "Updated Configuration");
-            System.out.println("To Read: "+ key+" "+ID);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-    public String getTestDataValue(String key) {
-        Properties properties = new Properties();
-        try {
-            FileInputStream file = new FileInputStream("src/test/configFile/temp.properties");
-            properties.load(file);
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return properties.getProperty(key);
-    }
-    public void selectDropDownFromText (String dropDownvalue){
-        By elem = By.xpath("//div[@id='drop_down_multiselect']/child::div[text()="+'"'+dropDownvalue+'"'+"]");
-        waitPresenceOfElementLocated(elem);
-        clickButtonWithOutScroll(getDriver().findElement(elem));
-    }
-
-    public void selectTimeFromDropDown(String time){
-        By elem = By.xpath("//div[@class='calendricalTimePopup']//a[text()='"+time+"']");
-        waitPresenceOfElementLocated(elem);
-        clickButtonWithOutScroll(getDriver().findElement(elem));
-    }
-    public void selectOptionFromAppointmentTab(String valueToSelect){
-        By elem = By.xpath("//li[@role='option' and text()='"+valueToSelect+"']");
-        waitPresenceOfElementLocated(elem);
-        clickButtonWithOutScroll(getDriver().findElement(elem));
     }
 
 }
