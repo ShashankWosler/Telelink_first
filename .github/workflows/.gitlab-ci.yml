@@ -14,6 +14,6 @@ selenium_tests:
     - mvn clean test  # Command to run Maven tests (adjust as per your Maven project setup)
   artifacts:
     paths:
-      - target/surefire-reports/  # Path to save Selenium test reports
+      - target/cucumber/report/  # Path to save Selenium test reports
   tags:
     - docker  # Example tag for CI environment
