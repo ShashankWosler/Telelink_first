@@ -24,8 +24,8 @@ public class Hooks extends GenericWrappers {
     @After
     public void afterClass(Scenario scenario) throws Exception {
     	//EmailSender.EmailSend();
-    	EmailSender.main();
-    	EmailSender.main();
+//    	EmailSender.main();
+//    	EmailSender.main();
 //        GenericWrappers genericWrappers = new GenericWrappers();
         if(scenario.isFailed()) {
         	
