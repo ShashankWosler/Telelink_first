@@ -34,7 +34,7 @@ public class Hooks extends GenericWrappers {
             TakesScreenshot tk= (TakesScreenshot) getDriver();
             byte[] b1 = tk.getScreenshotAs(OutputType.BYTES);
             scenario.attach(b1, "image/png", "Screenshot on Failure");
-            //quitBrowser();
+            quitBrowser();
         }
 
     }
