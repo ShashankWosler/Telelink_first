@@ -122,14 +122,15 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
                     options.setExperimentalOption("prefs", prefs);
                     driver.set(new ChromeDriver(options));
                 } else if (isTextContain(osname, ("Linux"))) {
-                    System.setProperty("webdriver.chrome.driver", "./driver/chromedriverlinux");
+                	WebDriverManager.chromedriver().setup();
+                   //ye System.setProperty("webdriver.chrome.driver", "./driver/chromedriverlinux");
                     driver.set(new ChromeDriver());
                 }
             }
             else if (browser.toLowerCase().equals(Variable.FIREFOX)) {
                 String osname = (System.getProperty("os.name"));
                 if (isTextContain(osname, ("Mac"))) {
-                    System.setProperty("webdriver.gecko.driver", "./driver/geckodriver");
+                 //ye   System.setProperty("webdriver.gecko.driver", "./driver/geckodriver");
                     driver.set(new FirefoxDriver());
                 } else if (isTextContain(osname, ("Windows"))) {
                     System.setProperty("webdriver.gecko.driver", "./driver/geckodriver.exe");
