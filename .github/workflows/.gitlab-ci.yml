@@ -45,3 +45,46 @@ jobs:
     - name: Build with Maven
 
       run: mvn -B package --file pom.xml
+      
+    - name: Generate HTML Report
+        run: |
+          # Replace with your script/command to generate HTML report
+          echo "<html><body><h1>Hello, Client!</h1><p>This is your HTML report.</p></body></html>" > report.html
+      
+      - name: Send Email with Attachment
+        env:
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        run: |
+          curl --request POST \
+            --url https://api.sendgrid.com/v3/mail/send \
+            --header "Authorization: Bearer $SENDGRID_API_KEY" \
+            --header 'Content-Type: application/json' \
+            --data '{
+              "personalizations": [
+                {
+                  "to": [
+                    {
+                      "email": "shreyas@wosler.ca"  # Replace with client's email address
+                    }
+                  ],
+                  "subject": "Your HTML Report"
+                }
+              ],
+              "from": {
+                "email": "shashank.tiwari@wosler.ca"  # Replace with your email address
+              },
+              "content": [
+                {
+                  "type": "text/html",
+                  "value": "<html><body><h1>Hello, Client!</h1><p>This is your HTML report.</p></body></html>"
+                }
+              ],
+              "attachments": [
+                {
+                  "content": "'$(base64 report.html)'",
+                  "filename": "report.html",
+                  "type": "text/html",
+                  "disposition": "attachment"
+                }
+              ]
+            }'
