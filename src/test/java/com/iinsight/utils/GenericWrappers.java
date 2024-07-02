@@ -125,10 +125,10 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
                 	WebDriverManager.chromedriver().setup();
                 	ChromeOptions options = new ChromeOptions();
                     options.addArguments("--headless");
-                    WebDriver driver = new ChromeDriver(options);
+                   // WebDriver driver = new ChromeDriver(options);
                     
                  //change System.setProperty("webdriver.chrome.driver", "./driver/chromedriverlinux");
-                  //  driver.set(new ChromeDriver());
+                    driver.set(new ChromeDriver(options));
                 }
             }
             else if (browser.toLowerCase().equals(Variable.FIREFOX)) {
