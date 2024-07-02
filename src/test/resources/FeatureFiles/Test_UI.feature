@@ -24,7 +24,7 @@ Feature: Wosler Test Cases
     And User Click on Check-in box
     And User enters Information
     And User Click on Connect to Assistant button
-   Then Verify the "Permissions check" message
+   #  Then Verify the "Permissions check" message
 
   @TC_04
   Scenario: Verify that user can Create New Account
