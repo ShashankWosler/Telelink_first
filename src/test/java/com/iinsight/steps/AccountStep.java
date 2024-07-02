@@ -30,6 +30,7 @@ public class AccountStep extends AccountPage {
 	 @And("Verify the {string} message for New Account")
 	    public void verifyTheMessage(String arg1) {
 		 
+		 waitFor(1000);
 	        isElementTextMatch(verifyAcctcreatedsuccessMsg, arg1);
 	    }
 	 @And("Click on Account tab")
