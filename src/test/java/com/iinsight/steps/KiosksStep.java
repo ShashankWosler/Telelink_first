@@ -43,7 +43,7 @@ public class KiosksStep extends KioskePage {
     @Then("Verify the {string} message")
     public void verifyTheMessage(String arg0)
     {
-    	//waitFor(000);
+    	waitFor(3000);
     	waitVisibilityOfElement(waitMsg);
         isElementTextMatch(waitMsg, arg0);
     }
