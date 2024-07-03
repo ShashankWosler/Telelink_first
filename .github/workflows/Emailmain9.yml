@@ -1,0 +1,61 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI with Maven
+
+on:
+
+  push:
+
+    branches: [ main ]
+
+  pull_request:
+
+    branches: [ main ]
+
+
+
+jobs:
+
+  build:
+
+
+
+    runs-on: ubuntu-latest
+
+
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 11
+
+      uses: actions/setup-java@v2
+
+      with:
+
+        java-version: '17'
+
+        distribution: 'adopt'
+
+        cache: maven
+
+    - name: Build with Maven
+
+      run: mvn -B package --file pom.xml
+
+    - name: Install Python and dependencies
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Send Email with Attachment using Mailgun API
+      env:
+        MAILGUN_API_KEY: ${{ secrets.MAILGUN_API_KEY }}
+        MAILGUN_DOMAIN: 'shashank.tiwari@wosler.ca'  # Replace with your Mailgun domain
+      run: |
+        echo '<html><body><h1>Hello, Shreyas!</h1><p>This is your HTML report.</p></body></html>' > report.html
+        pip install requests
+        python send_email.py
