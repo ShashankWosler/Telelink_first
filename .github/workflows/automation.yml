@@ -3,7 +3,7 @@ name: Trigger Test Automation
 on:
   push:
     branches:
-      - development   # Run on pushes to the development branch of software-repo
+      - main   # Run on pushes to the development branch of software-repo
 
 jobs:
   trigger-automation:
@@ -16,7 +16,7 @@ jobs:
       - name: Trigger Test Automation
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.AUTOMATION_1SECRET }}  # Personal Access Token (PAT) with repo scope
-          repository: automation-repo
+          token: ${{ secrets.PAT }}  # Personal Access Token (PAT) with repo scope
+          repository: shashankqa5/Automation
           event-type: run-tests
-          ref: main
+          client-payload: '{}'
