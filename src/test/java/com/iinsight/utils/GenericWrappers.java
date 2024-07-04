@@ -126,7 +126,7 @@ public class GenericWrappers extends Base implements Wrappers, Wrappers.SelectDr
                 	ChromeOptions options = new ChromeOptions();
                     options.addArguments("--headless");
                    // WebDriver driver = new ChromeDriver(options);
-                    // INDIA Jitega
+                    // INDIA Jitega jitega
                  //change System.setProperty("webdriver.chrome.driver", "./driver/chromedriverlinux");
                     driver.set(new ChromeDriver(options));
                 }
