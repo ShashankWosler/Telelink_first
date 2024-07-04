@@ -3,7 +3,7 @@ name: Trigger Test Automation
 on:
   push:
     branches:
-      - development   # Run on pushes to the development branch of software-repo
+      - main   # Run on pushes to the development branch of software-repo
 
 jobs:
   trigger-automation:
