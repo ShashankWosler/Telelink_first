@@ -16,7 +16,7 @@ jobs:
       - name: Trigger Test Automation
         uses: peter-evans/repository-dispatch@v1
         with:
-          token: ${{ secrets.AUTOMATION_1SECRET }}  # Personal Access Token (PAT) with repo scope
+          token: ${{ secrets.PAT }}  # Personal Access Token (PAT) with repo scope
           repository: automation-repo
           event-type: run-tests
           client-payload: '{}'
