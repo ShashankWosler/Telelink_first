@@ -17,6 +17,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.PAT }}  # Personal Access Token (PAT) with repo scope
-          repository: ShashankWosler/Telelink_first
+          repository: shashankqa5/Automation
           event-type: run-tests
           client-payload: '{}'
