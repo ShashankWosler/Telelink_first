@@ -19,4 +19,4 @@ jobs:
           token: ${{ secrets.AUTOMATION_1SECRET }}  # Personal Access Token (PAT) with repo scope
           repository: automation-repo
           event-type: run-tests
-          ref: main
+          client-payload: '{}'
