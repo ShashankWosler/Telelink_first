@@ -17,7 +17,8 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v2
       with:
-        java-version: '11'  # Adjust as needed, e.g., '11' for JDK 11
+        java-version: '11'  # Specify the Java version you need
+        distribution: 'adopt'  # Use 'adopt' for OpenJDK distributions
 
     - name: Cache Maven packages
       uses: actions/cache@v2
