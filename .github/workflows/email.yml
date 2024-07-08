@@ -47,7 +47,7 @@ jobs:
       run: mvn -B package --file pom.xml
 
       email_config:
-  sender_email: shashank.tiwari@wosler.ca
+  sender_email: shreyas@wosler.ca
   receiver_email: shashank.tiwari@wosler.ca
   smtp_server: smtp.wosler.ca
   smtp_port: 465  # Use 587 if you're not using SSL/TLS
