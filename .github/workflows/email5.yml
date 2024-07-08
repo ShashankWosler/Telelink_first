@@ -47,15 +47,15 @@ jobs:
       run: mvn -B package --file pom.xml
 
       email_config:
-  sender_email: shreyas@wosler.ca
-  receiver_email: shashank.tiwari@wosler.ca
+  sender_email: shashank.tiwari@wosler.ca
+  receiver_email: shreyas@wosler.ca
   smtp_server: smtp.wosler.ca
   smtp_port: 465  # Use 587 if you're not using SSL/TLS
-  smtp_username: your_email@wosler.ca
-  smtp_password: your_smtp_password  # Replace with your actual SMTP password
+  smtp_username: shashank.tiwari@wosler.ca
+  smtp_password: wosler.ca@123  # Replace with your actual SMTP password
 
 attachment:
-  path: /path/to/your/report.pdf
+  path: C:\Users\Shashank\git\repository3\Wosler_Automation\target\cucumber\report.html
   filename: report.pdf
 
 message:
