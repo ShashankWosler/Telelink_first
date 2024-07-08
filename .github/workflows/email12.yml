@@ -47,11 +47,3 @@ jobs:
 
           Regards,
           Your Name
-
-      run: |
-        echo "Subject: $SUBJECT" > report.html
-        echo "$BODY" >> report.html
-        echo "" >> report.html
-        echo "Sent from GitHub Actions" >> report.html
-        
-        sendmail -t < report.html
