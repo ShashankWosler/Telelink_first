@@ -1,0 +1,17 @@
+email_config:
+  sender_email: shashank.tiwari@wosler.ca
+  receiver_email: shashank.tiwari@wosler.ca
+  smtp_server: smtp.example.com
+  smtp_port: 587
+  smtp_username: your_email@example.com
+  smtp_password: your_password
+
+message:
+  subject: "Notification: Task Completed"
+  body: |
+    Hi,
+
+    This is to inform you that the task has been completed successfully.
+
+    Regards,
+    Your Name
