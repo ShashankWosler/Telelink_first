@@ -45,25 +45,28 @@ jobs:
     - name: Build with Maven
 
       run: mvn -B package --file pom.xml
+email:
+  sender: 
+    email: shashank.tiwari@wosler.ca
+    name: Your Name
+  receiver:
+    email: shashank.tiwari@wosler.ca
+    name: Recipient Name
+  smtp:
+    server: smtp.wosler.ca
+    port: 587
+    username: shashank.tiwari@wosler.ca
+    password: wosler.ca@123
+  attachment:
+    path: C:\Users\Shashank\git\repository3\Wosler_Automation\target\cucumber\report.html
+    filename: report.html
+  message:
+    subject: "Automation Report"
+    body: |
+      Hi,
 
-      email_config:
-  sender_email: shashank.tiwari@wosler.ca
-  receiver_email: shreyas@wosler.ca
-  smtp_server: smtp.wosler.ca
-  smtp_port: 465  # Use 587 if you're not using SSL/TLS
-  smtp_username: shashank.tiwari@wosler.ca
-  smtp_password: wosler.ca@123  # Replace with your actual SMTP password
+      Please find attached the automation report.
 
-attachment:
-  path: C:\Users\Shashank\git\repository3\Wosler_Automation\target\cucumber\report.html
-  filename: report.pdf
+      Regards,
+      Your Name
 
-message:
-  subject: "Report Attachment"
-  body: |
-    Hi Shashank,
-
-    Please find the attached report.
-
-    Best regards,
-    Your Name
