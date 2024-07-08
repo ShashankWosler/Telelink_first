@@ -1,0 +1,58 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build with Maven
+      run: mvn -B package --file pom.xml
+
+    - name: Send Email Notification
+      env:
+        SMTP_SERVER: smtp.wosler.ca
+        SMTP_PORT: 587
+        SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+        SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        FROM_EMAIL: shashank.tiwari@wosler.ca
+        TO_EMAIL: shashank.tiwari@wosler.ca
+        SUBJECT: "GitHub Action Notification"
+        BODY: |
+          Hello,
+
+          This is a notification email sent from GitHub Actions.
+
+          Regards,
+          Your Name
+
+      run: |
+        echo -e "From: $FROM_EMAIL\nTo: $TO_EMAIL\nSubject: $SUBJECT\nContent-Type: text/html; charset=UTF-8\n\n$BODY" > email.txt
+        
+        curl --url "smtp://$SMTP_SERVER:$SMTP_PORT" \
+             --ssl-reqd \
+             --mail-from "$FROM_EMAIL" \
+             --mail-rcpt "$TO_EMAIL" \
+             --user "$SMTP_USERNAME:$SMTP_PASSWORD" \
+             --upload-file email.txt
